@@ -8,7 +8,7 @@ const Card: React.FC<CardProps> = ({
     children
 }) => {
     return (
-        <div className="w-1/2 text-black h-52 text-center my-0 mx-auto pt-1 overflow-y-hidden rounded-md bg-slate-500">
+        <div className="w-1/2 text-black min-h-max text-center my-0 mx-auto p-4 overflow-y-hidden rounded-lg shadow-2xl shadow-cyan-400 border-solid bg-slate-400">
             {children}
         </div>
     )
