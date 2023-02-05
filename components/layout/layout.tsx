@@ -1,4 +1,5 @@
 import Footer from "../footer/footer";
+import Navbar from "../navbar/navbar";
 
 interface LayoutProps {
     children: any;
@@ -8,10 +9,11 @@ const Layout: React.FC<LayoutProps> = ({
     children
 }) => {
     return (
-        <div className="py-6">
-            <main className="px-16 h-full w-auto flex flex-col justify-center items-center">{children}</main>
+        <>
+            <Navbar />
+            <main className="flex flex-col justify-center items-center">{children}</main>
             <Footer />
-        </div>
+        </>
     )
 }
 
