@@ -15,7 +15,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Container>
-        <h1 className="font-mono text-cyan-200 text-center text-6xl">
+        <h1 className="font-mono text-teal-600 text-center text-6xl">
           Daniel Greener- Vigil
         </h1>
         <p className="font-mono text-center text-base mt-16 mx-0">
@@ -25,25 +25,25 @@ const Home: NextPage = () => {
       <Container>
         <div className="flex justify-center flex-wrap max-w-4xl">
           <Link href='/about'>
-            <a className="m-4 p-6 text-left max-w-sm border border-cyan-300 rounded-lg hover:border hover:border-cyan-600 hover:bg-slate-800">
+            <a className="m-4 p-6 text-left max-w-sm border border-teal-600 rounded-lg hover:border hover:border-cyan-600 hover:bg-teal-600 hover:text-white shadow-2xl shadow-slate-700 hover:shadow-teal-600">
               <h2 className="font-mono text-2xl mb-4">About &rarr;</h2>
             </a>
           </Link>
 
           <Link href='/projects'>
-            <a className="m-4 p-6 text-left max-w-sm border border-cyan-300 rounded-lg hover:border hover:border-cyan-600 hover:bg-slate-800">
+            <a className="m-4 p-6 text-left max-w-sm border border-teal-600 rounded-lg hover:border hover:border-cyan-600 hover:bg-teal-600 hover:text-white shadow-2xl shadow-slate-700 hover:shadow-teal-600">
               <h2 className="font-mono text-2xl mb-4">Projects &rarr;</h2>
             </a>
           </Link>
 
           <Link href='/mentorship'>
-            <a className="m-4 p-6 text-left max-w-sm border border-cyan-300 rounded-lg hover:border hover:border-cyan-600 hover:bg-slate-800">
+            <a className="m-4 p-6 text-left max-w-sm border border-teal-600 rounded-lg hover:border hover:border-cyan-600 hover:bg-teal-600 hover:text-white shadow-2xl shadow-slate-700 hover:shadow-teal-600">
               <h2 className="font-mono text-2xl mb-4">Mentorship &rarr;</h2>
             </a>
           </Link>
 
           <Link href='/contact'>
-            <a className="m-4 p-6 text-left max-w-sm border border-cyan-300 rounded-lg hover:border hover:border-cyan-600 hover:bg-slate-800">
+            <a className="m-4 p-6 text-left max-w-sm border border-teal-600 rounded-lg hover:border hover:border-cyan-600 hover:bg-teal-600 hover:text-white shadow-2xl shadow-slate-700 hover:shadow-teal-600">
               <h2 className="font-mono text-2xl mb-4">Contact &rarr;</h2>
             </a>
           </Link>

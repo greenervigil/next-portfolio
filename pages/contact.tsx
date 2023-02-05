@@ -4,11 +4,9 @@ import styles from '../styles/Home.module.css';
 
 const Contact: NextPage = () => {
     return (
-        <main className={styles.main}>
-            <Container>
-                <h1 className={styles.title}>Contact</h1>
-            </Container>
-        </main>
+        <Container>
+            <h1 className="font-mono text-center text-6xl m-5">Contact</h1>
+        </Container>
     )
 }
 
