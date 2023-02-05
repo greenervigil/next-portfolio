@@ -25,25 +25,25 @@ const Home: NextPage = () => {
       <Container>
         <div className="flex justify-center flex-wrap max-w-4xl">
           <Link href='/about'>
-            <a className="m-4 p-6 text-left max-w-sm border border-cyan-300 rounded-lg hover:border hover:border-cyan-600">
+            <a className="m-4 p-6 text-left max-w-sm border border-cyan-300 rounded-lg hover:border hover:border-cyan-600 hover:bg-slate-800">
               <h2 className="font-mono text-2xl mb-4">About &rarr;</h2>
             </a>
           </Link>
 
           <Link href='/projects'>
-            <a className="m-4 p-6 text-left max-w-sm border border-cyan-300 rounded-lg hover:border hover:border-cyan-600">
+            <a className="m-4 p-6 text-left max-w-sm border border-cyan-300 rounded-lg hover:border hover:border-cyan-600 hover:bg-slate-800">
               <h2 className="font-mono text-2xl mb-4">Projects &rarr;</h2>
             </a>
           </Link>
 
           <Link href='/mentorship'>
-            <a className="m-4 p-6 text-left max-w-sm border border-cyan-300 rounded-lg hover:border hover:border-cyan-600">
+            <a className="m-4 p-6 text-left max-w-sm border border-cyan-300 rounded-lg hover:border hover:border-cyan-600 hover:bg-slate-800">
               <h2 className="font-mono text-2xl mb-4">Mentorship &rarr;</h2>
             </a>
           </Link>
 
           <Link href='/contact'>
-            <a className="m-4 p-6 text-left max-w-sm border border-cyan-300 rounded-lg hover:border hover:border-cyan-600">
+            <a className="m-4 p-6 text-left max-w-sm border border-cyan-300 rounded-lg hover:border hover:border-cyan-600 hover:bg-slate-800">
               <h2 className="font-mono text-2xl mb-4">Contact &rarr;</h2>
             </a>
           </Link>
