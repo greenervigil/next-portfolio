@@ -1,15 +1,15 @@
 import { NextPage } from "next";
 import Head from "next/head";
+import Container from "../components/container/container";
 import styles from '../styles/Home.module.css'
 
 const About: NextPage = () => {
     return (
-        <div className={styles.container}>
-
-            <main className={styles.main}>
+        <main className={styles.main}>
+            <Container>
                 <h1 className={styles.title}>About</h1>
-            </main>
-        </div>
+            </Container>
+        </main>
     )
 }
 
