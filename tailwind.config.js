@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'water': "url('/water.jpg')"
+        'water': "url('/public/water.jpg')"
       }
     },
   },
