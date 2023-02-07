@@ -6,7 +6,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'water': "url('/public/water.jpg')"
+      }
+    },
   },
   plugins: [],
 }
