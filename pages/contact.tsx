@@ -10,7 +10,7 @@ const Contact: NextPage = () => {
             <Container>
                 <h1 className="font-mono text-center text-6xl m-5">Contact</h1>
             </Container>
-            <Container>
+            <>
                 <Card>
                     <form className="w-full">
                         <Input label="Name" type="text" name="name" length={136}/>
@@ -19,7 +19,7 @@ const Contact: NextPage = () => {
                         <Button label="send" />
                     </form>
                 </Card>
-            </Container>
+            </>
         </>
     )
 }
