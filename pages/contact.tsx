@@ -3,7 +3,6 @@ import Button from "../components/button/button";
 import Card from "../components/card/card";
 import Container from "../components/container/container";
 import Input from "../components/input/input";
-import styles from '../styles/Home.module.css';
 
 const Contact: NextPage = () => {
     return (

@@ -20,10 +20,10 @@ const About: NextPage = () => {
             <div>
                 <section className="m-14">
                     <Card>
-                        <h3>{content.name}</h3>
-                        <h4 dangerouslySetInnerHTML={{ __html: content.title }}></h4>
-
-                        <div className="flex justify-center gap-3">
+                        <h2 className="font-mono text-2xl font-bold">{content.name}</h2>
+                        <h4 className="font-mono text-ls my-2" dangerouslySetInnerHTML={{ __html: content.title }}></h4>
+                        <p className="font-mono font-base">{content.aboutText}</p>
+                        <div className="flex justify-center gap-3 m-4">
                     <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/danieljvigil/">
                         {/*<FontAwesomeIcon icon={faLinkedin} size={'lg'} color="#18cae6"/>*/}
                         linkedin
@@ -40,7 +40,7 @@ const About: NextPage = () => {
                 </div>
 
                 <Container>
-                    <p>{content.greenfield}</p>
+                    <p className="font-base font-mono">{content.greenfield}</p>
                 </Container>
 
                 <div className="flex justify-center gap-3">

@@ -22,10 +22,10 @@ const Home: NextPage = () => {
         <h1 className="font-mono text-teal-600 mt-16 text-center text-6xl">
           Daniel Greener- Vigil
         </h1>
-        <p className="font-mono text-center text-base mx-0">
+        <p className="font-mono text-center text-base mt-2">
           Software Engineer / Mentor
         </p>
-        <p className='font-mono mt-12 px-72'>{`Enthusiastically bringing development to the web and mobile with a focus on UI/UX,  accessibility and performance. Embracing the unknown in order to bring client's visions to life.`}</p>
+        <p className='font-mono mt-5 px-72 pb-2'>{`Enthusiastically bringing development to the web and mobile with a focus on UI/UX,  accessibility and performance. Embracing the unknown in order to bring a client's vision to life.`}</p>
         <ButtonGroup>
           <Button label="Learn more.." />
           <Button label="Contact me!" />
@@ -45,27 +45,27 @@ const Home: NextPage = () => {
         <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1200px-Typescript_logo_2020.svg.png" height={48} width={48} alt="typescript" />
     </div>
       <Container>
-        <div className="flex justify-center flex-wrap max-w-4xl my-20">
+        <div className="flex justify-center flex-wrap max-w-4xl">
           <Link href='/about'>
-            <a className="m-4 p-6 text-left max-w-sm border border-teal-600 rounded-lg hover:border hover:border-cyan-600 hover:bg-teal-600 hover:text-white shadow-2xl shadow-slate-700 hover:shadow-teal-600">
+            <a className="m-4 p-6 text-left max-w-sm border border-teal-600 rounded-lg hover:border hover:border-cyan-600 hover:bg-teal-600  shadow-2xl shadow-teal-600 hover:dark:dark:bg-yellow-500">
               <h2 className="font-mono text-2xl mb-4">About &rarr;</h2>
             </a>
           </Link>
 
           <Link href='/projects'>
-            <a className="m-4 p-6 text-left max-w-sm border border-teal-600 rounded-lg hover:border hover:border-cyan-600 hover:bg-teal-600 hover:text-white shadow-2xl shadow-slate-700 hover:shadow-teal-600">
+            <a className="m-4 p-6 text-left max-w-sm border border-teal-600 rounded-lg hover:border hover:border-cyan-600 hover:bg-teal-600 hover:text-white shadow-2xl shadow-teal-600 hover:dark:dark:bg-yellow-500">
               <h2 className="font-mono text-2xl mb-4">Projects &rarr;</h2>
             </a>
           </Link>
 
           <Link href='/mentorship'>
-            <a className="m-4 p-6 text-left max-w-sm border border-teal-600 rounded-lg hover:border hover:border-cyan-600 hover:bg-teal-600 hover:text-white shadow-2xl shadow-slate-700 hover:shadow-teal-600">
+            <a className="m-4 p-6 text-left max-w-sm border border-teal-600 rounded-lg hover:border hover:border-cyan-600 hover:bg-teal-600 hover:text-white shadow-2xl shadow-teal-600 hover:dark:dark:bg-yellow-500">
               <h2 className="font-mono text-2xl mb-4">Mentorship &rarr;</h2>
             </a>
           </Link>
 
           <Link href='/contact'>
-            <a className="m-4 p-6 text-left max-w-sm border border-teal-600 rounded-lg hover:border hover:border-cyan-600 hover:bg-teal-600 hover:text-white shadow-2xl shadow-slate-700 hover:shadow-teal-600">
+            <a className="m-4 p-6 text-left max-w-sm border border-teal-600 rounded-lg hover:border hover:border-cyan-600 hover:bg-teal-600 hover:text-white shadow-2xl shadow-teal-600 hover:dark:dark:bg-yellow-500">
               <h2 className="font-mono text-2xl mb-4">Contact &rarr;</h2>
             </a>
           </Link>

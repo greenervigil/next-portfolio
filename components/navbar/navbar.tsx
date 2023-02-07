@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Navbar: React.FC = () => {
     return (
-        <div className="w-24 h-full fixed z-10 shadow-lg shadow-teal-600 border border-solid border-teal-600 rounded-xl">
+        <div className="w-24 h-full fixed z-10 shadow-lg shadow-teal-600 border border-solid border-teal-600 rounded-r-xl">
             <nav className="block text-center absolute h-52 top-1/2 -mt-32 w-full" tabIndex={0}>
                 <Link href="/">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 flex m-4 hover:text-teal-600">
