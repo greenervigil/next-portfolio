@@ -11,8 +11,6 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Daniel Greener Vigil</title>
-        <meta name="description" content="Daniel Greener-Vigil Portfolio" />
         <meta name="keywords" content="Daniel Vigil, Daniel Greener-Vigil, profolio, React, Next, NextJS, Tailwind, TailwindCSS, HTML, CSS, JavaScript, Wordpress, Development, Developer"/>
         <meta name="author" content="Daniel J Greener-Vigil" />
         <link rel="icon" href="/favicon.ico" />
