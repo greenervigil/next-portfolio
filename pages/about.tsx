@@ -1,18 +1,12 @@
-import { NextPage } from "next";
-import Head from "next/head";
-import Button from "../components/button/button";
-import Card from "../components/card/card";
-import Container from "../components/container/container";
-import styles from '../styles/Home.module.css'
-
-const content = {
-    name: 'Daniel Greener-Vigil',
-    title: `Software Engineer / Web Developer <br/>Mentor`,
-    aboutText: 'I have a passion for learning and bring that passion to software.  I have been a Software Engineer for 6 years and bring my passion to learn to each project.  I am always willing to learn something new and never shy away from the unknown.  I welcome new challenges and help cultivate those abilities in others.',
-    greenfield: 'I have spent the last few years developing a mentorship program to assist self taught developers through projects designed for the developer with the Agile Methodology, version control practices and standard project management.'
-}
+import { NextPage } from "next"
+import Button from "../components/button/button"
+import Card from "../components/card/card"
+import Container from "../components/container/container"
+import { useAppContext } from "../context/state"
 
 const About: NextPage = () => {
+    const content = useAppContext()
+
     return (
         <Container>
             <h1 className="font-mono text-center text-6xl m-5">About</h1>

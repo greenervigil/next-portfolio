@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import Layout from '../components/layout/layout'
 
 import { DefaultSeo } from 'next-seo'
+import { AppWrapper } from '../context/state'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -24,7 +25,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       />
 
       <Layout>
-        <Component {...pageProps} />
+        <AppWrapper>
+          <Component {...pageProps} />
+        </AppWrapper>
       </Layout>
     </>
   )

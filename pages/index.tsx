@@ -5,9 +5,10 @@ import Link from 'next/link'
 import ButtonGroup from '../components/button-group/button-group'
 import Button from '../components/button/button'
 import Container from '../components/container/container'
-import water from '../public/water.jpg';
+import { useAppContext } from '../context/state'
 
 const Home: NextPage = () => {
+  const content = useAppContext()
   return (
     <>
       <Head>
@@ -18,10 +19,10 @@ const Home: NextPage = () => {
 
       <Container>
         <h1 className="font-mono text-teal-600 mt-16 text-center text-6xl">
-          Daniel Greener- Vigil
+          {content.name}
         </h1>
         <p className="font-mono text-center text-base mt-2">
-          Software Engineer / Mentor
+          {content.title.substring(0, content.title.indexOf('<'))}
         </p>
         <p className='font-mono mt-5 px-72 pb-2'>{`Enthusiastically bringing development to the web and mobile with a focus on UI/UX,  accessibility and performance. Embracing the unknown in order to bring a client's vision to life.`}</p>
         <ButtonGroup>
