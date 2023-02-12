@@ -22,6 +22,12 @@ function MyApp({ Component, pageProps }: AppProps) {
             site: '@site',
             cardType: 'summary_large_image',
         }}
+        additionalLinkTags={[
+          {
+            rel: 'icon',
+            href: '/public/favicon.ico'
+          }
+        ]}
       />
 
       <Layout>
