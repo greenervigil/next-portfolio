@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({
     return (
         <>
             <Navbar />
-            <main className="flex flex-col justify-center items-center bg-water">
+            <main className="flex flex-col justify-center items-center">
                 {children}
             </main>
             <Footer />
