@@ -25,8 +25,8 @@ const Home: NextPage = () => {
         </p>
         <p className='font-mono mt-5 px-72 pb-2'>{`Enthusiastically bringing development to the web and mobile with a focus on UI/UX,  accessibility and performance. Embracing the unknown in order to bring a client's vision to life.`}</p>
         <ButtonGroup>
-          <Button label="Learn more.." />
-          <Button label="Contact me!" />
+          <Button label="Learn more..">Learn more...</Button>
+          <Button label="Contact me!" >Contact Me!</Button>
         </ButtonGroup>
       </Container>
       <div className="relative flex flex-col justify-center gap-6 sm:flex-row md:flex-col lg:flex-row my-12">

@@ -1,15 +1,15 @@
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    label: string;
+    label?: string;
     ariaLabel?: string;
-    type?: 'button' | 'submit' | 'reset';
+    children: any;
 }
 
 const Button: React.FC<ButtonProps> = ({
     label,
     ariaLabel,
-    type
+    children
 }) => {
     return (
         <button 
@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
             aria-label={ariaLabel || label} 
             className='bg-yellow-500 rounded-lg border-slate-800 text-black text-center text-lg h-10 w-auto px-4 shadow-2xl hover:bg-teal-900 hover:text-white hover:rounded-lg hover:shadow-2xl shadow-teal-600 font-mono' 
         >
-            {label}
+            {children}
         </button>
     )
 } 

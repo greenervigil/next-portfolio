@@ -28,8 +28,8 @@ const About: NextPage = () => {
                     </a>
                     <a target="_blank" rel="noreferrer" href="https://docs.google.com/document/d/1gmmq6iEGh4FPSr18xBJsINFKs_HUvfWb9hAYEjUJOgo/">
                         <Button 
-                            label='&nbsp;Download CV/Resume'
-                        />
+                            label='Download CV/Resume'
+                        >Download Resume/CV</Button>
                     </a>
                 </div>
 

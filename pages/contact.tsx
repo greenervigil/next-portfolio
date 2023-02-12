@@ -6,6 +6,7 @@ import Input from "../components/input/input";
 import Textarea from "../components/textarea/textarea";
 
 const Contact: NextPage = () => {
+
     return (
         <>
             <Container>
@@ -16,13 +17,14 @@ const Contact: NextPage = () => {
                     <Container>
                         <p className="font-mono">Let me know if there is a project you want to work on together.  Hope to hear from you soon. </p>
                     </Container>
-                    <form className="w-full" action="https://formsubmit.co/daniel.julian.vigil@gmail.com" method="POST">
+                    <form className="w-full" action='https://formsubmit.co/el/rowige' method='POST'>
+                        <input type="hidden" name="_subject" value="New Incoming Request!" />
                         <Input label="Name" type="text" name="name" maxLength={136} required/>
                         <Input label="EMail" type="email" name="email" required />
                         <Input label="Phone Number" type="phone" name="phone" maxLength={13} />
-
-                        <Textarea required rows={13}/>
-                        <Button label="send" type="submit" />
+                        <input type="hidden" name="_autoresponse" value="Thank you for reaching out.  Please allow up to 24 hours for a response.  I will be in touch soon."></input>
+                        <Textarea required rows={13} name="message"/>
+                        <button className="m-4 font-mono text-xl border border-yellow-400 rounded-2xl w-36 h-10" type="submit">Send</button>
                     </form>
                 </Card>
             </>
