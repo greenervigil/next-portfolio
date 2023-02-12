@@ -1,7 +1,7 @@
 import { NextPage } from "next";
-import Card2 from "../components/card/card-2";
-import Container from "../components/container/container";
-import { useAppContext } from "../context/state";
+import Card2 from "../../components/card/card-2";
+import Container from "../../components/container/container";
+import { useAppContext } from "../../context/state";
 
 const Projects: NextPage = () => {
 
