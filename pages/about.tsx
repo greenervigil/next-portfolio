@@ -9,9 +9,7 @@ const About: NextPage = () => {
 
     return (
         <Container>
-            <h1 className="font-mono text-center text-6xl m-5">About</h1>
-
-            <div>
+            <div className="mt-24">
                 <section className="m-14">
                     <Card>
                         <h2 className="font-mono text-2xl font-bold">{content.name}</h2>

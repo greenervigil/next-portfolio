@@ -10,7 +10,7 @@ import { useAppContext } from '../context/state'
 const Home: NextPage = () => {
   const content = useAppContext()
   return (
-    <>
+    <div className='mt-12'>
       <Head>
         <meta name="keywords" content="Daniel Vigil, Daniel Greener-Vigil, profolio, React, Next, NextJS, Tailwind, TailwindCSS, HTML, CSS, JavaScript, Wordpress, Development, Developer"/>
         <meta name="author" content="Daniel J Greener-Vigil" />
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
         <Image src="/solid-logo.svg" height={48} width={48} alt="solid js" />
         <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1200px-Typescript_logo_2020.svg.png" height={48} width={48} alt="typescript" />
     </div>
-    </>
+    </div>
   )
 }
 

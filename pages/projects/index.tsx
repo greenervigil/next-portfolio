@@ -10,7 +10,7 @@ const Projects: NextPage = () => {
     return (
         <>
             <Container>
-                <h1 className="font-mono text-center text-6xl m-5">Projects</h1>
+                <h1 className="font-mono text-center text-6xl mt-16">Projects</h1>
             </Container>
             <div className="flex justify-center gap-3 flex-wrap max-w-5xl">
                 {data.projects.map((project, i) => {

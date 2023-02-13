@@ -1,16 +1,27 @@
 import Link from "next/link"
 import Image from "next/image"
+import Button from "../button/button";
 
 const Navbar: React.FC = () => {
     return (
-        <header className="w-24 h-full fixed z-10 shadow-lg shadow-teal-600 border border-solid border-teal-600 rounded-r-xl">
-            <div className="text-center m-4">
+        <header className="w-full bg-white h-22 fixed z-10 shadow-lg shadow-teal-600 border border-solid border-teal-600 rounded-b-xl dark:bg-black">
+            <nav className="flex justify-between items-center text-center m-3">
                 <Link href="/">
                     <Image src="/../public/favicon.ico" height={50} width={50} alt="greenervigil logo"/>
                 </Link>
-            </div>
-            <div>
-                <nav className="text-center absolute h-52 top-1/2 -mt-32 w-full m-3" tabIndex={0}>
+                <Button
+                    className="block lg:hidden"
+                    type="button"
+                    id="navbar-toggle"
+                    aria-controls="navbar-menu"
+                    aria-label="Toggle menu"
+                    aria-expanded="false"
+                    >
+                    <span className="block w-6 h-1 m-0.5 bg-slate-900"></span>
+                    <span className="block w-6 h-1 m-0.5 bg-slate-900"></span>
+                    <span className="block w-6 h-1 m-0.5 bg-slate-900"></span>
+                </Button>
+                <div className="">
                     <Link href="/">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 flex m-4 hover:text-teal-600">
                             <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
@@ -39,8 +50,8 @@ const Navbar: React.FC = () => {
                             <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
                         </svg>
                     </Link>
-                </nav>
-            </div>
+                </div>
+            </nav>
         </header>
     )
 }
