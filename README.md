@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) using [turborepo](https://turbo.build).
+This is a [Next.js](https://nextjs.org/) app using [turborepo](https://turbo.build).
 
 ## Getting Started
 
