@@ -1,26 +1,29 @@
+import React from "react";
 import Link from "next/link"
 import Image from "next/image"
 import Button from "../button/button";
 
 const Navbar: React.FC = () => {
+    const [navActive, setNavActive] = React.useState(null);
+    const [activeIdx, setActiveIdx] = React.useState(-1);
+
     return (
-        <header className="w-full bg-white h-22 fixed z-10 shadow-lg shadow-teal-600 border border-solid border-teal-600 rounded-b-xl dark:bg-black">
-            <nav className="flex justify-between items-center text-center m-3">
+        <header className="w-full bg-white h-22 sticky z-30 top-0 shadow-lg shadow-teal-600 border border-solid border-teal-600 rounded-b-xl dark:bg-black">
+            <nav className="flex justify-between items-center text-center p-4 m-3">
                 <Link href="/">
                     <Image src="/../public/favicon.ico" height={50} width={50} alt="greenervigil logo"/>
                 </Link>
-                <Button
-                    className="block lg:hidden"
-                    type="button"
-                    id="navbar-toggle"
-                    aria-controls="navbar-menu"
-                    aria-label="Toggle menu"
-                    aria-expanded="false"
-                    >
-                    <span className="block w-6 h-1 m-0.5 bg-slate-900"></span>
-                    <span className="block w-6 h-1 m-0.5 bg-slate-900"></span>
-                    <span className="block w-6 h-1 m-0.5 bg-slate-900"></span>
-                </Button>
+                <div className="block lg:hidden">
+                    <Button
+                        aria-controls="navbar-menu"
+                        aria-label="Toggle menu"
+                        aria-expanded="false"
+                        >
+                        <span className="block w-6 h-1 m-0.5 bg-slate-900"></span>
+                        <span className="block w-6 h-1 m-0.5 bg-slate-900"></span>
+                        <span className="block w-6 h-1 m-0.5 bg-slate-900"></span>
+                    </Button>
+                </div>
                 <div className="">
                     <Link href="/">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 flex m-4 hover:text-teal-600">

@@ -1,6 +1,6 @@
 const Timeline = () => {
     return (
-        <div className="font-mono relative my-0 mx-auto w-5/6 after:content-[''] after:absolute after:w-1.5 after:bg-teal-600 after:top-0 after:bottom-0 after:left-1/2 after:-ml-1">
+        <div className="font-mono relative my-0 mx-auto w-11/12 after:content-[''] after:absolute after:w-1.5 after:bg-teal-600 after:top-0 after:bottom-0 after:left-1/2 after:-ml-1">
             <div className="relative py-2.5 px-10 w-2/4 left-1/2 after:content-[''] after:absolute after:w-6 after:h-6 after:-right-4 after:bg-black after:rounded-full after:border-4 after:border-teal-600 after:top-4 after:z-10 after:-left-3">
                 <div className="shadow-2xl shadow-teal-600 relative py-5 px-8 rounded-md bg-teal-600">
                 <h2 className="text-white text-2xl">Marketplace - Fusion Medical Staffing</h2>
