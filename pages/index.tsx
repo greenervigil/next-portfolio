@@ -23,13 +23,13 @@ const Home: NextPage = () => {
         <p className="font-mono text-center text-base mt-2">
           {content.title.substring(0, content.title.indexOf('<'))}
         </p>
-        <p className='font-mono mt-5 px-72 pb-2'>{`Enthusiastically bringing development to the web and mobile with a focus on UI/UX,  accessibility and performance. Embracing the unknown in order to bring a client's vision to life.`}</p>
+        <p className='font-mono mt-5 p-12'>{`Enthusiastically bringing development to the web and mobile with a focus on UI/UX,  accessibility and performance. Embracing the unknown in order to bring a client's vision to life.`}</p>
         <ButtonGroup>
           <Button label="Learn more..">Learn more...</Button>
           <Button label="Contact me!" >Contact Me!</Button>
         </ButtonGroup>
       </Container>
-      <div className="relative flex flex-col justify-center gap-6 sm:flex-row md:flex-col lg:flex-row my-12">
+      <div className="relative flex flex-col justify-center gap-6 sm:flex-row md:flex-col lg:flex-row my-12 md:hidden">
         <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/240px-HTML5_logo_and_wordmark.svg.png" height={48} width={48} alt="html 5"/>
         <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/240px-CSS3_logo_and_wordmark.svg.png" height={48} width={48} alt="css 3"/>
         <Image src="https://pluralsight2.imgix.net/paths/images/javascript-542e10ea6e.png" height={48} width={48} alt="javascript" />
