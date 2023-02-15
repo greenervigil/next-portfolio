@@ -29,7 +29,7 @@ const Home: NextPage = () => {
           <Button label="Contact me!" >Contact Me!</Button>
         </ButtonGroup>
       </Container>
-      <div className="relative flex flex-col justify-center gap-6 sm:flex-row md:flex-col lg:flex-row my-12 md:hidden">
+      <div className="relative flex flex-col justify-center gap-6 sm:flex-row md:flex-col lg:flex-row my-12">
         <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/240px-HTML5_logo_and_wordmark.svg.png" height={48} width={48} alt="html 5"/>
         <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/240px-CSS3_logo_and_wordmark.svg.png" height={48} width={48} alt="css 3"/>
         <Image src="https://pluralsight2.imgix.net/paths/images/javascript-542e10ea6e.png" height={48} width={48} alt="javascript" />

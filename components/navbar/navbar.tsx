@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
                         <span className="block w-6 h-1 m-0.5 bg-slate-900"></span>
                     </Button>
                 </div>
-                <div className={`${navActive ? "active" : ""} flex fixed gap-7 right-10 font-mono`}>
+                <div className={`${navActive ? "active" : ""} flex gap-7 right-10 font-mono`}>
                     {MENU_LIST.map((menu, idx) => (
                         <div
                             onClick={() => {
