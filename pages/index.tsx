@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Container>
-        <h1 className="font-mono text-teal-600 mt-16 text-center text-7xl font-bold">
+        <h1 className="font-mono text-teal-600 text-center text-7xl font-bold">
           {content.name}
         </h1>
         <p className="font-mono text-center text-base mt-2">
