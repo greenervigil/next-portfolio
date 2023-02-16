@@ -16,7 +16,7 @@ const Home: NextPage = () => {
         <meta name="author" content="Daniel J Greener-Vigil" />
       </Head>
     
-      <div className='mt-6 mb-32 font-mono flex flex-wrap'>
+      <div className='mt-6 mb-32 font-mono flex flex-wrap w-screen'>
         <Container>
           <h1 className="text-teal-600 text-center text-6xl font-bold m-6">
             {content.name}
@@ -24,9 +24,9 @@ const Home: NextPage = () => {
           <p className="flex flex-wrap justify-center text-base m-6">
             {content.title.substring(0, content.title.indexOf('<'))}
           </p>
-          <p className='flex justify-center flex-wrap m-6 lg:w-4/5 lg:mx-40'>{`Enthusiastically bringing development to the web and mobile with a focus on UI/UX,  accessibility and performance. Embracing the unknown in order to bring a client's vision to life.`}</p>
+          <p className='flex justify-center flex-wrap m-6 sm:w-11/12 md:w-9/12 lg:w-4/5 lg:mx-40'>{`Enthusiastically bringing development to the web and mobile with a focus on UI/UX,  accessibility and performance. Embracing the unknown in order to bring a client's vision to life.`}</p>
 
-          <div className='flex justify-center gap-5 m-16'>
+          <div className='flex justify-center gap-5'>
             <Link href="/contact" >
               <a className='bg-yellow-500 text-slate-900 text-center rounded-lg shadow-2xl shadow-teal-600 w-36 h-9 p-1 hover:bg-yellow-700 hover:text-white hover:shadow-teal-500'>Contact Me!</a>
             </Link>
