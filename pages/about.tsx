@@ -9,13 +9,13 @@ const About: NextPage = () => {
 
     return (
         <Container>
-            <div className="mt-24">
+            <div className="mt-24 sm:mt-3 font-mono">
                 <section className="m-14">
                     <Card>
-                        <h2 className="font-mono text-2xl font-bold">{content.name}</h2>
-                        <h4 className="font-mono text-ls my-2" dangerouslySetInnerHTML={{ __html: content.title }}></h4>
-                        <p className="font-mono font-base">{content.aboutText}</p>
-                        <div className="flex justify-center gap-3 m-4">
+                        <h2 className="text-2xl font-bold">{content.name}</h2>
+                        <h4 className="text-ls my-2" dangerouslySetInnerHTML={{ __html: content.title }}></h4>
+                        <p className="font-base">{content.aboutText}</p>
+                        <div className="flex justify-center flex-wrap gap-3 m-4">
                     <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/danieljvigil/">
                         {/*<FontAwesomeIcon icon={faLinkedin} size={'lg'} color="#18cae6"/>*/}
                         linkedin
@@ -31,11 +31,9 @@ const About: NextPage = () => {
                     </a>
                 </div>
 
-                <Container>
-                    <p className="font-base font-mono">{content.greenfield}</p>
-                </Container>
+                <p className="font-base flex flex-wrap justify-center">{content.greenfield}</p>
 
-                <div className="flex justify-center gap-3">
+                <div className="flex justify-center flex-wrap gap-3 m-4">
                     <a target="_blank" rel="noreferrer" href="https://greenfield-org.github.io/">
                         {/*<FontAwesomeIcon icon={faGlobe} size={'lg'} color="#18cae6" />*/}
                         website

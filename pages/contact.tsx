@@ -24,7 +24,7 @@ const Contact: NextPage = () => {
                         <Input label="Phone Number" type="phone" name="phone" maxLength={13} />
                         <input type="hidden" name="_autoresponse" value="Thank you for reaching out.  Please allow up to 24 hours for a response.  I will be in touch soon."></input>
                         <Textarea required rows={13} name="message"/>
-                        <button className="m-4 font-mono text-xl border border-yellow-400 rounded-2xl w-36 h-10" type="submit">Send</button>
+                        <button className="m-4 font-mono text-xl border border-yellow-500 rounded-2xl w-36 h-10 hover:bg-yellow-100 hover:text-slate-900" type="submit">Send</button>
                     </form>
                 </Card>
             </>

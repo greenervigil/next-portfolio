@@ -28,7 +28,7 @@ const Home: NextPage = () => {
 
           <div className='flex justify-center gap-5'>
             <Link href="/contact" >
-              <a className='bg-yellow-500 text-slate-900 text-center rounded-lg shadow-2xl shadow-teal-600 w-36 h-9 p-1 hover:bg-yellow-700 hover:text-white hover:shadow-teal-500'>Contact Me!</a>
+              <a className='bg-yellow-500 text-slate-900 text-center rounded-lg shadow-2xl shadow-teal-600 w-36 h-9 p-1 hover:bg-yellow-600 hover:text-white hover:shadow-teal-500'>Contact Me!</a>
             </Link>
             <Link href="/about">
               <a className='text-center border border-yellow-500 rounded-lg shadow-2xl shadow-teal-600 w-44 h-9 p-1 hover:bg-yellow-100 hover:text-slate-900'>Learn more...</a>
