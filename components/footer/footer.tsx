@@ -1,13 +1,9 @@
-import Container from "../container/container"
-
 const Footer: React.FC = () => {
     return (
-        <Container>
-            <footer className="bottom-0 w-full flex justify-center align-baseline border-t border-t-teal-600 text-slate-500">
+        <footer className="bottom-0 w-full flex justify-center align-baseline border-t border-t-teal-600 text-slate-500">
             <p className="font-mono m-3 ">Greener-Vigil &copy; {new Date().getFullYear()}</p>
-            </footer>
-        </Container>
+        </footer>
     )
-};
+}
 
-export default Footer;
+export default Footer
