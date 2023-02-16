@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         additionalLinkTags={[
           {
             rel: 'icon',
-            href: '/public/favicon.ico'
+            href: '/favicon.ico'
           }
         ]}
       />
