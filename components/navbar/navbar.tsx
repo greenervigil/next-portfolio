@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
     const [activeIdx, setActiveIdx] = React.useState(-1);
 
     return (
-        <header className="w-full bg-white h-20 sticky z-30 top-0 shadow-lg shadow-teal-600 border border-solid border-teal-600 rounded-b-xl dark:bg-black">
+        <header className="bg-white h-20 sticky z-30 top-0 shadow-lg shadow-teal-600 border border-solid border-teal-600 rounded-b-xl dark:bg-black">
             <nav className="font-mono flex filter drop-shadow-md bg-white dark:bg-black px-4 py-4 h-20 items-center">
                 <div className={`absolute top-0 left-0 h-screen w-screen bg-white dark:bg-black transform ${open ? "-translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out filter drop-shadow-md `}>
                     <div className="flex items-center justify-center filter drop-shadow-md bg-white dark:bg-black h-20"> 
