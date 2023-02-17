@@ -17,7 +17,7 @@ const Contact: NextPage = () => {
                     <Container>
                         <p className="font-mono">Let me know if there is a project you want to work on together.  Hope to hear from you soon. </p>
                     </Container>
-                    <form className="w-full" action='https://formsubmit.co/el/rowige' method='POST'>
+                    <form action='https://formsubmit.co/el/rowige' method='POST'>
                         <input type="hidden" name="_subject" value="New Incoming Request!" />
                         <Input label="Name" type="text" name="name" maxLength={136} required/>
                         <Input label="EMail" type="email" name="email" required />
