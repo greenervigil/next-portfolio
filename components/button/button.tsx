@@ -15,7 +15,7 @@ const Button: React.FC<ButtonProps> = ({
         <button 
             type='button' 
             aria-label={ariaLabel || label} 
-            className='bg-yellow-500 rounded-lg border-slate-800 text-black text-center text-lg h-10 w-auto px-4 shadow-2xl hover:bg-teal-900 hover:text-white hover:rounded-lg hover:shadow-2xl shadow-teal-600 font-mono' 
+            className='bg-yellow-500 text-slate-900 text-center rounded-lg shadow-2xl shadow-teal-600 min-w-36 h-9 px-4 hover:bg-yellow-600 hover:text-white hover:shadow-teal-500' 
         >
             {children}
         </button>

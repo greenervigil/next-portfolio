@@ -21,10 +21,12 @@ const Home: NextPage = () => {
           <h1 className="text-teal-600 text-center text-6xl font-bold m-6">
             {content.name}
           </h1>
-          <p className="flex flex-wrap justify-center text-base m-6">
-            {content.title.substring(0, content.title.indexOf('<'))}
-          </p>
-          <p className='flex justify-center flex-wrap m-6 sm:w-11/12 md:w-9/12 lg:w-4/5 lg:mx-40'>{`Enthusiastically bringing development to the web and mobile with a focus on UI/UX,  accessibility and performance. Embracing the unknown in order to bring a client's vision to life.`}</p>
+          <div className="flex flex-wrap justify-center">
+            <p className="flex-auto text-center m-6">
+              {content.title.substring(0, content.title.indexOf('<'))}
+            </p>
+            <p className='flex-auto m-6 w-1/2 lg:mx-40'>{`Enthusiastically bringing development to the web and mobile with a focus on UI/UX,  accessibility and performance. Embracing the unknown in order to bring a client's vision to life.`}</p>
+          </div>
 
           <div className='flex justify-center gap-5'>
             <Link href="/contact" >
