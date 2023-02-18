@@ -35,22 +35,25 @@ const About: NextPage = () => {
                     </Card>
                     <Carousel />
                 </section>
-                <section className="flex justify-center gap-4">
+                <section className="flex flex-wrap justify-center gap-4">
                     {/*<Card>*/}
-                        <div className="p-5">
+                        <div className="p-5 flex-auto basis-1/2">
                             <p className="font-base">{content.aboutText}</p>
                         </div>
-                        <div className="p-5">
+                        <div className="p-5 flex-auto basis-1/2">
                             <p className="font-base flex flex-wrap justify-center">{content.greenfield}</p>
                         </div>
 
-                        <div className="flex justify-center flex-wrap gap-3 m-4">
-                            <a target="_blank" rel="noreferrer" href="https://greenfield-org.github.io/">
-                                website
-                            </a>
-                            <a target="_blank" rel="noreferrer" href="https://github.com/GreenField-Org">
-                                github
-                            </a>
+                        <div className="flex-auto basis-1/2">
+                            <p className="text-center font-semibold text-xl">GreenField Dev Info</p>
+                            <div className="flex justify-center flex-wrap gap-3 m-4">
+                                <a target="_blank" rel="noreferrer" href="https://greenfield-org.github.io/">
+                                    website
+                                </a>
+                                <a target="_blank" rel="noreferrer" href="https://github.com/GreenField-Org">
+                                    github
+                                </a>
+                            </div>
                         </div>
     {/*</Card>*/}
                 </section>
