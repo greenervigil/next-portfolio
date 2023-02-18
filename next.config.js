@@ -22,6 +22,18 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'avatars.githubusercontent.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net'
+      },
+      {
+        protocol: 'https',
+        hostname: 'turbo.build'
+      },
+      {
+        protocol: 'https',
         hostname: 'encrypted-tbn0.gstatic.com'
       },
       {
