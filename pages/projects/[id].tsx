@@ -15,7 +15,7 @@ const Project: NextPage = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="font-mono text-7xl m-10 font-bold">
-        <a target="_blank" href={project.href} rel="noreferrer">{project.title}</a>
+        <a target="_blank" href={project.link} rel="noreferrer">{project.title}</a>
       </h1>
       <Image
         className="shadow-lg shadow-teal-600 border border-solid border-teal-600 rounded-xl" 
