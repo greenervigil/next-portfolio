@@ -4,10 +4,12 @@ import Timeline from "../components/timeline/timeline";
 
 const Experience: NextPage = () => {
     return (
-        <Container>
-            <h1 className="font-mono text-center text-6xl m-16">Experience</h1>
-            <Timeline />
-        </Container>
+        <div className="w-screen font-mono">
+            <Container>
+                <h1 className="text-center text-6xl my-16">Experience</h1>
+                <Timeline />
+            </Container>
+        </div>
     )
 }
 
