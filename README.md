@@ -1,3 +1,5 @@
+[![pages-build-deployment](https://github.com/greenervigil/next-portfolio/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/greenervigil/next-portfolio/actions/workflows/pages/pages-build-deployment)
+
 This is a [Next.js](https://nextjs.org/) app using [turborepo](https://turbo.build).
 
 ## Getting Started
