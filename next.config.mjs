@@ -54,4 +54,4 @@ const nextConfig = {
   assetPrefix: './'
 };
 
-export default NextConfig;
+export default nextConfig;
