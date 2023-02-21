@@ -71,7 +71,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const  getStaticProps: GetStaticProps<{ projects: ProjectType[] }> = async ({ context }) => {
+export const  getStaticProps: GetStaticProps<{ projects: ProjectType[] }> = async () => {
   // params contains the post `id`.
   // If the route is like /posts/1, then params.id is 1
   const res = await fetch(`https://.../projects`)
