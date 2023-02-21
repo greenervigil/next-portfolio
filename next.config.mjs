@@ -3,7 +3,7 @@
 const nextConfig = {
   images: {
     loader: 'akamai',
-    path: '',
+    path: 'undefined',
     remotePatterns: [
       {
         protocol: 'https',

@@ -6,11 +6,19 @@ import Container from "../../components/container/container";
 import { useAppContext } from "../../context/state";
 import { ProjectType } from "../../types/project-type";
 
-const Project: NextPage = () => {
+interface ProjectProps {
+  project: ProjectType
+}
+
+const Project: NextPage<ProjectProps> = ({ project }) => {
   const router = useRouter()
-  const { id } = router.query
-  const data: ProjectType[] = useAppContext().projects
-  const project = data.filter(proj => proj.id == id)[0]
+
+  //const data: ProjectType[] = useAppContext().projects
+  //const project = data.filter(proj => proj.id == id)[0]
+
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -60,6 +68,21 @@ export async function getStaticPaths() {
       { params: { id: '11' }},
     ],
     fallback: false
+  }
+}
+
+export async function getStaticProps({ params }) {
+  // params contains the post `id`.
+  // If the route is like /posts/1, then params.id is 1
+  const res = await fetch(`https://.../projects/${params.id}`)
+  const project = await res.json()
+
+  // Pass post data to the page via props
+  return {
+    props: { project },
+    // Re-generate the post at most once per second
+    // if a request comes in
+    revalidate: 1,
   }
 }
 
