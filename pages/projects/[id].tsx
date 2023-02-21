@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
@@ -52,7 +52,7 @@ const Project: NextPage<ProjectProps> = ({ project }) => {
   )
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [
       { params: { id: '1' }},
@@ -71,18 +71,15 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export const  getStaticProps: GetStaticProps<{ projects: ProjectType[] }> = async ({ context }) => {
   // params contains the post `id`.
   // If the route is like /posts/1, then params.id is 1
-  const res = await fetch(`https://.../projects/${params.id}`)
-  const project = await res.json()
+  const res = await fetch(`https://.../projects`)
+  const projects: ProjectType[] = await res.json()
 
   // Pass post data to the page via props
   return {
-    props: { project },
-    // Re-generate the post at most once per second
-    // if a request comes in
-    revalidate: 1,
+    props: { projects },
   }
 }
 
