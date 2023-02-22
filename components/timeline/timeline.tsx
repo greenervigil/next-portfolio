@@ -3,7 +3,7 @@ const Timeline = () => {
         <div className="font-mono relative my-0 mx-auto w-full after:content-[''] after:absolute after:w-1.5 after:bg-teal-600 after:top-0 after:bottom-0 sm:after:left-1/2 after:-ml-1 after:left-0">
             <div className="relative py-2.5 px-10 sm:w-3/5 sm:left-1/2 after:content-[''] after:absolute after:w-6 after:h-6 after:-right-4 after:bg-black after:rounded-full after:border-4 after:border-teal-600 after:top-4 after:z-10 after:-left-3">
                 <div className="shadow-2xl shadow-teal-600 relative py-5 px-8 rounded-md bg-teal-600">
-                    <h2 className="text-white text-2xl">Marketplace - Fusion Medical Staffing</h2>
+                    <h2 className="text-white text-2xl font-semibold">Marketplace - Fusion Medical Staffing</h2>
                     <h6 className="text-white text-xs">2023 - present</h6>
                     <h4 className="text-white text-lg my-2">Senior Front End Developer </h4>
                     <ul className="text-white text-base">
@@ -15,7 +15,7 @@ const Timeline = () => {
             </div>
             <div className="relative py-2.5 px-10 sm:w-2/4 sm:-left-2 after:content-[''] after:absolute after:w-6 after:h-6 max-sm:after:-left-3 sm:after:-right-5 after:bg-black after:rounded-full after:border-4 after:border-teal-600 after:top-4 after:z-10">
                 <div className="shadow-2xl shadow-teal-600 relative py-5 px-8 rounded-md bg-teal-600">
-                    <h2 className="text-white text-2xl">LeanBiologix</h2>
+                    <h2 className="text-white text-2xl font-semibold">LeanBiologix</h2>
                     <h6 className="text-white text-xs">2022 - present</h6>
                     <h4 className="text-white text-lg my-2">Front End Developer Project</h4>
                     <ul className="text-white">
@@ -27,9 +27,9 @@ const Timeline = () => {
             </div>
             <div className="relative py-2.5 px-10 sm:w-3/5 sm:left-1/2 after:content-[''] after:absolute after:w-6 after:h-6 after:-right-4 after:bg-black after:rounded-full after:border-4 after:border-teal-600 after:top-4 after:z-10 after:-left-3">
                 <div className="shadow-2xl shadow-teal-600 relative py-5 px-8 rounded-md bg-teal-600">
-                    <h2 className="text-white text-2xl">Cengage  Learning - MindTap School</h2>
+                    <h2 className="text-white text-2xl font-semibold">Cengage  Learning - MindTap School</h2>
                     <h6 className="text-white text-xs">2021 - 2023</h6>
-                    <h4 className="text-white text-ls my-2">Lead Front End Engineer</h4>
+                    <h4 className="text-white text-lg my-2">Lead Front End Engineer</h4>
                     <ul className="text-white">
                         <li>Lead front end technology decisions for best practices.</li>
                         <li>{`Drive front end development in React and Typescript of Cengage's secondary platform Mind Tap Schools for K-12.`}</li> 
@@ -40,9 +40,9 @@ const Timeline = () => {
             </div>
             <div className="relative py-2.5 px-10 sm:w-2/4 sm:-left-2 after:content-[''] after:absolute after:w-6 after:h-6 max-sm:after:-left-3 sm:after:-right-5 after:bg-black after:rounded-full after:border-4 after:border-teal-600 after:top-4 after:z-10">
                 <div className="shadow-2xl shadow-teal-600 relative py-5 px-8 rounded-md bg-teal-600">
-                    <h2 className="text-white text-2xl">National Geographic Learning K-12</h2>
+                    <h2 className="text-white text-2xl font-semibold">National Geographic Learning K-12</h2>
                     <h6 className="text-white text-xs">2021</h6>
-                    <h4 className="text-white text-ls my-2">Front End Developer Project</h4>
+                    <h4 className="text-white text-lg my-2">Front End Developer Project</h4>
                     <ul className="text-white">
                         <li>Development of 8 page National Greographic Learning K-12 Big Ideas Mathematics campaign.</li>
                         <li>Ensure Responsive development.</li>
@@ -51,9 +51,9 @@ const Timeline = () => {
             </div>
             <div className="relative py-2.5 px-10 sm:w-3/5 sm:left-1/2 after:content-[''] after:absolute after:w-6 after:h-6 after:-right-4 after:bg-black after:rounded-full after:border-4 after:border-teal-600 after:top-4 after:z-10 after:-left-3">
                 <div className="shadow-2xl shadow-teal-600 relative py-5 px-8 rounded-md bg-teal-600">
-                    <h2 className="text-white text-2xl">National Geographic Learning K-12 - Marketing</h2>
+                    <h2 className="text-white text-2xl font-semibold">National Geographic Learning K-12 - Marketing</h2>
                     <h6 className="text-white text-xs">2021</h6>
-                    <h4 className="text-white text-ls my-2">Front End Developer Project</h4>
+                    <h4 className="text-white text-lg my-2">Front End Developer Project</h4>
                     <ul className="text-white">
                         <li>Development of 7 page National Greographic Learning K-12 digital Access and Integration campaign.</li>
                         <li>Ensure responsive development.</li>
@@ -62,7 +62,7 @@ const Timeline = () => {
             </div>
             <div className="relative py-2.5 px-10 sm:w-2/4 sm:-left-2 after:content-[''] after:absolute after:w-6 after:h-6 max-sm:after:-left-3 sm:after:-right-5 after:bg-black after:rounded-full after:border-4 after:border-teal-600 after:top-4 after:z-10">
                 <div className="shadow-2xl shadow-teal-600 relative py-5 px-8 rounded-md bg-teal-600">
-                    <h2 className="text-white text-2xl">National Geographic Learning K-12 - Marketing</h2>
+                    <h2 className="text-white text-2xl font-semibold">National Geographic Learning K-12 - Marketing</h2>
                     <h6 className="text-white text-xs">2021</h6>
                     <h4 className="text-white text-lg my-2">Front End Developer Project</h4>
                     <ul className="text-white">
@@ -75,7 +75,7 @@ const Timeline = () => {
             </div>
             <div className="relative py-2.5 px-10 sm:w-3/5 sm:left-1/2 after:content-[''] after:absolute after:w-6 after:h-6 after:-right-4 after:bg-black after:rounded-full after:border-4 after:border-teal-600 after:top-4 after:z-10 after:-left-3">
                 <div className="shadow-2xl shadow-teal-600 relative py-5 px-8 rounded-md bg-teal-600">
-                    <h2 className="text-white text-xl">Cengage Learning - Creative Studios</h2>
+                    <h2 className="text-white text-xl font-semibold">Cengage Learning - Creative Studios</h2>
                     <h6 className="text-white text-xs">2020</h6>
                     <h4 className="text-white text-lg my-2">Front End Developer Project</h4>
                     <ul className="text-white">
@@ -86,7 +86,7 @@ const Timeline = () => {
             </div>
             <div className="relative py-2.5 px-10 sm:w-2/4 sm:-left-2 after:content-[''] after:absolute after:w-6 after:h-6 max-sm:after:-left-3 sm:after:-right-5 after:bg-black after:rounded-full after:border-4 after:border-teal-600 after:top-4 after:z-10">
                 <div className="shadow-2xl shadow-teal-600 relative py-5 px-8 rounded-md bg-teal-600">
-                    <h2 className="text-white text-2xl">Cengage Learning - <a href="https://myelt.heinle.com/ilrn/authentication/signIn.do?inst=MYELT">MyELT</a></h2>
+                    <h2 className="text-white text-2xl font-semibold">Cengage Learning - <a href="https://myelt.heinle.com/ilrn/authentication/signIn.do?inst=MYELT">MyELT</a></h2>
                     <h6 className="text-white text-xs">2016 - 2021</h6>
                     <h4 className="text-white text-lg my-2">Senior Software Engineer</h4>
                     <ul className="text-white">
