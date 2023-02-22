@@ -3,17 +3,19 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import Container from "../../components/container/container";
+import { useAppContext } from "../../context/state";
 import { ProjectType } from "../../types/project-type";
 
 interface ProjectProps {
   project: ProjectType
 }
 
-const Project: NextPage<ProjectProps> = ({ project }) => {
+const Project: NextPage<ProjectProps> = () => {
   const router = useRouter()
+  const { id } = router.query
 
-  //const data: ProjectType[] = useAppContext().projects
-  //const project = data.filter(proj => proj.id == id)[0]
+  const data: ProjectType[] = useAppContext().projects
+  const project = data.filter(proj => proj.id == id)[0]
 
   if (router.isFallback) {
     return <div>Loading...</div>
