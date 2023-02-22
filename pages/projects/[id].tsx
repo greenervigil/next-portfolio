@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import Container from "../../components/container/container";
-import { useAppContext } from "../../context/state";
 import { ProjectType } from "../../types/project-type";
 
 interface ProjectProps {
@@ -71,15 +70,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const  getStaticProps: GetStaticProps<{ projects: ProjectType[] }> = async () => {
+export const  getStaticProps: GetStaticProps<{ project: ProjectType | {} }> = async () => {
   // params contains the post `id`.
   // If the route is like /posts/1, then params.id is 1
-  const res = await fetch(`https://.../projects`)
-  const projects: ProjectType[] = await res.json()
+  //const res = await fetch(`https://.../projects`)
+  //const projects: ProjectType[] = await res.json()
 
   // Pass post data to the page via props
   return {
-    props: { projects },
+    props: { project: {} },
   }
 }
 
