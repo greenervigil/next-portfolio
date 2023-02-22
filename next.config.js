@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
   images: {
-    loader: 'akamai',
-    path: '',
     remotePatterns: [
       {
         protocol: 'https',
@@ -50,8 +50,7 @@ const nextConfig = {
         hostname: 'www.solidjs.com'
       }
     ]
-  }, 
-  assetPrefix: './'
-};
+  }
+}
 
-export default nextConfig;
+module.exports = nextConfig
