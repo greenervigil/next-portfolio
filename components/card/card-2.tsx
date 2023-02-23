@@ -1,5 +1,5 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from "next/link"
+import Image from "next/image"
 
 type ProjectDataModel = {
     href: string;
@@ -24,4 +24,4 @@ const Card2: React.FC<Card2Props> = ({ data }) => {
     )
 }
 
-export default Card2;
+export default Card2
