@@ -18,7 +18,7 @@ let sharedState = {
       link: 'https://fusionmarketplace.com',
       title: 'Fusion Marketplace',
       description: 'Fusion Medical Staffing Job Market application for traveling healthcare',
-      imageSrc: '/../public/fusion-marketplace.png',
+      imageSrc: '/fusion-marketplace.png',
       imageDescription: 'Fusion Marketplace home page',
       tech: ["React", "NextJS", "Jest", "React Testing Library", "MUI", "Storybook", "Storyblok", "NextSEO"]
     },
@@ -28,7 +28,7 @@ let sharedState = {
       link: 'nglsync.cengage.com',
       title: 'MindTap School',
       description: 'Cengage Learning K-12 education platform, MindTap School through National Geographic Sync',
-      imageSrc: '/../public/mts.png',
+      imageSrc: '/mts.png',
       imageDescription: 'MindTap Schools content landing page',
       tech: ["React", "Storybook", "React Magma"]
     },
@@ -38,7 +38,7 @@ let sharedState = {
         title: 'LeanBiologix',
         link: 'leanbiologix.com',
         description: 'Site theme refresh focusing on SEO and performance optimization',
-        imageSrc: '/../public/leanbiologix.png',
+        imageSrc: '/leanbiologix.png',
         imageDescription: 'LeanBiologix langing page',
         tech: ["Wordpress", "HTML", "CSS"]
     },
@@ -48,7 +48,7 @@ let sharedState = {
       title: 'React Magma',
       link: 'react-magma.com',
       description: 'Cengage Group Open Source Design System',
-      imageSrc: '/../public/react-magma.png',
+      imageSrc: '/react-magma.png',
       imageDescription: 'React Magma landing page',
       tech: ["React", "Jest", "React Testing Library", "Lerna", "Gatsby", "Netlify"]
     },
@@ -58,7 +58,7 @@ let sharedState = {
       link: 'https://galsbestpal.com',
       title: `Gal's Best PAl`,
       description: 'New Site design and development',
-      imageSrc: '/../public/gals_best_pal.png',
+      imageSrc: '/gals_best_pal.png',
       imageDescription: 'Gals best pal landing page',
       tech: ["wordpress", "HTML", "CSS", "SCSS", "JS", "PHP"]
     },
@@ -68,7 +68,7 @@ let sharedState = {
       link: 'https://ngl.cengage.com',
       title: 'Digital Margketing',
       description: 'National Geographic Learning / Cengage Learning digital learning marketing campaign',
-      imageSrc: '/../public/digital-campaign.png',
+      imageSrc: '/digital-campaign.png',
       imageDescription: 'digital Marketing campaign for National Geographic learning',
       tech: ["HTML", "CSS", "Bootstrap5", "JS"]
     },
@@ -78,7 +78,7 @@ let sharedState = {
       link: 'https://ngl.cengage.com/assets/html/digitalAccess/index.html',
       title: 'National Geographic k-12 Marketing site',
       description: `Site update for Cengage Learning's National Geographic marketing site.`,
-      imageSrc: '/../public/ngl-marketing.png',
+      imageSrc: '/ngl-marketing.png',
       imageDescription: 'Marketing site for National Geographic Learning for Cengage Learning',
       tech: ["HTML", "CSS", "Bootstrap5", "JS"]
     },
@@ -88,7 +88,7 @@ let sharedState = {
       link: 'https://ngl.cengage.com/assets/html/bigIdeas/index.html',
       title: 'Big Ideas K-12 Mathematics',
       description: 'National Geographic Learning / Cengage Learning K-12 Mathematics campaign',
-      imageSrc: '/../public/big-ideas-campaign.png',
+      imageSrc: '/big-ideas-campaign.png',
       imageDescription: 'Big Ideas K-12 Mathematics Marketing',
       tech: ["HTML", "CSS", "Bootstrap5", "JS"]
     },
@@ -98,7 +98,7 @@ let sharedState = {
       link: 'https://cs.cengage.com/animation-calculator/',
       title: 'Animation Calculator',
       description: `Services calculator for Cengage Learning's Creative Studio team`,
-      imageSrc: '/../public/animation-calculator.png',
+      imageSrc: '/animation-calculator.png',
       imageDescription: 'Creative Stuido Animation Calculator page',
       tech: ["wordpress", "CSS", "JS", "PHP"]
     },
@@ -108,7 +108,7 @@ let sharedState = {
       link: 'https://cs.cengage.com/capabilities/media-design/animation/express-animations/',
       title: 'Express Animation',
       description: `Creative Studio's Services page creation`,
-      imageSrc: '/../public/express-animations.png',
+      imageSrc: '/express-animations.png',
       imageDescription: 'Creative Stuido Animation Calculator page',
       tech: ["wordpress", "CSS", "JS", "PHP"]
     },
@@ -118,7 +118,7 @@ let sharedState = {
         title: 'My English Language Teaching',
         link: 'https://myelt.heinle.com/ilrn/authentication/signIn.do?inst=MYELT',
         description: `national Geographic Learning'x MyELT platform for learning and teaching English as a second language`,
-        imageSrc: '/../public/myelt.png',
+        imageSrc: '/myelt.png',
         imageDescription: 'MyELT landing page',
         tech: ["Java", "Angular", "React", "CSS", "JS"]
     },
