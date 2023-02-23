@@ -1,5 +1,6 @@
 import Image from "next/image"
 import React from "react"
+import { prefix } from "../../utils/prefix"
 
 const images: string[] = [
   "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/240px-HTML5_logo_and_wordmark.svg.png", 
@@ -15,7 +16,7 @@ const images: string[] = [
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkSKpjWP2yvVBxiPJgB1hnAPKp-F4rvd6OZmVRk3xi6tCGZe_tcDzNek-nskxntA-dFKk&usqp=CAU", 
   "https://images.ctfassets.net/23aumh6u8s0i/c04wENP3FnbevwdWzrePs/1e2739fa6d0aa5192cf89599e009da4e/nextjs", 
   "https://miro.medium.com/max/1200/0*T6pKJjgoPIBy_u-_.png", 
-  "/solid-logo.svg", 
+  `${prefix}/solid-logo.svg`, 
   "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1200px-Typescript_logo_2020.svg.png",
   "https://images.ctfassets.net/vkdbses00qqt/3Id5VwofmvaFbjuSumaOmM/592c2d2e523187bd054a16b358d5a7ec/framework.svg"
 ]

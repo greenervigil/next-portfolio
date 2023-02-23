@@ -5,6 +5,7 @@ import React from "react";
 import Container from "../../components/container/container";
 import { useAppContext } from "../../context/state";
 import { ProjectType } from "../../types/project-type";
+import { prefix } from "../../utils/prefix";
 
 interface ProjectProps {
   project: ProjectType
@@ -28,7 +29,7 @@ const Project: NextPage<ProjectProps> = () => {
       </h1>
       <Image
         className="shadow-lg shadow-teal-600 border border-solid border-teal-600 rounded-xl" 
-        src={`${project.imageSrc}`} 
+        src={`${prefix}${project.imageSrc}`} 
         alt={project.imageDescription}
         blurDataURL="data:..."
         placeholder="blur" 
