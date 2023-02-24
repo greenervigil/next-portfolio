@@ -11,16 +11,16 @@ function MyApp({ Component, pageProps }: AppProps) {
       <DefaultSeo
         title="Daniel Greener-Vigil Portfolio Site"
         description="Web developmenet portfolio site by Daniel Greener-Vigil."
+        canonical='https://greenervigil.githu.io/next-portfolio/'
+        additionalMetaTags={[{
+          property: 'dc:creator',
+          content: 'Daniel Greener-Vigil'
+        }]}
         openGraph={{
             type: 'website',
-            locale: 'en_IE',
-            url: 'https://www.url.ie/',
-            siteName: 'SiteName',
-        }}
-        twitter={{
-            handle: '@handle',
-            site: '@site',
-            cardType: 'summary_large_image',
+            locale: 'en_US',
+            url: 'https://greenervigil.github.io/next-portfolio/',
+            siteName: 'Daniel Greener-Vigil Portfolio',
         }}
         additionalLinkTags={[
           {
