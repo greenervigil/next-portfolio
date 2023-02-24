@@ -46,7 +46,7 @@ let sharedState = {
       id: 4,
       href: '/projects/4',
       title: 'React Magma',
-      link: 'react-magma.com',
+      link: 'react-magma.cengage.com',
       description: 'Cengage Group Open Source Design System',
       imageSrc: '/react-magma.png',
       imageDescription: 'React Magma landing page',
