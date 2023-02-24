@@ -66,7 +66,7 @@ let sharedState = {
       id: 6,
       href: '/projects/6',
       link: 'https://ngl.cengage.com',
-      title: 'Digital Margketing',
+      title: 'Digital Marketing',
       description: 'National Geographic Learning / Cengage Learning digital learning marketing campaign',
       imageSrc: '/digital-campaign.png',
       imageDescription: 'digital Marketing campaign for National Geographic learning',
