@@ -8,7 +8,7 @@ interface AppWrapperProps {
 let sharedState = {
   name: 'Daniel Greener-Vigil',
   title: `Software Engineer / Web Developer <br/>Mentor`,
-  aboutText: `I have been a Software Engineer for 6 years.  I have a passion for learning and bring this passion to each project I work on.  I am always open and willing to learn something new.  I always welcome new challenges and help cultivate those abilities in others. 
+  aboutText: `I have been a Software Engineer for 9 years.  I have a passion for learning and bring this passion to each project I work on.  I am always open and willing to learn something new.  I always welcome new challenges and help cultivate those abilities in others. 
   I have worked on multiple projects with a range of technologies.  I have experience with HTML, CSS, JavaScript, TypeScript, React, React Native, Android(Java), Storybook, NextJs, Svelte, SolidJS, Bootstrap, React Bootstrap, Tailwind, Jest, React Testing Library, Redux, MUI, and even Wordpress. `,
   greenfield: 'I additionally run a freelance partnership called GreenField Development.  I have spent the last few years developing this as a mentorship program to assist self taught developers.  I sought to provide the additional skills developers need through a project based mentorship designed specifically for each developer with the Agile Methodology, version control practices and standard project management built into the process.',
   projects: [
