@@ -16,7 +16,7 @@ const Home: NextPage = () => {
         <meta name="author" content="Daniel J Greener-Vigil" />
       </Head>
     
-      <div className='mt-6 mb-32 font-mono flex flex-wrap w-screen'>
+      <div className='mt-6 mb-32 font-mono flex flex-wrap'>
         <Container>
           <h1 className="text-teal-600 text-center text-6xl font-bold m-6">
             {content.name}
@@ -25,6 +25,9 @@ const Home: NextPage = () => {
             <p className="flex-auto text-center m-6">
               {content.title.substring(0, content.title.indexOf('<'))}
             </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center">
             <p className='flex-auto m-6 w-1/2 lg:mx-40'>{`Enthusiastically bringing development to the web and mobile with a focus on UI/UX,  accessibility and performance. Embracing the unknown in order to bring a client's vision to life.`}</p>
           </div>
 

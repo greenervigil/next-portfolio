@@ -12,7 +12,7 @@ const Contact: NextPage = () => {
             <Container>
                 <h1 className="font-mono text-center text-6xl mt-16">Contact</h1>
             </Container>
-            <>
+            <div className="mb-20">
                 <Card>
                     <Container>
                         <p className="font-mono">Let me know if there is a project you want to work on together.  Hope to hear from you soon. </p>
@@ -27,7 +27,7 @@ const Contact: NextPage = () => {
                         <button className="m-4 font-mono text-xl border border-yellow-500 rounded-2xl w-36 h-10 hover:bg-yellow-100 hover:text-slate-900" type="submit">Send</button>
                     </form>
                 </Card>
-            </>
+            </div>
         </>
     )
 }
