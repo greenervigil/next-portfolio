@@ -11,7 +11,12 @@ const Projects: NextPage = () => {
 
     const handleFilter = (e: any) => {
         e.preventDefault()
-        setFilterData(e.target.innerHTML)
+        e.target.innerHTML === 'All' ? 
+            setFilterData(data.projects)
+        :
+        setFilterData(data.projects.filter(
+            project => project.tech.includes(e.target.innerHTML)
+        ))
     }
 
     return (
@@ -20,6 +25,7 @@ const Projects: NextPage = () => {
                 <h1 className="font-mono text-center text-6xl mt-16">Projects</h1>
                 <section className="text-center m-5">
                     <p className="m-5">Select an option to filter:</p>
+                    <button className="pointer text-sm rounded-2xl m-1 py-2 px-4 border border-teal-600 hover:bg-teal-600" onClick={handleFilter}>All</button>
                     {tech.map(item => {
                         return (
                             <button 

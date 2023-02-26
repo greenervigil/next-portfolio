@@ -20,7 +20,7 @@ let sharedState = {
       description: 'Fusion Medical Staffing Job Market application for traveling healthcare',
       imageSrc: '/fusion-marketplace.png',
       imageDescription: 'Fusion Marketplace home page',
-      tech: ["React", "NextJS", "Jest", "React Testing Library", "MUI", "Storybook", "Storyblok", "NextSEO"]
+      tech: ["React", "NextJS", "TypeScript", "Jest", "React Testing Library", "MUI", "Storybook", "Storyblok", "NextSEO"]
     },
     {
       id: 2,
@@ -30,7 +30,7 @@ let sharedState = {
       description: 'Cengage Learning K-12 education platform, MindTap School through National Geographic Sync',
       imageSrc: '/mts.png',
       imageDescription: 'MindTap Schools content landing page',
-      tech: ["React", "Storybook", "React Magma"]
+      tech: ["React", "Storybook", "React Magma", "CSS", "CSS Modules", "Styled Components", "Jest", "React Testing Library", "Enzyme"]
     },
     {
       id: 3,
@@ -60,7 +60,7 @@ let sharedState = {
       description: 'New Site design and development',
       imageSrc: '/gals_best_pal.png',
       imageDescription: 'Gals best pal landing page',
-      tech: ["wordpress", "HTML", "CSS", "SCSS", "JS", "PHP"]
+      tech: ["Wordpress", "HTML", "CSS", "SCSS", "JavaScript", "PHP"]
     },
     {
       id: 6,
@@ -70,7 +70,7 @@ let sharedState = {
       description: 'National Geographic Learning / Cengage Learning digital learning marketing campaign',
       imageSrc: '/digital-campaign.png',
       imageDescription: 'digital Marketing campaign for National Geographic learning',
-      tech: ["HTML", "CSS", "Bootstrap5", "JS"]
+      tech: ["HTML", "CSS", "Bootstrap5", "JavaScript"]
     },
     {
       id: 7,
@@ -80,7 +80,7 @@ let sharedState = {
       description: `Site update for Cengage Learning's National Geographic marketing site.`,
       imageSrc: '/ngl-marketing.png',
       imageDescription: 'Marketing site for National Geographic Learning for Cengage Learning',
-      tech: ["HTML", "CSS", "Bootstrap5", "JS"]
+      tech: ["HTML", "CSS", "Bootstrap5", "JavaScript"]
     },
     {
       id: 8,
@@ -90,7 +90,7 @@ let sharedState = {
       description: 'National Geographic Learning / Cengage Learning K-12 Mathematics campaign',
       imageSrc: '/big-ideas-campaign.png',
       imageDescription: 'Big Ideas K-12 Mathematics Marketing',
-      tech: ["HTML", "CSS", "Bootstrap5", "JS"]
+      tech: ["HTML", "CSS", "Bootstrap5", "JavaScript"]
     },
     {
       id: 9,
@@ -100,7 +100,7 @@ let sharedState = {
       description: `Services calculator for Cengage Learning's Creative Studio team`,
       imageSrc: '/animation-calculator.png',
       imageDescription: 'Creative Stuido Animation Calculator page',
-      tech: ["wordpress", "CSS", "JS", "PHP"]
+      tech: ["Wordpress", "CSS", "JavaScript", "PHP"]
     },
     {
       id: 10,
@@ -110,7 +110,7 @@ let sharedState = {
       description: `Creative Studio's Services page creation`,
       imageSrc: '/express-animations.png',
       imageDescription: 'Creative Stuido Animation Calculator page',
-      tech: ["wordpress", "CSS", "JS", "PHP"]
+      tech: ["Wordpress", "CSS", "JavaScript", "PHP"]
     },
     {
       id: 11,
@@ -120,7 +120,7 @@ let sharedState = {
         description: `national Geographic Learning'x MyELT platform for learning and teaching English as a second language`,
         imageSrc: '/myelt.png',
         imageDescription: 'MyELT landing page',
-        tech: ["Java", "Angular", "React", "CSS", "JS"]
+        tech: ["Java", "Angular", "React", "Struts", "CSS", "JavaScript", "Styled Components"]
     },
   ]
 };
