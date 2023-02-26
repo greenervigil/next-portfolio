@@ -11,10 +11,10 @@ const About: NextPage = () => {
     return (
         <Container>
             <div className="sm:mt-3 font-mono">
-                <section className="flex justify-center gap-4">
+                <section className="flex flex-wrap justify-center gap-4">
                     <Card>
                         <h2 className="text-2xl font-bold">{content.name}</h2>
-                        <h4 className="text-ls my-2" dangerouslySetInnerHTML={{ __html: content.title }}></h4>
+                        <h4 className="text-ls my-2" dangerouslySetInnerHTML={{ __html: content.title }} />
                         
                         <div className="flex justify-center items-baseline flex-wrap gap-3 m-4">
                             <a className="text-center border border-yellow-500 rounded-lg shadow-2xl shadow-teal-600 w-44 h-9 p-1 hover:bg-yellow-100 hover:text-slate-900" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/danieljvigil/">
@@ -30,7 +30,7 @@ const About: NextPage = () => {
                                     {`Download Resume/CV`}
                                 </Button>
                             </a>
-                </div>
+                        </div>
 
                     </Card>
                     <Carousel />
