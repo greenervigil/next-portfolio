@@ -20,7 +20,7 @@ const Projects: NextPage = () => {
     }
 
     return (
-        <>
+        <div className="flex flex-wrap justify-center">
             <Container>
                 <h1 className="font-mono text-center text-6xl mt-16">Projects</h1>
                 <section className="text-center m-5">
@@ -44,7 +44,7 @@ const Projects: NextPage = () => {
                     return <Card2 data={project} key={i} />
                 })}
             </div>
-        </>
+        </div>
     )
 }
 
