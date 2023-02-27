@@ -14,7 +14,6 @@ const Home: NextPage = () => {
       <Head>
         <meta name="keywords" content="Daniel Vigil, Daniel Greener-Vigil, profolio, React, Next, NextJS, Tailwind, TailwindCSS, HTML, CSS, JavaScript, Wordpress, Development, Developer"/>
         <meta name="author" content="Daniel J Greener-Vigil" />
-        {/*<html lang={'en'} />*/}
       </Head>
     
       <div className='mt-6 mb-32 font-mono flex flex-wrap'>
