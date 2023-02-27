@@ -12,10 +12,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         title="Daniel Greener-Vigil Portfolio Site"
         description="Web developmenet portfolio site by Daniel Greener-Vigil."
         canonical='https://greenervigil.githu.io/next-portfolio/'
-        additionalMetaTags={[{
-          property: 'dc:creator',
-          content: 'Daniel Greener-Vigil'
-        }]}
         openGraph={{
             type: 'website',
             locale: 'en_US',
