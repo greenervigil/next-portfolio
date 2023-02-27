@@ -60,7 +60,7 @@ let sharedState = {
       description: 'New Site design and development',
       imageSrc: '/gals_best_pal.png',
       imageDescription: 'Gals best pal landing page',
-      tech: ["Wordpress", "HTML", "CSS", "SCSS", "JavaScript", "PHP"]
+      tech: ["Wordpress", "HTML", "Bootstrap", "CSS", "SCSS", "JavaScript", "PHP"]
     },
     {
       id: 6,
@@ -70,7 +70,7 @@ let sharedState = {
       description: 'National Geographic Learning / Cengage Learning digital learning marketing campaign',
       imageSrc: '/digital-campaign.png',
       imageDescription: 'digital Marketing campaign for National Geographic learning',
-      tech: ["HTML", "CSS", "Bootstrap5", "JavaScript"]
+      tech: ["HTML", "CSS", "Bootstrap", "JavaScript"]
     },
     {
       id: 7,
@@ -80,7 +80,7 @@ let sharedState = {
       description: `Site update for Cengage Learning's National Geographic marketing site.`,
       imageSrc: '/ngl-marketing.png',
       imageDescription: 'Marketing site for National Geographic Learning for Cengage Learning',
-      tech: ["HTML", "CSS", "Bootstrap5", "JavaScript"]
+      tech: ["HTML", "CSS", "Bootstrap", "JavaScript"]
     },
     {
       id: 8,
@@ -90,7 +90,7 @@ let sharedState = {
       description: 'National Geographic Learning / Cengage Learning K-12 Mathematics campaign',
       imageSrc: '/big-ideas-campaign.png',
       imageDescription: 'Big Ideas K-12 Mathematics Marketing',
-      tech: ["HTML", "CSS", "Bootstrap5", "JavaScript"]
+      tech: ["HTML", "CSS", "Bootstrap", "JavaScript"]
     },
     {
       id: 9,
@@ -117,7 +117,7 @@ let sharedState = {
         href: '/projects/11',
         title: 'My English Language Teaching',
         link: 'https://myelt.heinle.com/ilrn/authentication/signIn.do?inst=MYELT',
-        description: `national Geographic Learning'x MyELT platform for learning and teaching English as a second language`,
+        description: `National Geographic Learning's MyELT platform for learning and teaching English as a second language`,
         imageSrc: '/myelt.png',
         imageDescription: 'MyELT landing page',
         tech: ["Java", "Angular", "React", "Struts", "CSS", "JavaScript", "Styled Components"]
