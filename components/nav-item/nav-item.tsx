@@ -15,8 +15,8 @@ const NavItem: React.FC<NavItemProps> = ({
     <Link href={href}>
       <a
         className={`font-mono text-lg transition ${
-          active ? "active" : ""
-        } hover:font-bold active:text-teal-600`}
+          active ? "text-teal-600" : ""
+        } hover:font-bold`}
       >
         {text}
       </a>
