@@ -15,7 +15,7 @@ const MENU_LIST = [
 const Navbar: React.FC = () => {
     const [open, setOpen] = React.useState(false)
     const [navActive, setNavActive] = React.useState(false);
-    const [activeIdx, setActiveIdx] = React.useState(-1);
+    const [activeIdx, setActiveIdx] = React.useState(0);
 
     return (
         <header className="bg-white h-20 sticky z-30 top-0 shadow-lg shadow-teal-600 border border-solid border-teal-600 rounded-b-xl dark:bg-black">
@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
                 <div className={`absolute top-0 left-0 h-screen w-screen bg-white dark:bg-black transform ${open ? "-translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out filter drop-shadow-md `}>
                     <div className="flex items-center justify-center filter shadow-lg shadow-teal-600 border border-solid border-teal-600 bg-white dark:bg-black h-20"> 
                         {/*logo container*/}
-                        <Link href="/"><a className="text-xl font-semibold">DJGV</a></Link>
+                        <div className="text-xl text-teal-700 font-semibold">DJGV</div>
                     </div>
                     <div className="flex flex-col text-center mt-7 gap-5">
                         {MENU_LIST.map((menu, idx) => (
@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
                     </div>  
                 </div>
                 <div className="w-3/12 flex items-center">
-                    <Link href="/"><a className="text-3xl font-semibold">DJGV</a></Link>
+                    <div className="text-3xl text-teal-700 font-semibold">DJGV</div>
                 </div>
                 <div className="w-9/12 flex justify-end items-center">
 
