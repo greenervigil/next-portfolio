@@ -20,7 +20,7 @@ let sharedState = {
       description: 'Fusion Medical Staffing Job Market application for traveling healthcare',
       imageSrc: '/fusion-marketplace.png',
       imageDescription: 'Fusion Marketplace home page',
-      tech: ["React", "NextJS", "TypeScript", "Jest", "React Testing Library", "MUI", "Storybook", "Storyblok", "NextSEO"]
+      tech: ["React", "NextJS", "CSS", "TypeScript", "Jest", "React Testing Library", "MUI", "Storybook", "Storyblok", "NextSEO"]
     },
     {
       id: 2,
@@ -30,7 +30,7 @@ let sharedState = {
       description: 'Cengage Learning K-12 education platform, MindTap School through National Geographic Sync',
       imageSrc: '/mts.png',
       imageDescription: 'MindTap Schools content landing page',
-      tech: ["React", "Storybook", "React Magma", "CSS", "CSS Modules", "Styled Components", "Jest", "React Testing Library", "Enzyme"]
+      tech: ["React", "TypeScript", "Storybook", "React Magma", "CSS", "CSS Modules", "Styled Components", "Jest", "React Testing Library", "Enzyme"]
     },
     {
       id: 3,
