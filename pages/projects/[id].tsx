@@ -37,12 +37,12 @@ const Project: NextPage<ProjectProps> = () => {
         height={400}
       />
       <Container>
-        <h3 className="font-mono text-3xl font-semibold text-center">Project Description</h3>
+        <h2 className="font-mono text-3xl font-semibold text-center">Project Description</h2>
 
         <p className="font-mono text-center p-9">{project.description}</p>
       </Container>
       <Container>
-        <h3 className="font-mono text-3xl font-semibold text-center">Technologies</h3>
+        <h2 className="font-mono text-3xl font-semibold text-center">Technologies</h2>
 
         <ul className="font-mono text-center m-9">
           {project.tech.map((tech, i) => {
