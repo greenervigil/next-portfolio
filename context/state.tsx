@@ -40,7 +40,7 @@ let sharedState = {
         description: 'Site theme refresh focusing on SEO and performance optimization',
         imageSrc: '/leanbiologix.png',
         imageDescription: 'LeanBiologix langing page',
-        tech: ["Wordpress", "HTML", "CSS"]
+        tech: ["Wordpress", "HTML", "CSS", "JavaScript"]
     },
     {
       id: 4,

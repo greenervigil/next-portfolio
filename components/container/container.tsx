@@ -5,7 +5,7 @@ const Container: React.FC<ContainerProps> = ({
     children
 }) => {
     return (
-        <div className="p-4 m-6 w-full">
+        <div className="p-4 mt-3 w-full">
             {children}
         </div>
     )
