@@ -7,16 +7,20 @@ import { useAppContext } from "../../context/state";
 const Projects: NextPage = () => {
     const data = useAppContext()
     const [filterData, setFilterData] = React.useState(data.projects);
-    const tech = ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'Java', 'React', 'NextJS', 'Bootstrap', 'Wordpress']
+    const [active, setActive] = React.useState<string[]>([]);
+    const tech: string[] = ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'Java', 'React', 'NextJS', 'Bootstrap', 'Wordpress']
 
     const handleFilter = (e: any) => {
         e.preventDefault()
-        e.target.innerHTML === 'All' ? 
+        setActive([])
+        if (e.target.innerHTML === 'All') {
             setFilterData(data.projects)
-        :
-        setFilterData(data.projects.filter(
-            project => project.tech.includes(e.target.innerHTML)
-        ))
+        } else {
+            setFilterData(data.projects.filter(
+                project => project.tech.includes(e.target.innerHTML)
+            ))
+            setActive(e.target.innerHTML)
+        }
     }
 
     return (
@@ -25,12 +29,14 @@ const Projects: NextPage = () => {
                 <h1 className="font-mono text-center text-6xl mt-16">Projects</h1>
                 <section className="text-center m-5">
                     <p className="m-5">Select an option to filter:</p>
-                    <button className="pointer text-sm rounded-2xl m-1 py-2 px-4 border border-teal-600 hover:bg-teal-600" onClick={handleFilter}>All</button>
+                    <button className="pointer text-sm rounded-2xl m-1 py-2 px-4 border border-yellow-500 hover:bg-yellow-100 hover:text-slate-900 shadow-2xl shadow-yellow-500" onClick={handleFilter}>All</button>
                     {tech.map(item => {
                         return (
                             <button 
                                 key={item} 
-                                className="pointer text-sm rounded-2xl m-1 py-2 px-4 border border-teal-600 hover:bg-teal-600"
+                                className={`pointer text-sm rounded-2xl m-1 py-2 px-4 border border-yellow-500 hover:bg-yellow-100 hover:text-slate-900 shadow-2xl shadow-yellow-500 ${
+                                    active.includes(item) ? "bg-teal-600" : ""
+                                  }`}
                                 onClick={handleFilter}
                             >
                                 {item}

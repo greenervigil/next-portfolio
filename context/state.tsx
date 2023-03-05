@@ -115,7 +115,7 @@ let sharedState = {
     {
       id: 11,
         href: '/projects/11',
-        title: 'My English Language Teaching',
+        title: 'MyEnglish Language Teaching',
         link: 'https://myelt.heinle.com/ilrn/authentication/signIn.do?inst=MYELT',
         description: `National Geographic Learning's MyELT platform for learning and teaching English as a second language`,
         imageSrc: '/myelt.png',
