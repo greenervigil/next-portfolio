@@ -4,11 +4,11 @@ const Sitemap = () => {
   return null;
 };
 
-export const getServerSideProps = async ({ res }) => {
-  const BASE_URL = "http://localhost:3000";
+//export const getServerSideProps = async ({ res }) => {
+  //const BASE_URL = "http://localhost:3000";
 
-  const pagesDir = "pages/**/*.tsx";
-  let pagesPaths = await glob.sync(pagesDir);
+  //const pagesDir = "pages/**/*.tsx";
+  /*let pagesPaths = await glob.sync(pagesDir);
 
   pagesPaths = pagesPaths
   .filter((path: any) => !path.includes("["))
@@ -43,6 +43,6 @@ export const getServerSideProps = async ({ res }) => {
   return {
     props: {},
   };
-};
+};*/
 
 export default Sitemap;
