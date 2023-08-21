@@ -8,7 +8,7 @@ const Projects: NextPage = () => {
     const data = useAppContext()
     const [filterData, setFilterData] = React.useState(data.projects);
     const [active, setActive] = React.useState<string[]>([]);
-    const tech: string[] = ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'Java', 'React', 'NextJS', 'Bootstrap', 'Wordpress']
+    const tech: string[] = ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'NextJS', 'Bootstrap', 'Wordpress']
 
     const handleFilter = (e: any) => {
         e.preventDefault()
