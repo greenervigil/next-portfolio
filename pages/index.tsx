@@ -27,13 +27,13 @@ const Home: NextPage = () => {
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap justify-center mx-auto my-0 border border-teal-600 w-3/4">
             <p className='flex-auto m-6 w-1/2 lg:mx-40'>{`Enthusiastically bringing development to the web and mobile with a focus on UI/UX,  accessibility and performance. Embracing the unknown in order to bring a client's vision to life.`}</p>
           </div>
 
-          <div className='flex justify-center gap-5'>
-            <Link href="/contact" >
-              <a className='bg-yellow-500 text-slate-900 text-center rounded-lg shadow-2xl shadow-yellow-600 w-36 h-9 p-1 hover:bg-yellow-600 hover:text-white hover:shadow-teal-500'>Contact Me!</a>
+          <div className='flex justify-center gap-5 p-4'>
+            <Link href="/contact">
+              <a className='bg-yellow-500 text-slate-900 text-center rounded-lg shadow-2xl shadow-yellow-600 w-36 h-9 p-1 hover:bg-yellow-600 hover:text-white hover:shadow-yellow-100'>Contact Me!</a>
             </Link>
             <Link href="/about">
               <a className='text-center border border-yellow-500 rounded-lg shadow-2xl shadow-yellow-600 w-44 h-9 p-1 hover:bg-yellow-100 hover:text-slate-900'>Learn more...</a>
