@@ -1,9 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
-import ButtonGroup from '../components/button-group/button-group'
-import Button from '../components/button/button'
 import Container from '../components/container/container'
 import { useAppContext } from '../context/state'
 
@@ -32,11 +29,11 @@ const Home: NextPage = () => {
           </div>
 
           <div className='flex justify-center gap-5 p-4'>
-            <Link href="/contact">
-              <a className='bg-yellow-500 text-slate-900 text-center rounded-lg shadow-2xl shadow-yellow-600 w-36 h-9 p-1 hover:bg-yellow-600 hover:text-white hover:shadow-yellow-100'>Contact Me!</a>
+            <Link href="/contact" className='bg-yellow-500 text-slate-900 text-center rounded-lg shadow-2xl shadow-yellow-600 w-36 h-9 p-1 hover:bg-yellow-600 hover:text-white hover:shadow-yellow-100'>
+              Contact Me!
             </Link>
-            <Link href="/about">
-              <a className='text-center border border-yellow-500 rounded-lg shadow-2xl shadow-yellow-600 w-44 h-9 p-1 hover:bg-yellow-100 hover:text-slate-900'>Learn more...</a>
+            <Link href="/about" className='text-center border border-yellow-500 rounded-lg shadow-2xl shadow-yellow-600 w-44 h-9 p-1 hover:bg-yellow-100 hover:text-slate-900'>
+              Learn more...
             </Link>
           </div>
         </Container>
