@@ -1,5 +1,5 @@
 import Image from "next/image"
-import React from "react"
+import React, { useCallback } from "react"
 import { prefix } from "../../utils/prefix"
 
 const images: string[] = [
@@ -26,15 +26,15 @@ let count = 0
 const Carousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = React.useState(0)
 
-  React.useEffect(() => {
-      startSlider();
-    }, []);
-
-    const startSlider = () => {
+  const startSlider = useCallback(() => {
     setInterval(() => {
       handleNextClick();
-    }, 3000);
-  };
+    }, 2000);
+  }, []);
+
+  React.useEffect(() => {
+      startSlider();
+    }, [startSlider]);
 
   const handlePreviousClick = () => {
     count = (count - 1) % images.length
