@@ -12,14 +12,10 @@ const NavItem: React.FC<NavItemProps> = ({
   active 
 }) => {
   return (
-    <Link href={href}>
-      <a
-        className={`font-mono text-lg transition ${
-          active ? "text-teal-600" : ""
-        } hover:font-bold`}
-      >
-        {text}
-      </a>
+    <Link href={href} className={`font-mono text-lg transition ${
+      active ? "text-teal-600" : ""
+    } hover:font-bold`}>
+      {text}
     </Link>
   );
 };
