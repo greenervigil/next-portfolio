@@ -26,7 +26,7 @@ jobs:
               run: npm i
 
             - name: Build my App
-              run: turbo build
+              run: npm run build
 
             - name: Deploy 🚀
               uses: JamesIves/github-pages-deploy-action@v4.4.1
