@@ -18,7 +18,7 @@ let sharedState = {
       link: 'https://fusionmarketplace.com',
       title: 'Fusion Marketplace',
       description: 'Fusion Medical Staffing Job Market application for traveling healthcare',
-      imageSrc: '/fusion-marketplace.png',
+      imageSrc: '/fmp.png',
       imageDescription: 'Fusion Marketplace home page',
       tech: ["React", "NextJS", "CSS", "TypeScript", "Jest", "React Testing Library", "MUI", "Storybook", "Storyblok", "NextSEO"]
     },
