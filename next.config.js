@@ -38,6 +38,10 @@ const nextConfig = {
         hostname: 'turbo.build'
       },
       {
+        protocol:'https',
+        hostname: 'astro.build'
+      },
+      {
         protocol: 'https',
         hostname: 'encrypted-tbn0.gstatic.com'
       },

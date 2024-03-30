@@ -15,6 +15,16 @@ let sharedState = {
     { 
       id: 1,
       href: '/projects/1',
+      link: 'https://fusionmedstaff.com',
+      title: 'Fusion Medical Staffing',
+      description: 'Fusion Medical Staffing Job Market application for traveling healthcare',
+      imageSrc: '/fusionmedstaff.png',
+      imageDescription: 'Fusion Medical Staffing home page',
+      tech: ["React", "NextJS", "CSS", "TypeScript", "Jest", "React Testing Library", "MUI", "Storybook", "Wordpress", "NextSEO"]
+    },
+    { 
+      id: 2,
+      href: '/projects/2',
       link: 'https://fusionmarketplace.com',
       title: 'Fusion Marketplace',
       description: 'Fusion Medical Staffing Job Market application for traveling healthcare',
@@ -23,8 +33,8 @@ let sharedState = {
       tech: ["React", "NextJS", "CSS", "TypeScript", "Jest", "React Testing Library", "MUI", "Storybook", "Storyblok", "NextSEO"]
     },
     {
-      id: 2,
-      href: '/projects/2',
+      id: 3,
+      href: '/projects/3',
       link: 'https://nglsync.cengage.com',
       title: 'MindTap School',
       description: 'Cengage Learning K-12 education platform, MindTap School through National Geographic Sync',
@@ -33,8 +43,8 @@ let sharedState = {
       tech: ["React", "TypeScript", "Storybook", "React Magma", "CSS", "CSS Modules", "Styled Components", "Jest", "React Testing Library", "Enzyme"]
     },
     {
-      id: 3,
-        href: '/projects/3',
+      id: 4,
+        href: '/projects/4',
         title: 'LeanBiologix',
         link: 'https://leanbiologix.com',
         description: 'Site theme refresh focusing on SEO and performance optimization',
@@ -43,8 +53,8 @@ let sharedState = {
         tech: ["Wordpress", "HTML", "CSS", "JavaScript"]
     },
     {
-      id: 4,
-      href: '/projects/4',
+      id: 5,
+      href: '/projects/5',
       title: 'React Magma',
       link: 'https://react-magma.cengage.com',
       description: 'Cengage Group Open Source Design System',
@@ -53,8 +63,8 @@ let sharedState = {
       tech: ["React", "Jest", "React Testing Library", "Lerna", "Gatsby", "Netlify"]
     },
     {
-      id:5,
-      href: '/projects/5',
+      id: 6,
+      href: '/projects/6',
       link: 'https://galsbestpal.com',
       title: `Gal's Best PAl`,
       description: 'New Site design and development',
@@ -63,8 +73,8 @@ let sharedState = {
       tech: ["Wordpress", "HTML", "Bootstrap", "CSS", "SCSS", "JavaScript", "PHP"]
     },
     {
-      id: 6,
-      href: '/projects/6',
+      id: 7,
+      href: '/projects/7',
       link: 'https://ngl.cengage.com',
       title: 'Digital Marketing',
       description: 'National Geographic Learning / Cengage Learning digital learning marketing campaign',
@@ -73,8 +83,8 @@ let sharedState = {
       tech: ["HTML", "CSS", "Bootstrap", "JavaScript"]
     },
     {
-      id: 7,
-      href: '/projects/7',
+      id: 8,
+      href: '/projects/8',
       link: 'https://ngl.cengage.com/assets/html/digitalAccess/index.html',
       title: 'National Geographic k-12 Marketing site',
       description: `Site update for Cengage Learning's National Geographic marketing site.`,
@@ -83,8 +93,8 @@ let sharedState = {
       tech: ["HTML", "CSS", "Bootstrap", "JavaScript"]
     },
     {
-      id: 8,
-      href: '/projects/8',
+      id: 9,
+      href: '/projects/9',
       link: 'https://ngl.cengage.com/assets/html/bigIdeas/index.html',
       title: 'Big Ideas K-12 Mathematics',
       description: 'National Geographic Learning / Cengage Learning K-12 Mathematics campaign',
@@ -93,8 +103,8 @@ let sharedState = {
       tech: ["HTML", "CSS", "Bootstrap", "JavaScript"]
     },
     {
-      id: 9,
-      href: '/projects/9',
+      id: 10,
+      href: '/projects/10',
       link: 'https://cs.cengage.com/animation-calculator/',
       title: 'Animation Calculator',
       description: `Services calculator for Cengage Learning's Creative Studio team`,
@@ -103,8 +113,8 @@ let sharedState = {
       tech: ["Wordpress", "CSS", "JavaScript", "PHP"]
     },
     {
-      id: 10,
-      href: '/projects/10',
+      id: 11,
+      href: '/projects/11',
       link: 'https://cs.cengage.com/capabilities/media-design/animation/express-animations/',
       title: 'Express Animation',
       description: `Creative Studio's Services page creation`,
@@ -113,15 +123,15 @@ let sharedState = {
       tech: ["Wordpress", "CSS", "JavaScript", "PHP"]
     },
     {
-      id: 11,
-        href: '/projects/11',
+      id: 12,
+        href: '/projects/12',
         title: 'MyEnglish Language Teaching',
         link: 'https://myelt.heinle.com/ilrn/authentication/signIn.do?inst=MYELT',
         description: `National Geographic Learning's MyELT platform for learning and teaching English as a second language`,
         imageSrc: '/myelt.png',
         imageDescription: 'MyELT landing page',
         tech: ["Java", "Angular", "React", "Struts", "CSS", "JavaScript", "Styled Components"]
-    },
+    }
   ]
 };
 
