@@ -13,6 +13,16 @@ let sharedState = {
   greenfield: 'I additionally run a freelance partnership called GreenField Development.  I have spent the last few years developing this as a mentorship program to assist self taught developers.  I sought to provide the additional skills developers need through a project based mentorship designed specifically for each developer with the Agile Methodology, version control practices and standard project management built into the process.',
   projects: [
     { 
+      id: 13,
+      href: '/projects/13',
+      link: 'https://cmmechanicalhvac.com',
+      title: 'C&M Mechanical HVAC Services',
+      description: 'Company site for C&M Mechanical',
+      imageSrc: '/cmmechanical.png',
+      imageDescription: 'Fusion Medical Staffing home page',
+      tech: ["React", "NextJS", "Tailwind CSS", "TypeScript", "Jest", "React Testing Library", "Storybook"]
+    },
+    { 
       id: 1,
       href: '/projects/1',
       link: 'https://fusionmedstaff.com',

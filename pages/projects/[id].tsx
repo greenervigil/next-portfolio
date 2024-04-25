@@ -44,11 +44,11 @@ const Project: NextPage<ProjectProps> = () => {
       <Container>
         <h2 className="font-mono text-3xl font-semibold text-center">Technologies</h2>
 
-        <ul className="font-mono text-center m-9">
+        <div className="font-mono text-center m-9">
           {project.tech.map((tech, i) => {
-            return <li className="m-4" key={i}>{tech}</li>
+            return <p className="m-4" key={i}>{tech}</p>
           })}
-        </ul>
+        </div>
       </Container>
     </div>
   )
@@ -68,6 +68,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
       { params: { id: '9' }},
       { params: { id: '10' }},
       { params: { id: '11' }},
+      { params: { id: '12' }},
+      { params: { id: '13' }},
     ],
     fallback: false
   }
