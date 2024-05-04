@@ -23,7 +23,7 @@ const About: NextPage = () => {
                             <a className="text-center text-neutral-900 border border-yellow-500 rounded-lg shadow-2xl shadow-slate-900 w-44 h-9 p-1 hover:bg-yellow-100 hover:text-slate-900" target="_blank" rel="noreferrer" href="https://github.com/greenervigil">
                                 github
                             </a>
-                            <a target="_blank" rel="noreferrer" href="https://docs.google.com/document/d/1gmmq6iEGh4FPSr18xBJsINFKs_HUvfWb9hAYEjUJOgo/">
+                            <a target="_blank" rel="noreferrer" href="https://docs.google.com/document/d/1gmmq6iEGh4FPSr18xBJsINFKs_HUvfWb9hAYEjUJOgo">
                                 <Button 
                                     label='Download CV/Resume'
                                 >
