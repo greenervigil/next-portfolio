@@ -3,9 +3,9 @@ const Timeline = () => {
         <div className="font-mono relative my-0 mx-auto w-10/12 after:content-[''] after:absolute after:w-1.5 after:bg-teal-600 after:top-0 after:bottom-0 sm:after:left-1/2 after:-ml-1 after:left-0">
             <div className="relative py-2.5 px-10 sm:w-3/5 sm:left-1/2 after:content-[''] after:absolute after:w-6 after:h-6 after:-right-4 after:bg-black after:rounded-full after:border-4 after:border-teal-600 after:top-4 after:z-10 after:-left-3">
                 <div className="shadow-2xl shadow-teal-600 relative py-5 px-8 rounded-md bg-teal-600">
-                    <h2 className="text-neutral-800 text-2xl font-semibold">Marketplace - Fusion Medical Staffing</h2>
+                    <h2 className="text-neutral-800 text-2xl font-semibold">Fusion Medical Staffing</h2>
                     <p className="text-neutral-900 text-xs">2023 - present</p>
-                    <p className="text-neutral-900 text-lg my-2">Senior Front End Developer </p>
+                    <p className="text-neutral-900 text-lg my-2">Frontend Tech Lead </p>
                     <ul className="text-neutral-900 text-base">
                         <li>Front End Web Development of new features on traveler-driven job market application for healthcare travelers.</li>
                         <li>Maintain NextJs code integration with Storyblok.</li>
