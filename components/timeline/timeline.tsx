@@ -7,8 +7,9 @@ const Timeline = () => {
                     <p className="text-neutral-900 text-xs">2023 - present</p>
                     <p className="text-neutral-900 text-lg my-2">Frontend Tech Lead </p>
                     <ul className="text-neutral-900 text-base">
+                        <li>Design and Develop CMS integration of FMS site with Wordpress and Builder.io</li>
                         <li>Front End Web Development of new features on traveler-driven job market application for healthcare travelers.</li>
-                        <li>Maintain NextJs code integration with Storyblok.</li>
+                        <li>Maintain NextJs code integration with Storyblok on marketplace.</li>
                         <li>Maintain and improve site SEO with NextSEO.</li>
                     </ul>
                 </div>
