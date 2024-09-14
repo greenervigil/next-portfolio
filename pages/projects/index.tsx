@@ -1,14 +1,14 @@
-import { NextPage } from "next";
-import React from "react";
 import Card2 from "../../components/card/card-2";
 import Container from "../../components/container/container";
+import { NextPage } from "next";
+import React from "react";
 import { useAppContext } from "../../context/state";
 
 const Projects: NextPage = () => {
     const data = useAppContext()
     const [filterData, setFilterData] = React.useState(data.projects);
     const [active, setActive] = React.useState<string[]>([]);
-    const tech: string[] = ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'NextJS', 'Bootstrap', 'Wordpress']
+    const tech: string[] = ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'NextJS', 'Bootstrap', 'Wordpress', 'Tailwind CSS', 'Builder.io', 'Algolia', 'Jest', 'React Testing Library', 'Storybook', 'MUI', 'Storyblok', 'NextSEO', 'React Magma', 'Gatsby', 'Shadcn/ui', 'turborepo', 'Lerna', 'Headless Wordpress']
 
     const handleFilter = (e: any) => {
         e.preventDefault()

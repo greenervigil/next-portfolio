@@ -1,11 +1,12 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import React from "react";
+
 import Container from "../../components/container/container";
-import { useAppContext } from "../../context/state";
+import Image from "next/image";
 import { ProjectType } from "../../types/project-type";
+import React from "react";
 import { prefix } from "../../utils/prefix";
+import { useAppContext } from "../../context/state";
+import { useRouter } from "next/router";
 
 interface ProjectProps {
   project: ProjectType
@@ -42,7 +43,7 @@ const Project: NextPage<ProjectProps> = () => {
         <p className="font-mono text-center p-9">{project.description}</p>
       </Container>
       <Container>
-        <h2 className="font-mono text-3xl font-semibold text-center">Technologies</h2>
+        <h2 className="font-mono text-3xl font-semibold text-center">Tech Stack</h2>
 
         <div className="font-mono text-center m-9">
           {project.tech.map((tech, i) => {
@@ -70,6 +71,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       { params: { id: '11' }},
       { params: { id: '12' }},
       { params: { id: '13' }},
+      { params: { id: '14' }},
     ],
     fallback: false
   }
