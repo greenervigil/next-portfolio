@@ -44,7 +44,7 @@ const About: NextPage = () => {
                             <p className="font-base flex flex-wrap justify-center">{content.greenfield}</p>
                         </div>
 
-                        <div className="flex-auto basis-1/2">
+                    {/*<div className="flex-auto basis-1/2">
                             <p className="text-center font-semibold text-xl">GreenField Dev Info</p>
                             <div className="flex justify-center flex-wrap gap-3 m-4">
                                 <a className="text-center border border-yellow-500 rounded-lg shadow-2xl shadow-yellow-600 w-44 h-9 p-1 hover:bg-yellow-100 hover:text-slate-900" target="_blank" rel="noreferrer" href="https://greenfield-org.github.io/">
@@ -54,7 +54,7 @@ const About: NextPage = () => {
                                     github
                                 </a>
                             </div>
-                        </div>
+                        </div>*/}
     {/*</Card>*/}
                 </section>
             </div>
