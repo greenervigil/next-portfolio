@@ -8,10 +8,17 @@ interface AppWrapperProps {
 
 let sharedState = {
   name: 'Daniel Greener-Vigil',
-  title: `Software Engineer / Web Developer <br/>Mentor`,
-  aboutText: `I have been a Software Engineer for ${new Date().getFullYear() - 2014} years.  I have a passion for learning and bring this passion to each project I work on.  I am always open and willing to learn something new.  I always welcome new challenges and help cultivate those abilities in others. 
-  I have worked on multiple projects with a range of technologies.  I have experience with HTML, CSS, JavaScript, TypeScript, React, React Native, Android(Java), Storybook, NextJs, Svelte, SolidJS, Bootstrap, React Bootstrap, Tailwind, Jest, React Testing Library, Redux, MUI, and even Wordpress. `,
-  greenfield: 'I additionally run a freelance partnership called GreenField Development.  I have spent the last few years developing this as a mentorship program to assist self taught developers.  I sought to provide the additional skills developers need through a project based mentorship designed specifically for each developer with the Agile Methodology, version control practices and standard project management built into the process.',
+  title: `Software Engineer | Tech Lead | Mentor`,
+  aboutText: `<p>With over ${new Date().getFullYear() - 2014} years of experience as a Software Engineer, I am driven by a deep passion for learning and a commitment to continuous improvement. This passion fuels everything I do—whether it's tackling new technologies, leading teams through complex challenges, or mentoring the next generation of developers. I thrive in environments where innovation meets collaboration, and I am always eager to take on new challenges that push both my skills and my team’s abilities to new heights.</p>
+  <p>Throughout my career, I've had the opportunity to work on a broad range of projects, leveraging a diverse set of technologies, including:</p></br>
+  <ul class="about-list">
+    <li><strong>Frontend:</strong> HTML, CSS, JavaScript, TypeScript, React React Native, Next.JS, Svelte, SolidJS, Tailwind, Bootstrap, Material UI, NPM, Yarn, PNPM, Turborepo, Storybook.</li>
+    <li><strong>Backend:</strong> Node.js, Express, Java, Spring Boot, GraphQL, RESTful APIs, Prisma, PostgreSQL, MySQL, Redux.</li>
+    <li><strong>Testing:</strong> Jest, React Testing Library, Enzyme, JUnit, Mockito.</li>
+    <li><strong>DevOps:</strong> Docker, Kubernetes, Jenkins, GitHub Actions, AWS, Azure, Google Cloud Platform, Netlify, Vercel.</li>
+    </ul></br>
+    <p>As a Tech Lead, I take pride in not only solving complex technical problems but also in building high-performing, cohesive teams. I believe in creating environments where people feel empowered to share ideas, learn from each other, and push the boundaries of what's possible. My approach is hands-on and collaborative, ensuring that both the code and the people behind it are always moving forward.</p>`,
+  greenfield: '<p>In addition to my engineering work, I lead GreenField Development, a freelance partnership I founded to help self-taught developers accelerate their careers. Through this mentorship program, I focus on developing practical, project-based skills with a strong emphasis on Agile methodologies, version control practices, and project management. It’s incredibly rewarding to guide developers through their journeys and watch them grow into confident, capable contributors.</p>',
   projects: [
     {
       id: 15,
