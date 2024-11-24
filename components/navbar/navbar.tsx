@@ -5,8 +5,7 @@ import Button from "../button/button";
 import NavItem from "../nav-item/nav-item";
 
 const MENU_LIST = [
-    { text: "Home", href: "/" },
-    { text: "About", href: "/about" },
+    { text: "Home", href: "/about" },
     { text: "Experience", href:"/experience"},
     { text: "Projects", href: "/projects"},
     { text: "Contact", href: "/contact" },
