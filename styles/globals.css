@@ -28,3 +28,12 @@ a {
     background: black;
   }
 }
+
+ul {
+  margin-inline: 35px;
+  list-style-type: disc;
+}
+
+.about-list {
+  font-weight: 700;
+}
