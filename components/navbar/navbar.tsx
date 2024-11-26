@@ -1,11 +1,11 @@
-import React from "react";
-import Link from "next/link"
-import Image from "next/image"
 import Button from "../button/button";
+import Image from "next/image"
+import Link from "next/link"
 import NavItem from "../nav-item/nav-item";
+import React from "react";
 
 const MENU_LIST = [
-    { text: "Home", href: "/about" },
+    { text: "Home", href: "/" },
     { text: "Experience", href:"/experience"},
     { text: "Projects", href: "/projects"},
     { text: "Contact", href: "/contact" },
