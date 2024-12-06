@@ -11,11 +11,15 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.14",
+    "@tabler/icons-react": "^3.24.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.13.1",
     "glob": "^9.2.1",
     "next": "^14.2.12",
     "next-seo": "^5.15.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.5.5"
   },
   "devDependencies": {
     "@types/node": "18.7.16",

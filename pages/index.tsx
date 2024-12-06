@@ -5,10 +5,12 @@ import Container from '../components/container/container'
 import Head from 'next/head'
 import Link from 'next/link'
 import type { NextPage } from 'next'
+import { Testimonials } from '../components/testimonials/testimonials'
 import { useAppContext } from '../context/state'
 
 const Home: NextPage = () => {
   const content = useAppContext()
+  console.log(content);
   return (
     <>
       <Head>
@@ -63,6 +65,10 @@ const Home: NextPage = () => {
                             </div>
                         </div>
     {/*</Card>*/}
+                </section>
+                <h2 className="text-2xl text-neutral-800 font-bold text-center mx-20">Hear what people are saying</h2>
+                <section className="flex flex-wrap justify-center gap-4 mx-20">
+                    <Testimonials testimonials={content.testimonials} />
                 </section>
             </div>
         </Container>
