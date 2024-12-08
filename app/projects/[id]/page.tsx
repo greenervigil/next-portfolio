@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 
 interface PageProps {
   params: {
-    id: string; // Ensure the id is typed as a string
+    id: string;
   };
 }
 
@@ -22,7 +22,7 @@ export default function Project({ params }: PageProps) {
   const { id } = params; 
 
   // Fetch the project from the static data
-  const project = state.projects.find((proj: ProjectType) => proj.id.toString() === id);
+  const project = state.projects.find((proj: ProjectType) => proj.id === id);
 
   if (!project) {
     notFound();  
