@@ -1,9 +1,9 @@
+import Button from "../../components/button/button";
+import Card from "../../components/card/card";
+import Container from "../../components/container/container";
+import Input from "../../components/input/input";
 import { NextPage } from "next";
-import Button from "../components/button/button";
-import Card from "../components/card/card";
-import Container from "../components/container/container";
-import Input from "../components/input/input";
-import Textarea from "../components/textarea/textarea";
+import Textarea from "../../components/textarea/textarea";
 
 const Contact: NextPage = () => {
 

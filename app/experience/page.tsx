@@ -1,7 +1,7 @@
+import Button from "../../components/button/button";
+import Container from "../../components/container/container";
 import { NextPage } from "next";
-import Button from "../components/button/button";
-import Container from "../components/container/container";
-import Timeline from "../components/timeline/timeline";
+import Timeline from "../../components/timeline/timeline";
 
 const Experience: NextPage = () => {
     return (

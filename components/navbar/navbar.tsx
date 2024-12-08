@@ -1,8 +1,10 @@
-import Button from "../button/button";
+"use client"
+
+import Button from "../button/button"
 import Image from "next/image"
 import Link from "next/link"
-import NavItem from "../nav-item/nav-item";
-import React from "react";
+import NavItem from "../nav-item/nav-item"
+import React from "react"
 
 const MENU_LIST = [
     { text: "Home", href: "/" },
@@ -13,8 +15,8 @@ const MENU_LIST = [
 
 const Navbar: React.FC = () => {
     const [open, setOpen] = React.useState(false)
-    const [navActive, setNavActive] = React.useState(false);
-    const [activeIdx, setActiveIdx] = React.useState(0);
+    const [navActive, setNavActive] = React.useState(false)
+    const [activeIdx, setActiveIdx] = React.useState(0)
 
     return (
         <header className="bg-white h-20 sticky z-[9999] top-0 shadow-lg shadow-teal-600 border border-solid border-teal-600 rounded-b-xl dark:bg-black">
@@ -72,4 +74,4 @@ const Navbar: React.FC = () => {
     )
 }
 
-export default Navbar;
+export default Navbar

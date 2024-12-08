@@ -1,5 +1,5 @@
+import Container from "../../components/container/container";
 import { NextPage } from "next";
-import Container from "../components/container/container";
 
 const ThankYou: NextPage = () => {
     return (

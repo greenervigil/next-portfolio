@@ -1,5 +1,8 @@
-import Image from "next/image"
+"use client"
+
 import React, { useCallback } from "react"
+
+import Image from "next/image"
 import { prefix } from "../../utils/prefix"
 
 const images: string[] = [

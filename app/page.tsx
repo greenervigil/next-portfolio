@@ -2,28 +2,21 @@ import Button from '../components/button/button'
 import Card from '../components/card/card'
 import Carousel from '../components/carousel/carousel'
 import Container from '../components/container/container'
-import Head from 'next/head'
-import Link from 'next/link'
 import type { NextPage } from 'next'
+import { Suspense } from 'react'
 import { Testimonials } from '../components/testimonials/testimonials'
-import { useAppContext } from '../context/state'
+import { state } from '../context/state'
 
-const Home: NextPage = () => {
-  const content = useAppContext()
-  console.log(content);
+const Page: NextPage = () => {
+
   return (
     <>
-      <Head>
-        <meta name="keywords" content="Daniel Vigil, Daniel Greener-Vigil, profolio, React, Next, NextJS, Tailwind, TailwindCSS, HTML, CSS, JavaScript, Wordpress, Development, Developer"/>
-        <meta name="author" content="Daniel J Greener-Vigil" />
-      </Head>
-    
       <Container>
-            <div className="sm:mt-3 font-mono">
+            <div className="sm:mt-3">
                 <section className="flex flex-wrap justify-center gap-4">
                     <Card>
-                        <h2 className="text-2xl text-neutral-800 font-bold">{content.name}</h2>
-                        <p className="text-ls text-neutral-900 my-2" dangerouslySetInnerHTML={{ __html: content.title }} />
+                        <h1 className="text-3xl text-neutral-800 font-bold">{state.name}</h1>
+                        <p className="text-ls text-neutral-900 my-2" dangerouslySetInnerHTML={{ __html: state.title }} />
                         
                         <div className="flex justify-center items-baseline flex-wrap gap-3 m-4">
                             <a className="text-center text-neutral-900 border border-yellow-500 rounded-lg shadow-2xl shadow-slate-900 w-44 h-9 p-1 hover:bg-yellow-100 hover:text-slate-900" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/danieljvigil/">
@@ -42,19 +35,19 @@ const Home: NextPage = () => {
                         </div>
 
                     </Card>
-                    <Carousel />
+                    {/*<Carousel />*/}
                 </section>
                 <section className="flex flex-wrap justify-center gap-4 mx-20">
                     {/*<Card>*/}
                         <div className="p-5 flex-auto basis-1/2">
-                            <div className="font-base" dangerouslySetInnerHTML={{ __html: content.aboutText}} />
+                            <div className="font-base" dangerouslySetInnerHTML={{ __html: state.aboutText}} />
                         </div>
                         <div className="p-5 flex-auto basis-1/2">
-                            <div className="font-base flex flex-wrap justify-center" dangerouslySetInnerHTML={{ __html: content.greenfield}} />
+                            <div className="font-base flex flex-wrap justify-center" dangerouslySetInnerHTML={{ __html: state.greenfield}} />
                         </div>
 
                         <div className="flex-auto basis-1/2">
-                            <p className="text-center font-semibold text-xl">GreenField Dev Info</p>
+                            <h2 className="text-center font-semibold text-2xl">GreenField Development information</h2>
                             <div className="flex justify-center flex-wrap gap-3 m-4">
                                 {/*<a className="text-center border border-yellow-500 rounded-lg shadow-2xl shadow-yellow-600 w-44 h-9 p-1 hover:bg-yellow-100 hover:text-slate-900" target="_blank" rel="noreferrer" href="https://greenfield-org.github.io/" >
                                     website
@@ -66,14 +59,14 @@ const Home: NextPage = () => {
                         </div>
     {/*</Card>*/}
                 </section>
-                <h2 className="text-2xl text-neutral-800 font-bold text-center mx-20">Hear what people are saying</h2>
-                <section className="flex flex-wrap justify-center gap-4 mx-20">
-                    <Testimonials testimonials={content.testimonials} />
-                </section>
+                <h2 className="text-2xl text-neutral-800 dark:text-neutral-200 font-bold text-center mx-20">Hear what people are saying</h2>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Testimonials testimonials={state.testimonials} />
+                </Suspense>
             </div>
         </Container>
     </>
   )
 }
 
-export default Home
+export default Page

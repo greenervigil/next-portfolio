@@ -1,12 +1,13 @@
-import Card2 from "../../components/card/card-2";
-import Container from "../../components/container/container";
-import { NextPage } from "next";
-import React from "react";
-import { useAppContext } from "../../context/state";
+"use client"
+
+import Card2 from "../../components/card/card-2"
+import Container from "../../components/container/container"
+import { NextPage } from "next"
+import React from "react"
+import { state } from '../../context/state'
 
 const Projects: NextPage = () => {
-    const data = useAppContext()
-    const [filterData, setFilterData] = React.useState(data.projects);
+    const [filterData, setFilterData] = React.useState(state.projects);
     const [active, setActive] = React.useState<string[]>([]);
     const tech: string[] = ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'NextJS', 'Bootstrap', 'Wordpress', 'Tailwind CSS', 'Builder.io', 'Algolia', 'Jest', 'React Testing Library', 'Storybook', 'MUI', 'Storyblok', 'NextSEO', 'React Magma', 'Gatsby', 'Shadcn/ui', 'turborepo', 'Lerna', 'Headless Wordpress']
 
@@ -14,9 +15,9 @@ const Projects: NextPage = () => {
         e.preventDefault()
         setActive([])
         if (e.target.innerHTML === 'All') {
-            setFilterData(data.projects)
+            setFilterData(state.projects)
         } else {
-            setFilterData(data.projects.filter(
+            setFilterData(state.projects.filter(
                 project => project.tech.includes(e.target.innerHTML)
             ))
             setActive(e.target.innerHTML)
