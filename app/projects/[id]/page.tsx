@@ -18,11 +18,11 @@ interface PageProps {
   };
 }
 
-export default function Project({ params }: PageProps) {
-  const { id } = params; 
+export default async function Project({ params }: PageProps) {
+  const { id } = await params; 
 
   // Fetch the project from the static data
-  const project = state.projects.find((proj: ProjectType) => proj.id === id);
+  const project = state.projects.find((proj: ProjectType) => proj.id.toString() === id);
 
   if (!project) {
     notFound();  
