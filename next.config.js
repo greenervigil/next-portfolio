@@ -5,7 +5,6 @@ const nextConfig = {
   basePath: process.env.NEXT_PUBLIC_BASE_PATH,
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH,
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -56,6 +55,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'www.solidjs.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.licdn.com'
       }
     ]
   }

@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import { AnimatePresence, motion } from "framer-motion";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
@@ -12,41 +12,32 @@ type Testimonial = {
   designation: string;
   src: string;
 };
-export const Testimonials = ({
-  testimonials,
-  autoplay = false,
-}: {
-  testimonials: Testimonial[];
-  autoplay?: boolean;
-}) => {
+
+export const Testimonials = ({ testimonials, autoplay = false }: { testimonials: Testimonial[]; autoplay?: boolean }) => {
   const [active, setActive] = useState(0);
- 
-  const handleNext = useCallback(() => {
-    setActive((prev) => (prev + 1) % testimonials.length);
-  }, [testimonials.length]);
- 
-  const handlePrev = () => {
-    setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
- 
-  const isActive = (index: number) => {
-    return index === active;
-  };
- 
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   useEffect(() => {
     if (autoplay) {
-      const interval = setInterval(handleNext, 5000);
-      return () => clearInterval(interval);
+      const interval = setInterval(() => setActive((prev) => (prev + 1) % testimonials.length), 5000);
+      return () => clearInterval(interval); // Cleanup interval on unmount
     }
-  }, [autoplay, handleNext]);
- 
-  const randomRotateY = () => {
-    return Math.floor(Math.random() * 21) - 10;
-  };
+  }, [autoplay, testimonials.length]);
+
+  const isActive = (index: number) => index === active;
+
+  const randomRotateY = () => Math.floor(Math.random() * 21) - 10;
+
+  if (!isMounted) return null; // Avoid rendering until client-side mount
+
   return (
-    <div className="max-w-sm md:max-w-6xl mx-auto antialiased font-sans px-4 md:px-8 lg:px-12 py-20">
-      <div className="relative grid grid-cols-1 md:grid-cols-2  gap-20">
-        <div>
+    <div className="max-w-sm md:max-w-4xl mx-auto antialiased px-4 md:px-8 lg:px-12 py-20">
+      <div className="relative flex flex-col md:flex-row gap-20">
+        <div className="w-full md:w-1/3">
           <div className="relative h-80 w-full">
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
@@ -63,9 +54,7 @@ export const Testimonials = ({
                     scale: isActive(index) ? 1 : 0.95,
                     z: isActive(index) ? 0 : -100,
                     rotate: isActive(index) ? 0 : randomRotateY(),
-                    zIndex: isActive(index)
-                      ? 999
-                      : testimonials.length + 2 - index,
+                    zIndex: isActive(index) ? 999 : testimonials.length + 2 - index,
                     y: isActive(index) ? [0, -80, 0] : 0,
                   }}
                   exit={{
@@ -83,8 +72,8 @@ export const Testimonials = ({
                   <Image
                     src={testimonial.src}
                     alt={testimonial.name}
-                    width={500}
-                    height={500}
+                    width={400}
+                    height={400}
                     draggable={false}
                     className="h-full w-full rounded-3xl object-cover object-center"
                   />
@@ -93,7 +82,8 @@ export const Testimonials = ({
             </AnimatePresence>
           </div>
         </div>
-        <div className="flex justify-between flex-col py-4">
+
+        <div className="w-2/3 flex justify-between flex-col py-4">
           <motion.div
             key={active}
             initial={{
@@ -113,12 +103,8 @@ export const Testimonials = ({
               ease: "easeInOut",
             }}
           >
-            <h3 className="text-2xl font-bold dark:text-white text-black">
-              {testimonials[active].name}
-            </h3>
-            <p className="text-sm text-gray-500 dark:text-neutral-500">
-              {testimonials[active].designation}
-            </p>
+            <h3 className="text-2xl font-bold dark:text-white text-black">{testimonials[active].name}</h3>
+            <p className="text-sm text-gray-500 dark:text-neutral-500">{testimonials[active].designation}</p>
             <motion.p className="text-lg text-gray-500 mt-8 dark:text-neutral-300">
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
@@ -147,13 +133,13 @@ export const Testimonials = ({
           </motion.div>
           <div className="flex gap-4 pt-12 md:pt-0">
             <button
-              onClick={handlePrev}
+              onClick={() => setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
               className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
             >
               <IconArrowLeft className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:rotate-12 transition-transform duration-300" />
             </button>
             <button
-              onClick={handleNext}
+              onClick={() => setActive((prev) => (prev + 1) % testimonials.length)}
               className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
             >
               <IconArrowRight className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:-rotate-12 transition-transform duration-300" />

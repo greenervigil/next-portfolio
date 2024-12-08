@@ -1,12 +1,12 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 
-import Container from "../../components/container/container";
+import Container from "../../../components/container/container"
 import Image from "next/image";
-import { ProjectType } from "../../types/project-type";
-import React from "react";
-import { prefix } from "../../utils/prefix";
-import { useAppContext } from "../../context/state";
-import { useRouter } from "next/router";
+import { ProjectType } from "../../../types/project-type"
+import React from "react"
+import { prefix } from "../../../utils/prefix"
+import { state } from '../../../context/state'
+import { useRouter } from "next/router"
 
 interface ProjectProps {
   project: ProjectType
@@ -16,7 +16,7 @@ const Project: NextPage<ProjectProps> = () => {
   const router = useRouter()
   const { id } = router.query
 
-  const data: ProjectType[] = useAppContext().projects
+  const data: ProjectType[] = state.projects
   const project = data.filter(proj => proj.id == id)[0]
 
   if (router.isFallback) {

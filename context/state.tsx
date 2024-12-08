@@ -1,18 +1,10 @@
-import React, { ReactNode } from 'react';
-
-import { UserType } from '../types/user-type';
-
-interface AppWrapperProps {
-  children: ReactNode;
-}
-
-let testimonials = [
+const testimonials = [
   {
     name: 'Alyx Smeal',
     designation: 'Business Analyst',
     company: 'Fusion Medical Staffing',
-    src: 'https://media.licdn.com/dms/image/v2/D5603AQHOG7LATso3sQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1718985210367?e=2147483647&v=beta&t=10B5vtPQHgqvFQiyS1P9CGhTjIwqb3Vc8QtjGZB02lo',
-    quote: `Dan's nomination for this award is a no-brainer, given his ongoing contributions to our team and company, and for his embodiment of our core values in every aspect of his work. Dan's ability to explain technical concepts to non-technical stakeholders with patience and clarity is unmatched, fostering collaboration and understanding without a hint of superiority. Recently, Dan identified a new CMS for our Tech stack. It will revolutionize our content management, making it more user-friendly and cost-effective. Dan's diligence in researching, involving stakeholders, and demonstrating the product reflects his commitment to finding the best solutions for our team. As a Tech Lead, Dan is a mentor and encourages team members to explore and learn independently, nurturing a culture of growth and empowerment. Above all, Dan's hard work, caring nature, and dedication to Fusion's success make him an invaluable member of our team. I don’t know what we would do without Dan here at Fusion.`
+    src: 'https://media.licdn.com/dms/image/v2/D5603AQHOG7LATso3sQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718985210368?e=1738800000&v=beta&t=12rLDfgolU5eKFXAm6rsFzMjEQ2ofjefXOF9URtvVEk',
+    quote: `Dan's ability to explain technical concepts to non-technical stakeholders with patience and clarity is unmatched, fostering collaboration and understanding without a hint of superiority. Recently, Dan identified a new CMS for our Tech stack. It will revolutionize our content management, making it more user-friendly and cost-effective. Dan's diligence in researching, involving stakeholders, and demonstrating the product reflects his commitment to finding the best solutions for our team. As a Tech Lead, Dan is a mentor and encourages team members to explore and learn independently, nurturing a culture of growth and empowerment. Above all, Dan's hard work, caring nature, and dedication made him an invaluable member of our team. I don’t know what we would do without Dan here at Fusion.`
   },
   {
     name: 'Emily Slattery',
@@ -26,7 +18,7 @@ let testimonials = [
     designation: 'Backend Tech Lead',
     company: 'Fusion Medical Staffing',
     src: 'https://media.licdn.com/dms/image/C4D03AQFaqFWobLjINA/profile-displayphoto-shrink_200_200/0/1613662721065?e=2147483647&v=beta&t=Axf937IxcRcbL1nUwdlBRTv0oB8ZtjtdA6UXTWqgNl4',
-    quote: `His personality and willingness to take on new challenges is one of, if not, the best I have ever seen. He has been an excellent support for the PM and a fantastic mentor for his team. His knowledge and dedication have helped get web and other projects through some difficult times. his ficus on positive mentorship has helped repair some damage from poor mentors in the past. I am happy to work with him.`
+    quote: `His personality and willingness to take on new challenges is one of, if not, the best I have ever seen. He has been an excellent support for the PM and a fantastic mentor for his team. His knowledge and dedication have helped get web and other projects through some difficult times. His focus on positive mentorship has helped repair some damage from poor mentors in the past. I am happy to work with him.`
   },
   {
     name: 'Hanna Littlefield',
@@ -37,7 +29,7 @@ let testimonials = [
   }
 ]
 
-let sharedState = {
+export const state = {
   name: 'Daniel Greener-Vigil',
   title: `Software Engineer | Tech Lead | Mentor`,
   aboutText: `<p>With over ${new Date().getFullYear() - 2014} years of experience as a Software Engineer, I am driven by a deep passion for learning and a commitment to continuous improvement. This passion fuels everything I do—whether it's tackling new technologies, leading teams through complex challenges, or mentoring the next generation of developers. I thrive in environments where innovation meets collaboration, and I am always eager to take on new challenges that push both my skills and my team’s abilities to new heights.</p>
@@ -204,19 +196,3 @@ let sharedState = {
   ], 
   testimonials: [...testimonials],
 };
-
-const AppContext = React.createContext<UserType>(sharedState);
-
-export const AppWrapper: React.FC<AppWrapperProps> = ({ children }) => {
-  
-
-  return (
-    <AppContext.Provider value={sharedState}>
-      {children}
-    </AppContext.Provider>
-  )
-}
-
-export const useAppContext = () => {
-  return React.useContext(AppContext);
-}
