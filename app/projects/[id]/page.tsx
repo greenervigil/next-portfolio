@@ -13,8 +13,8 @@ export function generateStaticParams() {
   return paths;
 }
 
-export default function Project({ params }: { params: { id: string } }) {
-  const { id } = params;  // Destructure `id` from `params`
+export default async function Project({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;  // Destructure `id` from `params`
 
   // Find the project that matches the id from state.projects
   const project = state.projects.find((proj: ProjectType) => proj.id.toString() === id);
