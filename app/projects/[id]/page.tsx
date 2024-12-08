@@ -13,14 +13,7 @@ export function generateStaticParams() {
   return paths;
 }
 
-// Define the type for params
-interface PageProps {
-  params: {
-    id: string;  // `id` is expected as a string in the URL
-  };
-}
-
-export default function Project({ params }: PageProps) {
+export default function Project({ params }: { params: { id: string } }) {
   const { id } = params;  // Destructure `id` from `params`
 
   // Find the project that matches the id from state.projects
