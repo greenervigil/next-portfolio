@@ -12,7 +12,13 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export default function Project({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: {
+    id: string; // Ensure the id is typed as a string
+  };
+}
+
+export default function Project({ params }: PageProps) {
   const { id } = params; 
 
   // Fetch the project from the static data
