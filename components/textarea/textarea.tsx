@@ -1,10 +1,22 @@
-const Textarea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement>> = () => {
-  return (
-    <div className="flex justify-between m-2">
-      <label className="font-mono text-neutral-900 mr-1" htmlFor='message'>Message</label>
-      <textarea className="font-mono w-3/4 h-48 rounded border-solid border-cyan-400 bg-slate-50 text-slate-700 p-2" name="message" id='message' placeholder="Send me your details" required></textarea>
-    </div>
-  )
-}
+import * as React from "react"
 
-export default Textarea;
+import { cn } from "../../lib/utils"
+
+const Textarea = React.forwardRef<
+  HTMLTextAreaElement,
+  React.ComponentProps<"textarea">
+>(({ className, ...props }, ref) => {
+  return (
+    <textarea
+      className={cn(
+        "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+        className
+      )}
+      ref={ref}
+      {...props}
+    />
+  )
+})
+Textarea.displayName = "Textarea"
+
+export default Textarea 

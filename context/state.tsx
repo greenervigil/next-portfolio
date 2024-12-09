@@ -38,7 +38,7 @@ export const state = {
     <li><strong>Frontend:</strong> HTML, CSS, JavaScript, TypeScript, React React Native, Next.JS, Svelte, SolidJS, Tailwind, Bootstrap, Material UI, NPM, Yarn, PNPM, Turborepo, Storybook.</li>
     <li><strong>Backend:</strong> Node.js, Express, Java, Spring Boot, GraphQL, RESTful APIs, Prisma, PostgreSQL, MySQL, Redux.</li>
     <li><strong>Testing:</strong> Jest, React Testing Library, Enzyme, JUnit, Mockito.</li>
-    <li><strong>DevOps:</strong> Docker, Kubernetes, Jenkins, GitHub Actions, AWS, Azure, Google Cloud Platform, Netlify, Vercel.</li>
+    <li><strong>DevOps:</strong> Docker, Kubernetes, Jenkins, GitHub Actions, Azure, Heroku, Netlify, Vercel.</li>
     </ul></br>
     <p>As a Tech Lead, I take pride in not only solving complex technical problems but also in building high-performing, cohesive teams. I believe in creating environments where people feel empowered to share ideas, learn from each other, and push the boundaries of what's possible. My approach is hands-on and collaborative, ensuring that both the code and the people behind it are always moving forward.</p>`,
   greenfield: '<p>In addition to my engineering work, I lead GreenField Development, a freelance partnership I founded to help self-taught developers accelerate their careers. Through this mentorship program, I focus on developing practical, project-based skills with a strong emphasis on Agile methodologies, version control practices, and project management. It’s incredibly rewarding to guide developers through their journeys and watch them grow into confident, capable contributors.</p>',
