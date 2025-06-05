@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     title: "Daniel Greener-Vigil - Software Engineer & Tech Lead",
     description:
       "Portfolio of Daniel Greener-Vigil, an experienced Software Engineer, Tech Lead, and Mentor with 11+ years of experience in full-stack development.",
-    url: "https://danielgreenervigil.com",
+    url: "https://greenervigil.dev",
     siteName: "Daniel Greener-Vigil",
     images: [
       {
