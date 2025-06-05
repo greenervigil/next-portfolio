@@ -123,10 +123,11 @@ export function Experience() {
               <Briefcase className="h-6 w-6 text-orange-400" />
               <div className="w-8 h-px bg-gradient-to-l from-transparent to-orange-400" />
             </div>
-            <h2 className="text-3xl sm:text-4xl font-orbitron font-bold mb-4 text-orange-400 tracking-wider">
-              EXPERIENCE_LOG.DAT
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold mb-4 text-orange-400 tracking-wide sm:tracking-wider">
+              <span className="block sm:hidden">EXPERIENCE.DAT</span>
+              <span className="hidden sm:block">EXPERIENCE_LOG.DAT</span>
             </h2>
-            <p className="text-lg text-cyan-100 font-inter">
+            <p className="text-base sm:text-lg text-cyan-100 font-inter">
               A journey of growth, leadership, and technical excellence
             </p>
           </div>
