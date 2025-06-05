@@ -75,10 +75,13 @@ export function Skills() {
               <Database className="h-6 w-6 text-cyan-400" />
               <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400" />
             </div>
-            <h2 className="text-3xl sm:text-4xl font-orbitron font-bold mb-4 text-cyan-400 tracking-wider">
-              TECH_STACK.JSON
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold mb-4 text-cyan-400 tracking-wide sm:tracking-wider">
+              <span className="block sm:hidden">TECH_STACK</span>
+              <span className="hidden sm:block">TECH_STACK.JSON</span>
             </h2>
-            <p className="text-lg text-cyan-100 font-inter">Technologies and tools I use to bring ideas to life</p>
+            <p className="text-base sm:text-lg text-cyan-100 font-inter">
+              Technologies and tools I use to bring ideas to life
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -127,16 +130,17 @@ export function Skills() {
           {/* Continuous Learning Section */}
           <Card className="bg-gradient-to-r from-black/80 to-black/60 border border-cyan-400/30 backdrop-blur-sm relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-orange-400/5" />
-            <CardContent className="p-8 relative z-10">
+            <CardContent className="p-4 sm:p-8 relative z-10">
               <div className="text-center space-y-6">
-                <div className="inline-flex items-center space-x-2">
-                  <Cpu className="h-6 w-6 text-cyan-400" />
-                  <h3 className="text-xl font-orbitron font-bold text-cyan-400 tracking-wider">
-                    CONTINUOUS_LEARNING.INIT
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-0 sm:space-x-2">
+                  <Cpu className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400" />
+                  <h3 className="text-lg sm:text-xl font-orbitron font-bold text-cyan-400 tracking-wide sm:tracking-wider">
+                    <span className="block sm:hidden">LEARNING.INIT</span>
+                    <span className="hidden sm:block">CONTINUOUS_LEARNING.INIT</span>
                   </h3>
-                  <Cpu className="h-6 w-6 text-cyan-400" />
+                  <Cpu className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400" />
                 </div>
-                <p className="text-cyan-100 font-inter max-w-3xl mx-auto">
+                <p className="text-cyan-100 font-inter max-w-3xl mx-auto text-sm sm:text-base">
                   Throughout my career, I've had the opportunity to work on a broad range of projects, leveraging a
                   diverse set of technologies. I'm always eager to take on new challenges that push both my skills and
                   my team's abilities to new heights, constantly exploring emerging technologies and best practices.
