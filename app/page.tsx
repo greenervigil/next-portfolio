@@ -5,6 +5,13 @@ import { Skills } from "@/components/skills"
 import { Projects } from "@/components/projects"
 import { Testimonials } from "@/components/testimonials"
 import { Contact } from "@/components/contact"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+}
 
 export default function Home() {
   return (
