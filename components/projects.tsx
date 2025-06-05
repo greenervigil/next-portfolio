@@ -513,21 +513,26 @@ export function Projects() {
   // Get hexagon grid layout based on screen size
   const getHexagonLayout = () => {
     if (isMobile) {
-      // Mobile layout: 3 columns with vertical stacking
+      // Mobile layout: 3 columns with proper spacing
+      const availableWidth = containerWidth - 32 // Account for padding
+      const hexWidth = Math.min(140, availableWidth / 2.3) // Much larger hexagons,
       return {
-        rows: 6,
-        itemsPerRow: 3,
-        hexWidth: Math.min(110, containerWidth / 3.2),
-        hexHeight: Math.min(110, containerWidth / 3.2) * 0.9,
-        pattern: [3, 3, 3, 3, 3, 3], // 3 hexagons per row for 6 rows
+        rows: 9,
+        itemsPerRow: 2,
+        hexWidth: hexWidth,
+        hexHeight: hexWidth * 0.9,
+        pattern: [2, 2, 2, 2, 2, 2, 2, 2, 2], // 3 hexagons per row for 6 rows
       }
     } else {
       // Desktop layout: 3-4-5-4-2 pattern
+      const availableWidth = containerWidth - 64 // Account for padding
+      const hexWidth = Math.min(180, availableWidth / 5.5)
+
       return {
         rows: 5,
         itemsPerRow: 5,
-        hexWidth: Math.min(180, containerWidth / 5.5),
-        hexHeight: Math.min(180, containerWidth / 5.5) * 0.9,
+        hexWidth: hexWidth,
+        hexHeight: hexWidth * 0.9,
         pattern: [3, 4, 5, 4, 2], // Original pattern
       }
     }
@@ -538,16 +543,16 @@ export function Projects() {
   // Calculate position for each hexagon
   const getHexPosition = (index: number) => {
     if (isMobile) {
-      // Mobile layout: 3 columns with vertical stacking
-      const col = index % 3
-      const row = Math.floor(index / 3)
+      // Mobile layout: 2 columns with proper centering
+      const col = index % 2
+      const row = Math.floor(index / 2)
 
       // Offset every other row for honeycomb effect
       const xOffset = row % 2 === 0 ? 0 : layout.hexWidth / 2
 
-      // Center the grid
-      const totalWidth = 3 * layout.hexWidth
-      const leftMargin = (containerWidth - totalWidth) / 2
+      // Center the grid with proper margins
+      const totalWidth = 2 * layout.hexWidth + layout.hexWidth / 2 // Account for offset
+      const leftMargin = Math.max(16, (containerWidth - totalWidth) / 2) // Minimum 16px margin
 
       return {
         x: leftMargin + col * layout.hexWidth + xOffset,
@@ -569,7 +574,7 @@ export function Projects() {
 
       const positionInRow = index - currentIndex
       const rowWidth = pattern[row] * layout.hexWidth
-      const leftMargin = (containerWidth - rowWidth) / 2
+      const leftMargin = Math.max(32, (containerWidth - rowWidth) / 2) // Minimum 32px margin
 
       return {
         x: leftMargin + positionInRow * layout.hexWidth,
@@ -580,7 +585,8 @@ export function Projects() {
 
   // Calculate container height based on layout
   const getContainerHeight = () => {
-    return layout.rows * (layout.hexHeight * 0.75) + layout.hexHeight * 0.25 + 40
+    const baseHeight = layout.rows * (layout.hexHeight * 0.75) + layout.hexHeight * 0.25
+    return isMobile ? baseHeight + 10 : baseHeight + 20 // Much reduced padding
   }
 
   return (
@@ -588,16 +594,17 @@ export function Projects() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <div className="inline-flex items-center space-x-2 mb-4">
               <div className="w-8 h-px bg-gradient-to-r from-transparent to-orange-400" />
               <Terminal className="h-6 w-6 text-orange-400" />
               <div className="w-8 h-px bg-gradient-to-l from-transparent to-orange-400" />
             </div>
-            <h2 className="text-3xl sm:text-4xl font-orbitron font-bold mb-4 text-orange-400 tracking-wider">
-              PROJECT_MATRIX.HEX
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold mb-4 text-orange-400 tracking-wide sm:tracking-wider">
+              <span className="block sm:hidden">PROJECT_MATRIX</span>
+              <span className="hidden sm:block">PROJECT_MATRIX.HEX</span>
             </h2>
-            <p className="text-lg text-cyan-100 font-inter">
+            <p className="text-base sm:text-lg text-cyan-100 font-inter">
               Interactive hexagonal grid showcasing 18 innovative projects
             </p>
           </div>
@@ -605,10 +612,11 @@ export function Projects() {
           {/* Hexagonal Grid Container */}
           <div
             ref={containerRef}
-            className="relative w-full mx-auto"
+            className="relative w-full mx-auto overflow-hidden" // Added overflow-hidden
             style={{
               height: containerWidth ? `${getContainerHeight()}px` : "800px",
-              minHeight: isMobile ? "1200px" : "800px",
+              minHeight: isMobile ? "900px" : "800px",
+              maxWidth: "100%",
             }}
           >
             {containerWidth > 0 && (
@@ -620,12 +628,12 @@ export function Projects() {
 
                     // Connect to next hexagon in same row
                     if (isMobile) {
-                      // For mobile: connect hexagons in a honeycomb pattern
-                      const row = Math.floor(index / 3)
-                      const col = index % 3
+                      // For mobile: connect hexagons in a 2-column honeycomb pattern
+                      const row = Math.floor(index / 2)
+                      const col = index % 2
 
                       // Connect to right neighbor if not last in row
-                      if (col < 2 && index < 17) {
+                      if (col < 1 && index < 17) {
                         const nextPos = getHexPosition(index + 1)
                         return (
                           <line
@@ -800,8 +808,8 @@ export function Projects() {
           </div>
 
           {/* Instructions */}
-          <div className="text-center mt-12">
-            <p className="text-cyan-100 font-inter">
+          <div className="text-center">
+            <p className="text-cyan-100 font-inter text-sm sm:text-base">
               <span className="text-cyan-400 font-orbitron tracking-wider">CLICK</span> any hexagon to access detailed
               project information
             </p>
