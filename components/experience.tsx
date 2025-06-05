@@ -142,39 +142,50 @@ export function Experience() {
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-transparent to-orange-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 <CardHeader className="relative z-10">
-                  <div className="flex items-start justify-between">
-                    <div className="space-y-3">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="space-y-3 flex-1">
                       <CardTitle className="text-xl flex items-center gap-3 font-orbitron">
                         <Zap className="h-5 w-5 text-cyan-400 group-hover:text-orange-400 transition-colors" />
                         <span className="text-cyan-400 group-hover:text-orange-400 transition-colors tracking-wider">
                           {exp.title}
                         </span>
                       </CardTitle>
-                      <div className="flex items-center gap-4 text-cyan-100">
-                        <div className="flex items-center gap-2">
-                          <Calendar className="h-4 w-4 text-orange-400" />
-                          <span className="font-inter">{exp.period}</span>
+
+                      {/* Mobile-optimized metadata section */}
+                      <div className="space-y-2">
+                        {/* Date and Status Row */}
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                          <div className="flex items-center gap-2">
+                            <Calendar className="h-4 w-4 text-orange-400" />
+                            <span className="font-inter text-cyan-100 text-sm sm:text-base">{exp.period}</span>
+                          </div>
+                          <Badge
+                            variant="outline"
+                            className={`font-orbitron text-xs tracking-wider self-start sm:self-auto ${
+                              exp.status === "ACTIVE"
+                                ? "border-green-400/50 text-green-400 bg-green-400/10"
+                                : "border-orange-400/50 text-orange-400 bg-orange-400/10"
+                            }`}
+                          >
+                            {exp.status}
+                          </Badge>
                         </div>
-                        <Badge
-                          variant="outline"
-                          className={`font-orbitron text-xs tracking-wider ${
-                            exp.status === "ACTIVE"
-                              ? "border-green-400/50 text-green-400 bg-green-400/10"
-                              : "border-orange-400/50 text-orange-400 bg-orange-400/10"
-                          }`}
-                        >
-                          {exp.status}
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="border-cyan-400/50 text-cyan-400 bg-cyan-400/10 font-orbitron text-xs tracking-wider"
-                        >
-                          {exp.company}
-                        </Badge>
+
+                        {/* Company Badge */}
+                        <div>
+                          <Badge
+                            variant="outline"
+                            className="border-cyan-400/50 text-cyan-400 bg-cyan-400/10 font-orbitron text-xs tracking-wider"
+                          >
+                            {exp.company}
+                          </Badge>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <p className="text-cyan-100 font-inter border-l-2 border-cyan-400/50 pl-4">{exp.description}</p>
+                  <p className="text-cyan-100 font-inter border-l-2 border-cyan-400/50 pl-4 text-sm sm:text-base">
+                    {exp.description}
+                  </p>
                 </CardHeader>
                 <CardContent className="relative z-10">
                   <h4 className="font-orbitron font-bold mb-4 text-orange-400 tracking-wider">KEY_ACHIEVEMENTS:</h4>
