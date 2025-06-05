@@ -162,8 +162,11 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
       {/* Modal with holographic projection effect */}
       <div
-        className={`relative w-full max-w-4xl max-h-[90vh] overflow-hidden transition-all duration-700 transform ${
+        className={`relative w-full transition-all duration-700 transform ${
           isVisible ? "scale-100 opacity-100 translate-y-0 rotate-0" : "scale-75 opacity-0 translate-y-8 rotate-x-12"
+        } ${
+          // Mobile responsive sizing
+          "max-w-[95vw] sm:max-w-4xl max-h-[85vh] sm:max-h-[90vh] overflow-hidden"
         }`}
         style={{
           perspective: "1000px",
@@ -218,22 +221,30 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Terminal Header with enhanced glow */}
           <div
-            className={`flex items-center justify-between p-4 border-b bg-gradient-to-r backdrop-blur-sm ${
+            className={`flex items-center justify-between p-3 sm:p-4 border-b bg-gradient-to-r backdrop-blur-sm ${
               project.color === "cyan"
                 ? "border-cyan-400/40 from-cyan-400/10 to-orange-400/5"
                 : "border-orange-400/40 from-orange-400/10 to-cyan-400/5"
             }`}
           >
-            <div className="flex items-center space-x-3">
-              <div className="flex space-x-2">
-                <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-                <div className="w-3 h-3 bg-yellow-500 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }} />
-                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: "1s" }} />
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              <div className="flex space-x-1 sm:space-x-2">
+                <div className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full animate-pulse" />
+                <div
+                  className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-500 rounded-full animate-pulse"
+                  style={{ animationDelay: "0.5s" }}
+                />
+                <div
+                  className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse"
+                  style={{ animationDelay: "1s" }}
+                />
               </div>
-              <div className="flex items-center space-x-2">
-                <Terminal className={`h-4 w-4 ${project.color === "cyan" ? "text-cyan-400" : "text-orange-400"}`} />
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <Terminal
+                  className={`h-3 w-3 sm:h-4 sm:w-4 ${project.color === "cyan" ? "text-cyan-400" : "text-orange-400"}`}
+                />
                 <span
-                  className={`font-orbitron text-sm tracking-wider ${project.color === "cyan" ? "text-cyan-400" : "text-orange-400"}`}
+                  className={`font-orbitron text-xs sm:text-sm tracking-wider ${project.color === "cyan" ? "text-cyan-400" : "text-orange-400"}`}
                 >
                   HOLOGRAPHIC_TERMINAL.EXE
                 </span>
@@ -243,14 +254,14 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               variant="ghost"
               size="icon"
               onClick={handleClose}
-              className={`${project.color === "cyan" ? "text-cyan-400 hover:text-orange-400 hover:bg-cyan-400/10" : "text-orange-400 hover:text-cyan-400 hover:bg-orange-400/10"} transition-all duration-300`}
+              className={`${project.color === "cyan" ? "text-cyan-400 hover:text-orange-400 hover:bg-cyan-400/10" : "text-orange-400 hover:text-cyan-400 hover:bg-orange-400/10"} transition-all duration-300 h-8 w-8 sm:h-auto sm:w-auto`}
             >
               <X className="h-4 w-4" />
             </Button>
           </div>
 
           {/* Terminal Content with enhanced styling */}
-          <div className="p-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
+          <div className="p-4 sm:p-6 max-h-[70vh] sm:max-h-[70vh] overflow-y-auto custom-scrollbar">
             {/* Command Prompt with typing effect */}
             <div className="mb-6">
               <div className="flex items-center space-x-2 mb-2">
@@ -292,17 +303,17 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               <div className="animate-in fade-in duration-1000">
                 {/* Project Header with enhanced glow */}
                 <div
-                  className={`mb-8 p-4 border rounded backdrop-blur-sm ${
+                  className={`mb-6 sm:mb-8 p-3 sm:p-4 border rounded backdrop-blur-sm ${
                     project.color === "cyan"
                       ? "border-cyan-400/40 bg-gradient-to-r from-cyan-400/10 to-orange-400/5"
                       : "border-orange-400/40 bg-gradient-to-r from-orange-400/10 to-cyan-400/5"
                   }`}
                 >
-                  <div className="flex items-start justify-between mb-4">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 space-y-3 sm:space-y-0">
                     <div className="flex items-center space-x-3">
                       <div className="relative">
                         <project.icon
-                          className={`h-8 w-8 ${project.color === "cyan" ? "text-cyan-400" : "text-orange-400"}`}
+                          className={`h-6 w-6 sm:h-8 sm:w-8 ${project.color === "cyan" ? "text-cyan-400" : "text-orange-400"}`}
                         />
                         <div
                           className={`absolute inset-0 ${
@@ -312,16 +323,16 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                       </div>
                       <div>
                         <h2
-                          className={`text-2xl font-orbitron font-bold tracking-wider ${project.color === "cyan" ? "text-cyan-400" : "text-orange-400"}`}
+                          className={`text-lg sm:text-2xl font-orbitron font-bold tracking-wider ${project.color === "cyan" ? "text-cyan-400" : "text-orange-400"}`}
                         >
                           {project.title}
                         </h2>
-                        <p className="text-cyan-100 font-inter">{project.description}</p>
+                        <p className="text-cyan-100 font-inter text-sm sm:text-base">{project.description}</p>
                       </div>
                     </div>
                     <Badge
                       variant="outline"
-                      className={`font-orbitron text-xs tracking-wider ${
+                      className={`font-orbitron text-xs tracking-wider self-start ${
                         project.status === "ACTIVE"
                           ? "border-green-400/50 text-green-400 bg-green-400/10"
                           : project.status === "PRODUCTION"
@@ -334,24 +345,30 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   </div>
 
                   {/* Project Meta with enhanced styling */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-sm">
                     <div className="flex items-center space-x-2">
                       <Calendar
-                        className={`h-4 w-4 ${project.color === "cyan" ? "text-orange-400" : "text-cyan-400"}`}
+                        className={`h-3 w-3 sm:h-4 sm:w-4 ${project.color === "cyan" ? "text-orange-400" : "text-cyan-400"}`}
                       />
-                      <span className="text-cyan-100 font-inter">{project.year}</span>
+                      <span className="text-cyan-100 font-inter text-xs sm:text-sm">{project.year}</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Zap className={`h-4 w-4 ${project.color === "cyan" ? "text-orange-400" : "text-cyan-400"}`} />
-                      <span className="text-cyan-100 font-inter">{project.duration}</span>
+                      <Zap
+                        className={`h-3 w-3 sm:h-4 sm:w-4 ${project.color === "cyan" ? "text-orange-400" : "text-cyan-400"}`}
+                      />
+                      <span className="text-cyan-100 font-inter text-xs sm:text-sm">{project.duration}</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Users className={`h-4 w-4 ${project.color === "cyan" ? "text-orange-400" : "text-cyan-400"}`} />
-                      <span className="text-cyan-100 font-inter">{project.team}</span>
+                      <Users
+                        className={`h-3 w-3 sm:h-4 sm:w-4 ${project.color === "cyan" ? "text-orange-400" : "text-cyan-400"}`}
+                      />
+                      <span className="text-cyan-100 font-inter text-xs sm:text-sm">{project.team}</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Target className={`h-4 w-4 ${project.color === "cyan" ? "text-orange-400" : "text-cyan-400"}`} />
-                      <span className="text-cyan-100 font-inter">{project.role}</span>
+                      <Target
+                        className={`h-3 w-3 sm:h-4 sm:w-4 ${project.color === "cyan" ? "text-orange-400" : "text-cyan-400"}`}
+                      />
+                      <span className="text-cyan-100 font-inter text-xs sm:text-sm">{project.role}</span>
                     </div>
                   </div>
                 </div>
@@ -434,46 +451,46 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
                 {/* Action Buttons */}
                 <div
-                  className={`flex flex-wrap gap-3 pt-4 border-t ${project.color === "cyan" ? "border-cyan-400/30" : "border-orange-400/30"}`}
+                  className={`flex flex-wrap gap-2 sm:gap-3 pt-4 border-t ${project.color === "cyan" ? "border-cyan-400/30" : "border-orange-400/30"}`}
                 >
                   {project.links.demo && (
                     <Button
-                      className={`font-orbitron text-xs tracking-wider transition-all duration-300 ${
+                      className={`font-orbitron text-xs tracking-wider transition-all duration-300 flex-1 sm:flex-none ${
                         project.color === "cyan"
                           ? "bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-black"
                           : "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-black"
                       }`}
                       onClick={() => window.open(project.links.demo, "_blank")}
                     >
-                      <ExternalLink className="h-3 w-3 mr-2" />
+                      <ExternalLink className="h-3 w-3 mr-1 sm:mr-2" />
                       DEMO
                     </Button>
                   )}
                   {project.links.github && (
                     <Button
                       variant="outline"
-                      className={`font-orbitron text-xs tracking-wider transition-all duration-300 ${
+                      className={`font-orbitron text-xs tracking-wider transition-all duration-300 flex-1 sm:flex-none ${
                         project.color === "cyan"
                           ? "border-orange-400/50 text-orange-400 hover:bg-orange-400/10"
                           : "border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10"
                       }`}
                       onClick={() => window.open(project.links.github, "_blank")}
                     >
-                      <Github className="h-3 w-3 mr-2" />
+                      <Github className="h-3 w-3 mr-1 sm:mr-2" />
                       SOURCE
                     </Button>
                   )}
                   {project.links.live && (
                     <Button
                       variant="outline"
-                      className={`font-orbitron text-xs tracking-wider transition-all duration-300 ${
+                      className={`font-orbitron text-xs tracking-wider transition-all duration-300 flex-1 sm:flex-none ${
                         project.color === "cyan"
                           ? "border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10"
                           : "border-orange-400/50 text-orange-400 hover:bg-orange-400/10"
                       }`}
                       onClick={() => window.open(project.links.live, "_blank")}
                     >
-                      <ExternalLink className="h-3 w-3 mr-2" />
+                      <ExternalLink className="h-3 w-3 mr-1 sm:mr-2" />
                       LIVE_SITE
                     </Button>
                   )}
