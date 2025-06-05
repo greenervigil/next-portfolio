@@ -84,16 +84,17 @@ export function About() {
           {/* GreenField Section */}
           <Card className="bg-gradient-to-r from-black/80 to-black/60 border border-orange-400/30 backdrop-blur-sm relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-cyan-400/5" />
-            <CardContent className="p-8 relative z-10">
+            <CardContent className="p-4 sm:p-8 relative z-10">
               <div className="text-center space-y-6">
-                <div className="inline-flex items-center space-x-2">
-                  <div className="w-12 h-px bg-gradient-to-r from-transparent to-orange-400" />
-                  <h3 className="text-xl font-orbitron font-bold text-orange-400 tracking-wider">
-                    GREENFIELD_DEVELOPMENT.SYS
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-0">
+                  <div className="hidden sm:block w-12 h-px bg-gradient-to-r from-transparent to-orange-400" />
+                  <h3 className="text-lg sm:text-xl font-orbitron font-bold text-orange-400 tracking-wide sm:tracking-wider px-2">
+                    <span className="block sm:hidden">GREENFIELD.SYS</span>
+                    <span className="hidden sm:block">GREENFIELD_DEVELOPMENT.SYS</span>
                   </h3>
-                  <div className="w-12 h-px bg-gradient-to-l from-transparent to-orange-400" />
+                  <div className="hidden sm:block w-12 h-px bg-gradient-to-l from-transparent to-orange-400" />
                 </div>
-                <p className="text-cyan-100 font-inter max-w-3xl mx-auto">
+                <p className="text-cyan-100 font-inter max-w-3xl mx-auto text-sm sm:text-base">
                   In addition to my engineering work, I lead GreenField Development, a freelance partnership I founded
                   to help self-taught developers accelerate their careers. Through this mentorship program, I focus on
                   developing practical, project-based skills with a strong emphasis on Agile methodologies, version
@@ -101,7 +102,7 @@ export function About() {
                 </p>
                 <Badge
                   variant="outline"
-                  className="border-orange-400/50 text-orange-400 bg-orange-400/10 font-orbitron tracking-wider"
+                  className="border-orange-400/50 text-orange-400 bg-orange-400/10 font-orbitron text-xs tracking-wider"
                 >
                   MENTORSHIP & DEVELOPMENT
                 </Badge>
