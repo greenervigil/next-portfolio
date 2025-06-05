@@ -18,11 +18,11 @@ export function Navigation() {
   }, [])
 
   const navItems = [
-    { href: "#home", label: "HOME" },
-    { href: "#about", label: "ABOUT" },
-    { href: "#experience", label: "EXPERIENCE" },
-    { href: "#projects", label: "PROJECTS" },
-    { href: "#contact", label: "CONTACT" },
+    { href: "/", label: "HOME" },
+    { href: "/#about", label: "ABOUT" },
+    { href: "/#experience", label: "EXPERIENCE" },
+    { href: "/#projects", label: "PROJECTS" },
+    { href: "/#contact", label: "CONTACT" },
   ]
 
   return (
