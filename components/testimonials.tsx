@@ -69,10 +69,13 @@ export function Testimonials() {
               <Quote className="h-6 w-6 text-cyan-400" />
               <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400" />
             </div>
-            <h2 className="text-3xl sm:text-4xl font-orbitron font-bold mb-4 text-cyan-400 tracking-wider">
-              TESTIMONIALS.LOG
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold mb-4 text-cyan-400 tracking-wide sm:tracking-wider">
+              <span className="block sm:hidden">TESTIMONIALS</span>
+              <span className="hidden sm:block">TESTIMONIALS.LOG</span>
             </h2>
-            <p className="text-lg text-cyan-100 font-inter">Testimonials from colleagues, mentees, and collaborators</p>
+            <p className="text-base sm:text-lg text-cyan-100 font-inter">
+              Testimonials from colleagues, mentees, and collaborators
+            </p>
           </div>
 
           {/* Testimonial Carousel */}
