@@ -27,6 +27,7 @@ import { contactFormSchema } from "@/lib/validations"
 import { checkRateLimit } from "@/lib/rate-limit"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
+import Link from "next/link"
 
 interface FormState {
   success: boolean | null
@@ -134,74 +135,81 @@ export function Contact() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-12 sm:mb-16">
             <div className="inline-flex items-center space-x-2 mb-4">
               <div className="w-8 h-px bg-gradient-to-r from-transparent to-orange-400" />
               <Send className="h-6 w-6 text-orange-400" />
               <div className="w-8 h-px bg-gradient-to-l from-transparent to-orange-400" />
             </div>
-            <h2 className="text-3xl sm:text-4xl font-orbitron font-bold mb-4 text-orange-400 tracking-wider">
-              CONTACT_INTERFACE.EXE
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold mb-4 text-orange-400 tracking-wide sm:tracking-wider">
+              <span className="block sm:hidden">CONTACT.EXE</span>
+              <span className="hidden sm:block">CONTACT_INTERFACE.EXE</span>
             </h2>
-            <p className="text-lg text-cyan-100 font-inter">
+            <p className="text-base sm:text-lg text-cyan-100 font-inter px-4 sm:px-0">
               Ready to collaborate or discuss opportunities? I'd love to hear from you.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             {/* Contact Info */}
-            <div className="space-y-6">
+            <div className="space-y-6 order-2 md:order-1">
               <Card className="bg-black/50 border-cyan-400/30 backdrop-blur-sm">
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-orbitron font-bold mb-4 text-cyan-400 tracking-wider">
-                    CONNECTION_PROTOCOLS
+                <CardContent className="p-4 sm:p-6">
+                  <h3 className="text-lg sm:text-xl font-orbitron font-bold mb-3 sm:mb-4 text-cyan-400 tracking-wide sm:tracking-wider">
+                    <span className="block sm:hidden">CONNECT</span>
+                    <span className="hidden sm:block">CONNECTION_PROTOCOLS</span>
                   </h3>
-                  <p className="text-cyan-100 font-inter mb-6 border-l-2 border-cyan-400/50 pl-4">
+                  <p className="text-cyan-100 font-inter mb-4 sm:mb-6 border-l-2 border-cyan-400/50 pl-3 sm:pl-4 text-sm sm:text-base">
                     Whether you're looking for technical leadership, mentorship, or collaboration opportunities, I'm
                     always open to meaningful conversations.
                   </p>
 
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-3 group">
-                      <div className="relative">
-                        <Mail className="h-5 w-5 text-cyan-400 group-hover:text-orange-400 transition-colors" />
+                  <div className="space-y-3 sm:space-y-4">
+                    <div className="flex items-start space-x-3 group">
+                      <div className="relative mt-0.5">
+                        <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400 group-hover:text-orange-400 transition-colors" />
                         <div className="absolute inset-0 bg-cyan-400 blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
                       </div>
-                      <span className="text-cyan-100 font-inter">daniel@greenervigildev.com</span>
+                      <div className="min-w-0 flex-1">
+                        <span className="text-cyan-100 font-inter text-sm sm:text-base break-all">
+                          daniel_greenervigil@icloud.com
+                        </span>
+                      </div>
                     </div>
                     <div className="flex items-center space-x-3 group">
                       <div className="relative">
-                        <MapPin className="h-5 w-5 text-cyan-400 group-hover:text-orange-400 transition-colors" />
+                        <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400 group-hover:text-orange-400 transition-colors" />
                         <div className="absolute inset-0 bg-cyan-400 blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
                       </div>
-                      <span className="text-cyan-100 font-inter">Available for Remote Work</span>
+                      <span className="text-cyan-100 font-inter text-sm sm:text-base">Available for Remote Work</span>
                     </div>
                   </div>
 
-                  <div className="pt-6 border-t border-cyan-400/20 mt-6">
-                    <h4 className="font-orbitron font-bold mb-4 text-orange-400 tracking-wider">SOCIAL_NETWORKS</h4>
-                    <div className="flex space-x-4">
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400 transition-all duration-300 group"
-                      >
-                        <Linkedin className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="border-orange-400/50 text-orange-400 hover:bg-orange-400/10 hover:border-orange-400 transition-all duration-300 group"
-                      >
-                        <Github className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400 transition-all duration-300 group"
-                      >
-                        <Mail className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                      </Button>
+                  <div className="pt-4 sm:pt-6 border-t border-cyan-400/20 mt-4 sm:mt-6">
+                    <h4 className="font-orbitron font-bold mb-3 sm:mb-4 text-orange-400 tracking-wide sm:tracking-wider text-sm sm:text-base">
+                      SOCIAL_NETWORKS
+                    </h4>
+                    <div className="flex flex-wrap gap-3 sm:gap-4">
+                      <Link href='https://www.linkedin.com/in/danieljvigil' target="_blank">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400 transition-all duration-300 group flex-1 sm:flex-none"
+                        >
+                          <Linkedin className="h-3 w-3 sm:h-4 sm:w-4 group-hover:scale-110 transition-transform mr-2" />
+                          <span className="text-xs sm:text-sm font-orbitron">LINKEDIN</span>
+                        </Button>
+                      </Link>
+                      <Link href='https://github.com/greenervigil' target="_blank">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-orange-400/50 text-orange-400 hover:bg-orange-400/10 hover:border-orange-400 transition-all duration-300 group flex-1 sm:flex-none"
+                        >
+                          <Github className="h-3 w-3 sm:h-4 sm:w-4 group-hover:scale-110 transition-transform mr-2" />
+                          <span className="text-xs sm:text-sm font-orbitron">GITHUB</span>
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </CardContent>
@@ -209,182 +217,184 @@ export function Contact() {
             </div>
 
             {/* Contact Form */}
-            <Card className="bg-black/50 border-orange-400/30 backdrop-blur-sm relative overflow-hidden">
+            <Card className="bg-black/50 border-orange-400/30 backdrop-blur-sm relative overflow-hidden order-1 md:order-2">
               <div className="absolute inset-0 bg-gradient-to-b from-orange-400/5 to-cyan-400/5" />
-              <CardHeader className="relative z-10">
+              <CardHeader className="relative z-10 p-4 sm:p-6 pb-3 sm:pb-4">
                 <div className="flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-orange-400" />
-                  <CardTitle className="font-orbitron text-orange-400 tracking-wider">SEND_MESSAGE</CardTitle>
+                  <Zap className="h-4 w-4 sm:h-5 sm:w-5 text-orange-400" />
+                  <CardTitle className="font-orbitron text-orange-400 tracking-wide sm:tracking-wider text-lg sm:text-xl">
+                    SEND_MESSAGE
+                  </CardTitle>
                 </div>
-                <CardDescription className="text-cyan-100 font-inter">
+                <CardDescription className="text-cyan-100 font-inter text-sm sm:text-base">
                   Let's discuss your project or opportunity
                 </CardDescription>
               </CardHeader>
-              <CardContent className="relative z-10">
+              <CardContent className="relative z-10 p-4 sm:p-6 pt-0">
                 {/* Status Messages */}
                 {formState.success !== null && (
                   <div
-                    className={`mb-4 p-4 rounded-lg border flex items-center space-x-2 ${
+                    className={`mb-4 p-3 sm:p-4 rounded-lg border flex items-start space-x-2 ${
                       formState.success
                         ? "bg-green-400/10 border-green-400/30 text-green-400"
                         : "bg-red-400/10 border-red-400/30 text-red-400"
                     }`}
                   >
                     {formState.success ? (
-                      <CheckCircle className="h-5 w-5 flex-shrink-0" />
+                      <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 mt-0.5" />
                     ) : (
-                      <AlertCircle className="h-5 w-5 flex-shrink-0" />
+                      <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 mt-0.5" />
                     )}
-                    <span className="font-inter text-sm">{formState.message}</span>
+                    <span className="font-inter text-xs sm:text-sm">{formState.message}</span>
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Name */}
-                  <div>
-                    <div className="flex items-center mb-1.5">
-                      <Label htmlFor="name" className="text-cyan-400 font-orbitron text-xs tracking-wider">
+                <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+                  {/* Name & Email Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <div>
+                      <Label htmlFor="name" className="text-cyan-400 font-orbitron text-xs tracking-wider mb-1.5 block">
                         NAME
                       </Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        placeholder="Your Name"
+                        required
+                        disabled={isPending}
+                        className="bg-black/50 border-cyan-400/30 text-cyan-100 placeholder:text-cyan-100/50 focus:border-cyan-400 font-inter disabled:opacity-50 h-9 sm:h-10 text-sm sm:text-base"
+                      />
                     </div>
-                    <Input
-                      id="name"
-                      name="name"
-                      placeholder="Your Name"
-                      required
-                      disabled={isPending}
-                      className="bg-black/50 border-cyan-400/30 text-cyan-100 placeholder:text-cyan-100/50 focus:border-cyan-400 font-inter disabled:opacity-50"
-                    />
-                  </div>
-
-                  {/* Email */}
-                  <div>
-                    <div className="flex items-center mb-1.5">
-                      <Label htmlFor="email" className="text-cyan-400 font-orbitron text-xs tracking-wider">
+                    <div>
+                      <Label
+                        htmlFor="email"
+                        className="text-cyan-400 font-orbitron text-xs tracking-wider mb-1.5 block"
+                      >
                         EMAIL
                       </Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Your Email"
+                        required
+                        disabled={isPending}
+                        className="bg-black/50 border-cyan-400/30 text-cyan-100 placeholder:text-cyan-100/50 focus:border-cyan-400 font-inter disabled:opacity-50 h-9 sm:h-10 text-sm sm:text-base"
+                      />
                     </div>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="Your Email"
-                      required
-                      disabled={isPending}
-                      className="bg-black/50 border-cyan-400/30 text-cyan-100 placeholder:text-cyan-100/50 focus:border-cyan-400 font-inter disabled:opacity-50"
-                    />
                   </div>
 
-                  {/* Phone */}
-                  <div>
-                    <div className="flex items-center mb-1.5">
-                      <Phone className="h-3.5 w-3.5 text-cyan-400 mr-1.5" />
-                      <Label htmlFor="phone" className="text-cyan-400 font-orbitron text-xs tracking-wider">
-                        PHONE
-                      </Label>
+                  {/* Phone & Business Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <div>
+                      <div className="flex items-center mb-1.5">
+                        <Phone className="h-3 w-3 text-cyan-400 mr-1.5" />
+                        <Label htmlFor="phone" className="text-cyan-400 font-orbitron text-xs tracking-wider">
+                          PHONE
+                        </Label>
+                      </div>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        placeholder="Phone (Optional)"
+                        disabled={isPending}
+                        className="bg-black/50 border-cyan-400/30 text-cyan-100 placeholder:text-cyan-100/50 focus:border-cyan-400 font-inter disabled:opacity-50 h-9 sm:h-10 text-sm sm:text-base"
+                      />
                     </div>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      placeholder="Your Phone Number (Optional)"
-                      disabled={isPending}
-                      className="bg-black/50 border-cyan-400/30 text-cyan-100 placeholder:text-cyan-100/50 focus:border-cyan-400 font-inter disabled:opacity-50"
-                    />
+                    <div>
+                      <div className="flex items-center mb-1.5">
+                        <Briefcase className="h-3 w-3 text-cyan-400 mr-1.5" />
+                        <Label htmlFor="business" className="text-cyan-400 font-orbitron text-xs tracking-wider">
+                          BUSINESS
+                        </Label>
+                      </div>
+                      <Input
+                        id="business"
+                        name="business"
+                        placeholder="Business (Optional)"
+                        disabled={isPending}
+                        className="bg-black/50 border-cyan-400/30 text-cyan-100 placeholder:text-cyan-100/50 focus:border-cyan-400 font-inter disabled:opacity-50 h-9 sm:h-10 text-sm sm:text-base"
+                      />
+                    </div>
                   </div>
 
-                  {/* Business */}
-                  <div>
-                    <div className="flex items-center mb-1.5">
-                      <Briefcase className="h-3.5 w-3.5 text-cyan-400 mr-1.5" />
-                      <Label htmlFor="business" className="text-cyan-400 font-orbitron text-xs tracking-wider">
-                        BUSINESS
-                      </Label>
+                  {/* Website Type & Pages Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <div>
+                      <div className="flex items-center mb-1.5">
+                        <LayoutGrid className="h-3 w-3 text-cyan-400 mr-1.5" />
+                        <Label htmlFor="website_type" className="text-cyan-400 font-orbitron text-xs tracking-wider">
+                          TYPE
+                        </Label>
+                      </div>
+                      <Select value={websiteType} onValueChange={setWebsiteType} disabled={isPending}>
+                        <SelectTrigger className="bg-black/50 border-cyan-400/30 text-cyan-100 focus:border-cyan-400 font-inter disabled:opacity-50 h-9 sm:h-10 text-sm sm:text-base">
+                          <SelectValue placeholder="Website Type" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-black/90 border-cyan-400/30 text-cyan-100">
+                          <SelectItem value="portfolio">Portfolio</SelectItem>
+                          <SelectItem value="business">Business</SelectItem>
+                          <SelectItem value="ecommerce">E-Commerce</SelectItem>
+                          <SelectItem value="blog">Blog</SelectItem>
+                          <SelectItem value="landing">Landing Page</SelectItem>
+                          <SelectItem value="other">Other</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
-                    <Input
-                      id="business"
-                      name="business"
-                      placeholder="Your Business Name (Optional)"
-                      disabled={isPending}
-                      className="bg-black/50 border-cyan-400/30 text-cyan-100 placeholder:text-cyan-100/50 focus:border-cyan-400 font-inter disabled:opacity-50"
-                    />
-                  </div>
-
-                  {/* Website Type */}
-                  <div>
-                    <div className="flex items-center mb-1.5">
-                      <LayoutGrid className="h-3.5 w-3.5 text-cyan-400 mr-1.5" />
-                      <Label htmlFor="website_type" className="text-cyan-400 font-orbitron text-xs tracking-wider">
-                        WEBSITE TYPE
-                      </Label>
+                    <div>
+                      <div className="flex items-center mb-1.5">
+                        <FileText className="h-3 w-3 text-cyan-400 mr-1.5" />
+                        <Label htmlFor="pages" className="text-cyan-400 font-orbitron text-xs tracking-wider">
+                          PAGES
+                        </Label>
+                      </div>
+                      <Select value={pages} onValueChange={setPages} disabled={isPending}>
+                        <SelectTrigger className="bg-black/50 border-cyan-400/30 text-cyan-100 focus:border-cyan-400 font-inter disabled:opacity-50 h-9 sm:h-10 text-sm sm:text-base">
+                          <SelectValue placeholder="# of Pages" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-black/90 border-cyan-400/30 text-cyan-100">
+                          <SelectItem value="1">1 Page</SelectItem>
+                          <SelectItem value="2-5">2-5 Pages</SelectItem>
+                          <SelectItem value="6-10">6-10 Pages</SelectItem>
+                          <SelectItem value="11+">11+ Pages</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
-                    <Select value={websiteType} onValueChange={setWebsiteType} disabled={isPending}>
-                      <SelectTrigger className="bg-black/50 border-cyan-400/30 text-cyan-100 focus:border-cyan-400 font-inter disabled:opacity-50">
-                        <SelectValue placeholder="Select Website Type (Optional)" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-black/90 border-cyan-400/30 text-cyan-100">
-                        <SelectItem value="portfolio">Portfolio</SelectItem>
-                        <SelectItem value="business">Business</SelectItem>
-                        <SelectItem value="ecommerce">E-Commerce</SelectItem>
-                        <SelectItem value="blog">Blog</SelectItem>
-                        <SelectItem value="landing">Landing Page</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Pages */}
-                  <div>
-                    <div className="flex items-center mb-1.5">
-                      <FileText className="h-3.5 w-3.5 text-cyan-400 mr-1.5" />
-                      <Label htmlFor="pages" className="text-cyan-400 font-orbitron text-xs tracking-wider">
-                        PAGES
-                      </Label>
-                    </div>
-                    <Select value={pages} onValueChange={setPages} disabled={isPending}>
-                      <SelectTrigger className="bg-black/50 border-cyan-400/30 text-cyan-100 focus:border-cyan-400 font-inter disabled:opacity-50">
-                        <SelectValue placeholder="Number of Pages (Optional)" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-black/90 border-cyan-400/30 text-cyan-100">
-                        <SelectItem value="1">1 Page</SelectItem>
-                        <SelectItem value="2-5">2-5 Pages</SelectItem>
-                        <SelectItem value="6-10">6-10 Pages</SelectItem>
-                        <SelectItem value="11+">11+ Pages</SelectItem>
-                      </SelectContent>
-                    </Select>
                   </div>
 
                   {/* Message */}
                   <div>
-                    <div className="flex items-center mb-1.5">
-                      <Label htmlFor="message" className="text-cyan-400 font-orbitron text-xs tracking-wider">
-                        MESSAGE
-                      </Label>
-                    </div>
+                    <Label
+                      htmlFor="message"
+                      className="text-cyan-400 font-orbitron text-xs tracking-wider mb-1.5 block"
+                    >
+                      MESSAGE
+                    </Label>
                     <Textarea
                       id="message"
                       name="message"
                       placeholder="Tell me about your project or how I can help..."
-                      rows={4}
+                      rows={3}
                       required
                       disabled={isPending}
-                      className="bg-black/50 border-cyan-400/30 text-cyan-100 placeholder:text-cyan-100/50 focus:border-cyan-400 font-inter resize-none disabled:opacity-50"
+                      className="bg-black/50 border-cyan-400/30 text-cyan-100 placeholder:text-cyan-100/50 focus:border-cyan-400 font-inter resize-none disabled:opacity-50 text-sm sm:text-base"
                     />
                   </div>
 
                   <Button
                     type="submit"
                     disabled={isPending}
-                    className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-black font-orbitron tracking-wider shadow-lg shadow-orange-400/25 hover:shadow-orange-400/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-black font-orbitron tracking-wider shadow-lg shadow-orange-400/25 hover:shadow-orange-400/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed h-10 sm:h-11 text-sm sm:text-base"
                   >
                     {isPending ? (
                       <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        <Loader2 className="mr-2 h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
                         TRANSMITTING...
                       </>
                     ) : (
                       <>
-                        <Send className="mr-2 h-4 w-4" />
+                        <Send className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                         TRANSMIT_MESSAGE
                       </>
                     )}
