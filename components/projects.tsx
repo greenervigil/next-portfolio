@@ -735,7 +735,7 @@ export function Projects() {
                           fill="none"
                           stroke={project.color === "cyan" ? "#00ffff" : "#ff6b35"}
                           strokeWidth="1"
-                          className="opacity-0 group-hover:opacity-60 transition-opacity duration-300"
+                          className="opacity-5 group-hover:opacity-60 transition-opacity duration-300"
                           style={{
                             filter: "blur(4px)",
                           }}
