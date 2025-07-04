@@ -1,12 +1,15 @@
-import type { MetadataRoute } from 'next'
- 
+import type { MetadataRoute } from "next"
+
 export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = "https://greenervigil.dev"
+  const currentDate = new Date().toISOString()
+
   return [
     {
-      url: 'https://greenervigil.dev',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
+      url: baseUrl,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
       priority: 1,
-    },
+    }
   ]
 }
