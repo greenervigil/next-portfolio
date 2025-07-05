@@ -15,6 +15,7 @@ const orbitron = Orbitron({
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://greenervigil.dev'),
   title: "Daniel Greener-Vigil - Software Engineer & Tech Lead",
   description:
     "Portfolio of Daniel Greener-Vigil, an experienced Software Engineer, Tech Lead, and Mentor with 11+ years of experience in full-stack development.",
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "Daniel Greener-Vigil",
     images: [
       {
-        url: "/og-image.png",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "Daniel Greener-Vigil - Software Engineer & Tech Lead",
@@ -38,14 +39,13 @@ export const metadata: Metadata = {
     title: "Daniel Greener-Vigil - Software Engineer & Tech Lead",
     description:
       "Portfolio of Daniel Greener-Vigil, an experienced Software Engineer, Tech Lead, and Mentor with 11+ years of experience in full-stack development.",
-    images: ["/og-image.png"],
+    images: ["/twitter-image.png"],
   },
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
     shortcut: "/favicon-16x16.png",
   },
-  themeColor: "#000000",
 }
 
 export default function RootLayout({
