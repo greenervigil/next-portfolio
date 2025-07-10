@@ -98,8 +98,8 @@ export function Projects() {
       ],
       achievements: ["10 successful projects delivered", "100% client satisfaction", "98% on-time delivery rate"],
       links: {
-        demo: "#",
-        github: "#",
+        live: "https://greenervigil.dev",
+        github: "https://github.com/greenervigil/next-portfolio",
       },
     },
     {
@@ -130,7 +130,7 @@ export function Projects() {
         "Achieved 99.99% uptime during migration",
       ],
       links: {
-        live: "https://api.learningportrait.com",
+        demo: "https://api.learningportrait.com",
       },
     },
     {
@@ -152,7 +152,7 @@ export function Projects() {
       challenges: ["Real-time data synchronization", "Scalability for large user base", "Cross-platform compatibility"],
       achievements: ["Delivered fully featured demo application", "Achieved 99.9% real-time sync accuracy", "Reduced load time by 40%"],
       links: {
-        live: "https://app.learningportrait.com",
+        demo: "https://app.learningportrait.com",
       },
     },
     {
@@ -176,7 +176,7 @@ export function Projects() {
         "Launched to App Store and Google Play",
       ],
       links: {
-        demo: "#",
+        demo: "https://ultracrew.app",
       },
     },
     {
@@ -198,8 +198,7 @@ export function Projects() {
       challenges: ["AR integration complexity", "Payment security implementation", "Performance on low-end devices"],
       achievements: ["50K+ downloads in first month", "4.8/5 app store rating", "30% increase in mobile sales"],
       links: {
-        demo: "#",
-        github: "#",
+        live: "https://ultracrew.app",
       },
     },
     {
@@ -353,7 +352,7 @@ export function Projects() {
         "Developed a comprehensive recipe and pantry management tool with real-time inventory tracking, meal planning, and grocery list generation. Integrated with multiple social media platforms for recipe sharing and community engagement.",
       technologies: ["React Native", "Tailwind CSS", "Supabase", "GraphQL", "Stripe"],
       type: "ANALYTICS_TOOL",
-      status: "COMPLETED",
+      status: "IN PROGRESS",
       icon: Globe,
       color: "orange",
       year: "2025",
