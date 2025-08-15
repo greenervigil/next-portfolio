@@ -47,57 +47,37 @@ export const metadata: Metadata = {
 }
 
 const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Daniel Greener-Vigil",
-  hasOccupation: [
-    {
-      "@type": "Occupation",
-      name: "Senior Software Engineer",
-      occupationLocation: {
-        "@type": "Place",
-        name: "Fusion Medical Staffing",
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Daniel Greener-Vigil",
+    hasOccupation: [
+      {
+        "@type": "Occupation",
+        name: "Senior Software Engineer",
+        workLocation: {
+          "@type": "Organization",
+          name: "Fusion Medical Staffing",
+        },
+        estimatedSalary: {
+          "@type": "MonetaryAmountDistribution",
+          name: "Senior Software Engineer Salary",
+          currency: "USD",
+        },
+        description: "Leading full-stack development initiatives and mentoring junior developers",
+        skills: ["React", "Node.js", "TypeScript", "Python", "AWS", "Docker"],
       },
-      estimatedSalary: {
-        "@type": "MonetaryAmountDistribution",
-        name: "Senior Software Engineer Salary",
-        currency: "USD",
+      {
+        "@type": "Occupation",
+        name: "Founder & Lead Developer",
+        workLocation: {
+          "@type": "Organization",
+          name: "Greenfield Development",
+        },
+        description: "Providing mentorship and development services to aspiring developers",
+        skills: ["Mentorship", "Full-Stack Development", "Technical Leadership"],
       },
-      description: "Leading full-stack development initiatives and mentoring junior developers",
-      skills: ["React", "Node.js", "TypeScript", "Python", "AWS", "Docker"],
-    },
-    {
-      "@type": "Occupation",
-      name: "Founder & Lead Developer",
-      occupationLocation: {
-        "@type": "Place",
-        name: "Greenfield Development",
-      },
-      description: "Providing mentorship and development services to aspiring developers",
-      skills: ["Mentorship", "Full-Stack Development", "Technical Leadership"],
-    },
-  ],
-  workExample: [
-    {
-      "@type": "CreativeWork",
-      name: "Healthcare Platform Development",
-      description: "Led development of scalable healthcare platforms serving thousands of users",
-      creator: {
-        "@type": "Person",
-        name: "Daniel Greener-Vigil",
-      },
-    },
-    {
-      "@type": "CreativeWork",
-      name: "Developer Mentorship Program",
-      description: "Created comprehensive mentorship program for aspiring developers",
-      creator: {
-        "@type": "Person",
-        name: "Daniel Greener-Vigil",
-      },
-    },
-  ],
-}
+    ],
+  }
 
 export default function ExperiencePage() {
   return (
