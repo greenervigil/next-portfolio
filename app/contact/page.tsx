@@ -46,65 +46,79 @@ export const metadata: Metadata = {
 }
 
 const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Daniel Greener-Vigil",
-  jobTitle: "Software Engineer",
-  email: "daniel@greenfielddev.com",
-  url: "https://danielgreener.dev",
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: "+1-555-0123",
-    contactType: "professional",
-    availableLanguage: "English",
-  },
-  sameAs: [
-    "https://linkedin.com/in/daniel-greener-vigil",
-    "https://github.com/daniel-greener-vigil",
-    "https://twitter.com/daniel_greener",
-  ],
-  offers: {
-    "@type": "Offer",
-    itemOffered: {
-      "@type": "Service",
-      name: "Software Development Services",
-      description: "Full-stack web development, consulting, and mentorship services",
-      serviceType: "Software Development",
-      provider: {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
         "@type": "Person",
+        "@id": "https://danielgreener.dev/#person",
         name: "Daniel Greener-Vigil",
+        jobTitle: "Software Engineer",
+        email: "daniel@greenfielddev.com",
+        url: "https://danielgreener.dev",
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: "+1-555-0123",
+          contactType: "professional",
+          availableLanguage: "English",
+        },
+        sameAs: [
+          "https://linkedin.com/in/daniel-greener-vigil",
+          "https://github.com/daniel-greener-vigil",
+          "https://twitter.com/daniel_greener",
+        ],
       },
-    },
-  },
-  review: [
-    {
-      "@type": "Review",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://danielgreener.dev/#service",
+        name: "Software Development Services",
+        description: "Full-stack web development, consulting, and mentorship services",
+        serviceType: "Software Development",
+        provider: {
+          "@id": "https://danielgreener.dev/#person",
+        },
+        areaServed: "Worldwide",
+        availableChannel: {
+          "@type": "ServiceChannel",
+          serviceUrl: "https://danielgreener.dev/contact",
+          servicePhone: "+1-555-0123",
+        },
       },
-      author: {
-        "@type": "Person",
-        name: "Sarah Johnson",
+      {
+        "@type": "Review",
+        "@id": "https://danielgreener.dev/#review1",
+        itemReviewed: {
+          "@id": "https://danielgreener.dev/#service",
+        },
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5",
+        },
+        author: {
+          "@type": "Person",
+          name: "Sarah Johnson",
+        },
+        reviewBody: "Daniel's expertise in React and Node.js helped us deliver our project ahead of schedule.",
       },
-      reviewBody: "Daniel's expertise in React and Node.js helped us deliver our project ahead of schedule.",
-    },
-    {
-      "@type": "Review",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
+      {
+        "@type": "Review",
+        "@id": "https://danielgreener.dev/#review2",
+        itemReviewed: {
+          "@id": "https://danielgreener.dev/#service",
+        },
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5",
+        },
+        author: {
+          "@type": "Person",
+          name: "Michael Chen",
+        },
+        reviewBody: "Outstanding technical skills and great communication throughout the project.",
       },
-      author: {
-        "@type": "Person",
-        name: "Michael Chen",
-      },
-      reviewBody: "Outstanding technical skills and great communication throughout the project.",
-    },
-  ],
-}
+    ],
+  }
 
 export default function ContactPage() {
   return (
