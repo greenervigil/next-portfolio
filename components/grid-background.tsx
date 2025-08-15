@@ -1,31 +1,71 @@
 "use client"
 
+import { useEffect, useState } from "react"
+
 export function GridBackground() {
+  const [shouldReduceMotion, setShouldReduceMotion] = useState(false)
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
+    setShouldReduceMotion(mediaQuery.matches)
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setShouldReduceMotion(e.matches)
+    }
+
+    mediaQuery.addEventListener("change", handleChange)
+    return () => mediaQuery.removeEventListener("change", handleChange)
+  }, [])
+
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none">
-      {/* Main grid pattern */}
+    <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+      {/* Grid pattern */}
       <div
         className="absolute inset-0 opacity-20"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px)
+            linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px)
           `,
           backgroundSize: "50px 50px",
         }}
       />
 
-      {/* Animated scanning lines */}
-      <div className="absolute inset-0">
-        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-scan-horizontal" />
-        <div className="absolute h-full w-px bg-gradient-to-b from-transparent via-cyan-400 to-transparent animate-scan-vertical" />
-      </div>
+      {/* Animated grid lines - disabled for reduced motion */}
+      {!shouldReduceMotion && (
+        <>
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              background: `
+                linear-gradient(90deg, transparent 0%, rgba(34, 211, 238, 0.2) 50%, transparent 100%)
+              `,
+              animation: "grid-scan-horizontal 8s ease-in-out infinite alternate",
+            }}
+          />
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              background: `
+                linear-gradient(0deg, transparent 0%, rgba(251, 146, 60, 0.2) 50%, transparent 100%)
+              `,
+              animation: "grid-scan-vertical 6s ease-in-out infinite alternate-reverse",
+            }}
+          />
+        </>
+      )}
 
-      {/* Corner decorations */}
-      <div className="absolute top-0 left-0 w-20 h-20 border-l-2 border-t-2 border-cyan-400 opacity-60" />
-      <div className="absolute top-0 right-0 w-20 h-20 border-r-2 border-t-2 border-cyan-400 opacity-60" />
-      <div className="absolute bottom-0 left-0 w-20 h-20 border-l-2 border-b-2 border-cyan-400 opacity-60" />
-      <div className="absolute bottom-0 right-0 w-20 h-20 border-r-2 border-b-2 border-cyan-400 opacity-60" />
+      <style jsx>{`
+        @keyframes grid-scan-horizontal {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+        
+        @keyframes grid-scan-vertical {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(100%); }
+        }
+      `}</style>
     </div>
   )
 }
