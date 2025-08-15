@@ -1,0 +1,26 @@
+{
+    "name": "Daniel Greener-Vigil - Software Engineer",
+    "short_name": "DJGV Portfolio",
+    "description": "Portfolio of Daniel Greener-Vigil, Software Engineer and Tech Lead",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#00bcd4",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "categories": ["portfolio", "developer", "technology"],
+    "lang": "en-US",
+    "dir": "ltr"
+  }
+  
