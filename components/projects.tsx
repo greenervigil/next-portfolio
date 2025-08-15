@@ -48,7 +48,9 @@ export function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [isMobile, setIsMobile] = useState(false)
   const [containerWidth, setContainerWidth] = useState(0)
+  const [reducedMotion, setReducedMotion] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
+  const skipLinkRef = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
     const checkMobile = () => {
@@ -61,15 +63,24 @@ export function Projects() {
       }
     }
 
+    const checkReducedMotion = () => {
+      setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+    }
+
     checkMobile()
     updateWidth()
+    checkReducedMotion()
 
     window.addEventListener("resize", checkMobile)
     window.addEventListener("resize", updateWidth)
 
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
+    mediaQuery.addEventListener("change", checkReducedMotion)
+
     return () => {
       window.removeEventListener("resize", checkMobile)
       window.removeEventListener("resize", updateWidth)
+      mediaQuery.removeEventListener("change", checkReducedMotion)
     }
   }, [])
 
@@ -150,7 +161,11 @@ export function Projects() {
       team: "1 developers",
       role: "Full-Stack Tech Lead",
       challenges: ["Real-time data synchronization", "Scalability for large user base", "Cross-platform compatibility"],
-      achievements: ["Delivered fully featured demo application", "Achieved 99.9% real-time sync accuracy", "Reduced load time by 40%"],
+      achievements: [
+        "Delivered fully featured demo application",
+        "Achieved 99.9% real-time sync accuracy",
+        "Reduced load time by 40%",
+      ],
       links: {
         demo: "https://app.learningportrait.com",
       },
@@ -171,10 +186,12 @@ export function Projects() {
       duration: "8 months",
       team: "2 developers",
       role: "Mobile Lead Architect",
-      challenges: ["Real-time performance tracking", "Personalized training algorithms", "Community engagement features"],
-      achievements: [
-        "Launched to App Store and Google Play",
+      challenges: [
+        "Real-time performance tracking",
+        "Personalized training algorithms",
+        "Community engagement features",
       ],
+      achievements: ["Launched to App Store and Google Play"],
       links: {
         demo: "https://ultracrew.app",
       },
@@ -245,7 +262,11 @@ export function Projects() {
       duration: "3 months",
       team: "1 developers",
       role: "Developer",
-      challenges: ["Complex cost estimation algorithms", "User-friendly interface design", "Integration with existing systems"],
+      challenges: [
+        "Complex cost estimation algorithms",
+        "User-friendly interface design",
+        "Integration with existing systems",
+      ],
       achievements: ["On-time delivery", "High user satisfaction", "Improved cost estimation accuracy by 30%"],
       links: {
         live: "https://cs.cengage.com/animation-calculator/",
@@ -337,7 +358,11 @@ export function Projects() {
       duration: "3 months",
       team: "1 developers",
       role: "Developer",
-      challenges: ["Data-driven marketing strategies", "Real-time analytics implementation", "Personalized user experiences"],
+      challenges: [
+        "Data-driven marketing strategies",
+        "Real-time analytics implementation",
+        "Personalized user experiences",
+      ],
       achievements: ["Achieved 500K+ impressions", "Increased conversion rates by 250%", "Generated 15K+ leads"],
       links: {
         live: "https://ngl.cengage.com",
@@ -383,7 +408,11 @@ export function Projects() {
       team: "2 developers",
       role: "Lead Developer",
       challenges: ["Custom theme development", "Performance optimization", "SEO enhancements"],
-      achievements: ["Improved page load time by 50%", "Increased organic traffic by 40%", "Achieved top rankings for target keywords"],
+      achievements: [
+        "Improved page load time by 50%",
+        "Increased organic traffic by 40%",
+        "Achieved top rankings for target keywords",
+      ],
       links: {
         live: "https://galsbestpal.com",
       },
@@ -405,7 +434,11 @@ export function Projects() {
       team: "5 developers",
       role: "Senior Frontend Engineer",
       challenges: ["Component reusability", "Performance optimization", "Accessibility compliance"],
-      achievements: ["Over 40 reusable components", "Reduced development time by 30%", "Improved accessibility compliance to WCAG 2.1 standards"],
+      achievements: [
+        "Over 40 reusable components",
+        "Reduced development time by 30%",
+        "Improved accessibility compliance to WCAG 2.1 standards",
+      ],
       links: {
         live: "https://react-magma.cengage.com",
       },
@@ -427,7 +460,11 @@ export function Projects() {
       team: "2 developers",
       role: "Lead Developer",
       challenges: ["Theme customization", "Performance optimization", "SEO enhancements"],
-      achievements: ["Improved page load time by 60%", "Increased organic traffic by 50%", "Achieved top rankings for target keywords"],
+      achievements: [
+        "Improved page load time by 60%",
+        "Increased organic traffic by 50%",
+        "Achieved top rankings for target keywords",
+      ],
       links: {
         live: "https://leanbiologix.com",
       },
@@ -448,7 +485,11 @@ export function Projects() {
       duration: "24 months",
       team: "7 developers",
       role: "Frontend Tech Lead",
-      challenges: ["Complex user interface design", "Performance optimization for large datasets", "Security compliance"],
+      challenges: [
+        "Complex user interface design",
+        "Performance optimization for large datasets",
+        "Security compliance",
+      ],
       achievements: ["Served 1M+ students", "Achieved 99.9% uptime", "Improved user satisfaction by 30%"],
       links: {
         live: "https://nglsync.cengage.com",
@@ -461,7 +502,7 @@ export function Projects() {
       description: "Educational platform for English language learning",
       detailedDescription:
         "Developed an educational platform for English language learning with personalized learning paths, interactive content, and real-time collaboration features. Integrated AI-powered tutoring and analytics for educators.",
-      technologies: ['Java', 'Angular', 'React', 'Struts', 'CSS', 'JavaScript', 'Styled Components'],
+      technologies: ["Java", "Angular", "React", "Struts", "CSS", "JavaScript", "Styled Components"],
       type: "EDUCATION_PLATFORM",
       status: "PRODUCTION",
       icon: Code,
@@ -476,37 +517,15 @@ export function Projects() {
         "Speech Recognition tutoring integration",
         "Scalability for large user base",
       ],
-      achievements: ["Served 5M+ students", "Achieved 99.9% real-time collaboration accuracy", "Improved learning outcomes by 40%"],
+      achievements: [
+        "Served 5M+ students",
+        "Achieved 99.9% real-time collaboration accuracy",
+        "Improved learning outcomes by 40%",
+      ],
       links: {
         live: "https://myelt.heinle.com/ilrn/authentication/signIn.do?inst=MYELT",
       },
     },
-    /*{
-      id: 18,
-      title: "Cybersecurity Monitoring Dashboard",
-      shortTitle: "Security",
-      description: "Real-time threat detection system",
-      detailedDescription:
-        "Developed a comprehensive cybersecurity monitoring dashboard with real-time threat detection, automated response, and compliance reporting.",
-      technologies: ["React", "Elasticsearch", "Kibana", "Python", "Kafka", "Docker"],
-      type: "SECURITY_PLATFORM",
-      status: "PRODUCTION",
-      icon: Lock,
-      color: "orange",
-      year: "2023",
-      duration: "6 months",
-      team: "5 developers",
-      role: "Security Engineer",
-      challenges: ["Real-time threat correlation", "False positive reduction", "Automated response implementation"],
-      achievements: [
-        "99.9% threat detection accuracy",
-        "Sub-second alert generation",
-        "Reduced false positives by 85%",
-      ],
-      links: {
-        live: "#",
-      },
-    },*/
   ]
 
   // Get hexagon grid layout based on screen size
@@ -588,41 +607,73 @@ export function Projects() {
     return isMobile ? baseHeight + 10 : baseHeight + 20 // Much reduced padding
   }
 
+  // Handle keyboard navigation
+  const handleKeyDown = (event: React.KeyboardEvent, project: Project) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault()
+      setSelectedProject(project)
+    }
+  }
+
   return (
-    <section id="projects" className="py-20 relative overflow-hidden">
+    <section id="projects" className="py-20 relative overflow-hidden" aria-labelledby="projects-heading" role="region">
+      {/* Skip Link */}
+      <a
+        ref={skipLinkRef}
+        href="#projects-grid"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 bg-cyan-400 text-black px-4 py-2 rounded font-orbitron tracking-wider"
+      >
+        Skip to project grid
+      </a>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center space-x-2 mb-4">
+          <header className="text-center mb-12">
+            <div className="inline-flex items-center space-x-2 mb-4" aria-hidden="true">
               <div className="w-8 h-px bg-gradient-to-r from-transparent to-orange-400" />
               <Terminal className="h-6 w-6 text-orange-400" />
               <div className="w-8 h-px bg-gradient-to-l from-transparent to-orange-400" />
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold mb-4 text-orange-400 tracking-wide sm:tracking-wider">
+            <h2
+              id="projects-heading"
+              className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold mb-4 text-orange-400 tracking-wide sm:tracking-wider"
+            >
               <span className="block sm:hidden">PROJECT_MATRIX</span>
               <span className="hidden sm:block">PROJECT_MATRIX.HEX</span>
             </h2>
             <p className="text-base sm:text-lg text-cyan-100 font-inter">
               Interactive hexagonal grid showcasing 18 innovative projects
             </p>
-          </div>
+            <div className="sr-only">
+              Navigate through the hexagonal project grid using Tab key. Press Enter or Space to view project details.
+            </div>
+          </header>
 
           {/* Hexagonal Grid Container */}
           <div
+            id="projects-grid"
             ref={containerRef}
-            className="relative w-full mx-auto overflow-hidden" // Added overflow-hidden
+            className="relative w-full mx-auto overflow-hidden"
             style={{
               height: containerWidth ? `${getContainerHeight()}px` : "800px",
               minHeight: isMobile ? "900px" : "800px",
               maxWidth: "100%",
             }}
+            role="grid"
+            aria-label="Project portfolio hexagonal grid"
+            aria-rowcount={layout.rows}
+            aria-colcount={layout.itemsPerRow}
           >
             {containerWidth > 0 && (
               <>
                 {/* Connection Lines */}
-                <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
-                  {projects.slice(0, 18).map((_, index) => {
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                  style={{ zIndex: 1 }}
+                  aria-hidden="true"
+                >
+                  {projects.slice(0, 17).map((_, index) => {
                     const pos = getHexPosition(index)
 
                     // Connect to next hexagon in same row
@@ -632,7 +683,7 @@ export function Projects() {
                       const col = index % 2
 
                       // Connect to right neighbor if not last in row
-                      if (col < 1 && index < 17) {
+                      if (col < 1 && index < 16) {
                         const nextPos = getHexPosition(index + 1)
                         return (
                           <line
@@ -650,7 +701,7 @@ export function Projects() {
                       return null
                     } else {
                       // For desktop: connect hexagons in the original pattern
-                      if (index < 17) {
+                      if (index < 16) {
                         const nextPos = getHexPosition(index + 1)
                         return (
                           <line
@@ -677,12 +728,15 @@ export function Projects() {
                 </svg>
 
                 {/* Hexagonal Project Cards */}
-                {projects.slice(0, 18).map((project, index) => {
+                {projects.slice(0, 17).map((project, index) => {
                   const position = getHexPosition(index)
+                  const row = isMobile ? Math.floor(index / 2) : Math.floor(index / layout.itemsPerRow)
+                  const col = isMobile ? index % 2 : index % layout.itemsPerRow
+
                   return (
-                    <div
+                    <article
                       key={project.id}
-                      className="absolute cursor-pointer group"
+                      className="absolute cursor-pointer group focus-within:z-30"
                       style={{
                         left: `${position.x}px`,
                         top: `${position.y}px`,
@@ -690,116 +744,143 @@ export function Projects() {
                         width: `${layout.hexWidth}px`,
                         height: `${layout.hexHeight}px`,
                       }}
-                      onClick={() => setSelectedProject(project)}
+                      role="gridcell"
+                      aria-rowindex={row + 1}
+                      aria-colindex={col + 1}
                     >
-                      {/* SVG Hexagon with Animated Border */}
-                      <svg
-                        width={layout.hexWidth}
-                        height={layout.hexHeight}
-                        viewBox={`0 0 ${layout.hexWidth} ${layout.hexHeight}`}
-                        className="absolute inset-0"
-                        style={{ filter: "drop-shadow(0 0 20px rgba(0, 255, 255, 0.3))" }}
+                      <button
+                        onClick={() => setSelectedProject(project)}
+                        onKeyDown={(e) => handleKeyDown(e, project)}
+                        className="w-full h-full relative focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-black rounded-lg"
+                        aria-label={`View details for ${project.title}. Status: ${project.status}. Technologies: ${project.technologies.slice(0, 3).join(", ")}`}
+                        aria-describedby={`project-${project.id}-description`}
                       >
-                        {/* Background Hexagon */}
-                        <polygon
-                          points={`${layout.hexWidth / 2},${layout.hexHeight * 0.05} ${layout.hexWidth * 0.87},${layout.hexHeight * 0.3} ${layout.hexWidth * 0.87},${layout.hexHeight * 0.7} ${layout.hexWidth / 2},${layout.hexHeight * 0.95} ${layout.hexWidth * 0.13},${layout.hexHeight * 0.7} ${layout.hexWidth * 0.13},${layout.hexHeight * 0.3}`}
-                          fill="rgba(0, 0, 0, 0.8)"
-                          stroke={project.color === "cyan" ? "rgba(0, 255, 255, 0.5)" : "rgba(255, 107, 53, 0.5)"}
-                          strokeWidth={isMobile ? "1" : "2"}
-                          className="transition-all duration-300 group-hover:fill-black/90"
-                        />
-
-                        {/* Animated Border Beam */}
-                        <polygon
-                          points={`${layout.hexWidth / 2},${layout.hexHeight * 0.05} ${layout.hexWidth * 0.87},${layout.hexHeight * 0.3} ${layout.hexWidth * 0.87},${layout.hexHeight * 0.7} ${layout.hexWidth / 2},${layout.hexHeight * 0.95} ${layout.hexWidth * 0.13},${layout.hexHeight * 0.7} ${layout.hexWidth * 0.13},${layout.hexHeight * 0.3}`}
-                          fill="none"
-                          stroke={project.color === "cyan" ? "#00ffff" : "#ff6b35"}
-                          strokeWidth={isMobile ? "2" : "3"}
-                          strokeLinecap="round"
-                          strokeDasharray={isMobile ? "15 200" : "20 300"}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        {/* SVG Hexagon with Animated Border */}
+                        <svg
+                          width={layout.hexWidth}
+                          height={layout.hexHeight}
+                          viewBox={`0 0 ${layout.hexWidth} ${layout.hexHeight}`}
+                          className="absolute inset-0"
+                          style={{ filter: "drop-shadow(0 0 20px rgba(0, 255, 255, 0.3))" }}
+                          aria-hidden="true"
                         >
-                          <animate
-                            attributeName="stroke-dashoffset"
-                            values={isMobile ? "0;-215" : "0;-320"}
-                            dur="2s"
-                            repeatCount="indefinite"
-                            begin="0s"
+                          {/* Background Hexagon */}
+                          <polygon
+                            points={`${layout.hexWidth / 2},${layout.hexHeight * 0.05} ${layout.hexWidth * 0.87},${layout.hexHeight * 0.3} ${layout.hexWidth * 0.87},${layout.hexHeight * 0.7} ${layout.hexWidth / 2},${layout.hexHeight * 0.95} ${layout.hexWidth * 0.13},${layout.hexHeight * 0.7} ${layout.hexWidth * 0.13},${layout.hexHeight * 0.3}`}
+                            fill="rgba(0, 0, 0, 0.8)"
+                            stroke={project.color === "cyan" ? "rgba(0, 255, 255, 0.5)" : "rgba(255, 107, 53, 0.5)"}
+                            strokeWidth={isMobile ? "1" : "2"}
+                            className={`transition-all duration-300 group-hover:fill-black/90 ${reducedMotion ? "" : "group-hover:fill-black/90"}`}
                           />
-                        </polygon>
 
-                        {/* Glow Effect */}
-                        <polygon
-                          points={`${layout.hexWidth / 2},${layout.hexHeight * 0.05} ${layout.hexWidth * 0.87},${layout.hexHeight * 0.3} ${layout.hexWidth * 0.87},${layout.hexHeight * 0.7} ${layout.hexWidth / 2},${layout.hexHeight * 0.95} ${layout.hexWidth * 0.13},${layout.hexHeight * 0.7} ${layout.hexWidth * 0.13},${layout.hexHeight * 0.3}`}
-                          fill="none"
-                          stroke={project.color === "cyan" ? "#00ffff" : "#ff6b35"}
-                          strokeWidth="1"
-                          className="opacity-5 group-hover:opacity-60 transition-opacity duration-300"
-                          style={{
-                            filter: "blur(4px)",
-                          }}
-                        />
-                      </svg>
+                          {/* Animated Border Beam */}
+                          {!reducedMotion && (
+                            <polygon
+                              points={`${layout.hexWidth / 2},${layout.hexHeight * 0.05} ${layout.hexWidth * 0.87},${layout.hexHeight * 0.3} ${layout.hexWidth * 0.87},${layout.hexHeight * 0.7} ${layout.hexWidth / 2},${layout.hexHeight * 0.95} ${layout.hexWidth * 0.13},${layout.hexHeight * 0.7} ${layout.hexWidth * 0.13},${layout.hexHeight * 0.3}`}
+                              fill="none"
+                              stroke={project.color === "cyan" ? "#00ffff" : "#ff6b35"}
+                              strokeWidth={isMobile ? "2" : "3"}
+                              strokeLinecap="round"
+                              strokeDasharray={isMobile ? "15 200" : "20 300"}
+                              className="opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300"
+                            >
+                              <animate
+                                attributeName="stroke-dashoffset"
+                                values={isMobile ? "0;-215" : "0;-320"}
+                                dur="2s"
+                                repeatCount="indefinite"
+                                begin="0s"
+                              />
+                            </polygon>
+                          )}
 
-                      {/* Content */}
-                      <div className="absolute inset-0 flex flex-col items-center justify-center p-2 text-center z-10">
-                        <div className="relative mb-2">
-                          <project.icon
-                            className={`${isMobile ? "h-6 w-6" : "h-10 w-10"} ${
+                          {/* Glow Effect */}
+                          <polygon
+                            points={`${layout.hexWidth / 2},${layout.hexHeight * 0.05} ${layout.hexWidth * 0.87},${layout.hexHeight * 0.3} ${layout.hexWidth * 0.87},${layout.hexHeight * 0.7} ${layout.hexWidth / 2},${layout.hexHeight * 0.95} ${layout.hexWidth * 0.13},${layout.hexHeight * 0.7} ${layout.hexWidth * 0.13},${layout.hexHeight * 0.3}`}
+                            fill="none"
+                            stroke={project.color === "cyan" ? "#00ffff" : "#ff6b35"}
+                            strokeWidth="1"
+                            className={`opacity-5 transition-opacity duration-300 ${reducedMotion ? "" : "group-hover:opacity-60 group-focus-within:opacity-60"}`}
+                            style={{
+                              filter: "blur(4px)",
+                            }}
+                          />
+                        </svg>
+
+                        {/* Content */}
+                        <div className="absolute inset-0 flex flex-col items-center justify-center p-2 text-center z-10">
+                          <div className="relative mb-2">
+                            <project.icon
+                              className={`${isMobile ? "h-6 w-6" : "h-10 w-10"} ${
+                                project.color === "cyan" ? "text-cyan-400" : "text-orange-400"
+                              } transition-transform duration-300 ${reducedMotion ? "" : "group-hover:scale-110 group-focus-within:scale-110"}`}
+                              aria-hidden="true"
+                            />
+                            <div
+                              className={`absolute inset-0 ${
+                                project.color === "cyan" ? "bg-cyan-400" : "bg-orange-400"
+                              } blur-lg opacity-20 transition-opacity duration-300 ${reducedMotion ? "" : "group-hover:opacity-50 group-focus-within:opacity-50"}`}
+                              aria-hidden="true"
+                            />
+                          </div>
+
+                          <h3
+                            className={`font-orbitron font-bold ${isMobile ? "text-xs" : "text-sm"} tracking-wider mb-1 ${
                               project.color === "cyan" ? "text-cyan-400" : "text-orange-400"
-                            } group-hover:scale-110 transition-transform duration-300`}
-                          />
-                          <div
-                            className={`absolute inset-0 ${
-                              project.color === "cyan" ? "bg-cyan-400" : "bg-orange-400"
-                            } blur-lg opacity-20 group-hover:opacity-50 transition-opacity duration-300`}
-                          />
+                            } transition-colors duration-300 ${reducedMotion ? "" : "group-hover:text-white group-focus-within:text-white"}`}
+                          >
+                            {project.shortTitle}
+                          </h3>
+
+                          <Badge
+                            variant="outline"
+                            className={`${isMobile ? "text-xs px-1 py-0" : "text-xs"} font-orbitron tracking-wider transition-all duration-300 ${
+                              project.status === "ACTIVE"
+                                ? `border-green-400/50 text-green-400 bg-green-400/10 ${reducedMotion ? "" : "group-hover:border-green-400 group-hover:bg-green-400/20 group-focus-within:border-green-400 group-focus-within:bg-green-400/20"}`
+                                : project.status === "PRODUCTION"
+                                  ? `border-orange-400/50 text-orange-400 bg-orange-400/10 ${reducedMotion ? "" : "group-hover:border-orange-400 group-hover:bg-orange-400/20 group-focus-within:border-orange-400 group-focus-within:bg-orange-400/20"}`
+                                  : `border-cyan-400/50 text-cyan-400 bg-cyan-400/10 ${reducedMotion ? "" : "group-hover:border-cyan-400 group-hover:bg-cyan-400/20 group-focus-within:border-cyan-400 group-focus-within:bg-cyan-400/20"}`
+                            }`}
+                          >
+                            {project.status}
+                          </Badge>
+
+                          {/* Hover Pulse Effect */}
+                          {!reducedMotion && (
+                            <div
+                              className={`absolute inset-0 rounded-full opacity-0 transition-opacity duration-300 ${reducedMotion ? "" : "group-hover:opacity-30 group-focus-within:opacity-30"} ${
+                                project.color === "cyan" ? "bg-cyan-400" : "bg-orange-400"
+                              }`}
+                              style={{
+                                clipPath: "polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)",
+                                animation: "pulse 2s infinite",
+                              }}
+                              aria-hidden="true"
+                            />
+                          )}
                         </div>
 
-                        <h3
-                          className={`font-orbitron font-bold ${isMobile ? "text-xs" : "text-sm"} tracking-wider mb-1 ${
-                            project.color === "cyan" ? "text-cyan-400" : "text-orange-400"
-                          } group-hover:text-white transition-colors duration-300`}
-                        >
-                          {project.shortTitle}
-                        </h3>
+                        {/* Additional Glow Layer */}
+                        {!reducedMotion && (
+                          <div
+                            className={`absolute inset-0 opacity-0 transition-opacity duration-500 ${reducedMotion ? "" : "group-hover:opacity-20 group-focus-within:opacity-20"} ${
+                              project.color === "cyan" ? "bg-cyan-400" : "bg-orange-400"
+                            }`}
+                            style={{
+                              clipPath: "polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)",
+                              filter: "blur(20px)",
+                            }}
+                            aria-hidden="true"
+                          />
+                        )}
 
-                        <Badge
-                          variant="outline"
-                          className={`${isMobile ? "text-xs px-1 py-0" : "text-xs"} font-orbitron tracking-wider transition-all duration-300 ${
-                            project.status === "ACTIVE"
-                              ? "border-green-400/50 text-green-400 bg-green-400/10 group-hover:border-green-400 group-hover:bg-green-400/20"
-                              : project.status === "PRODUCTION"
-                                ? "border-orange-400/50 text-orange-400 bg-orange-400/10 group-hover:border-orange-400 group-hover:bg-orange-400/20"
-                                : "border-cyan-400/50 text-cyan-400 bg-cyan-400/10 group-hover:border-cyan-400 group-hover:bg-cyan-400/20"
-                          }`}
-                        >
-                          {project.status}
-                        </Badge>
-
-                        {/* Hover Pulse Effect */}
-                        <div
-                          className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-300 ${
-                            project.color === "cyan" ? "bg-cyan-400" : "bg-orange-400"
-                          }`}
-                          style={{
-                            clipPath: "polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)",
-                            animation: "pulse 2s infinite",
-                          }}
-                        />
-                      </div>
-
-                      {/* Additional Glow Layer */}
-                      <div
-                        className={`absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 ${
-                          project.color === "cyan" ? "bg-cyan-400" : "bg-orange-400"
-                        }`}
-                        style={{
-                          clipPath: "polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)",
-                          filter: "blur(20px)",
-                        }}
-                      />
-                    </div>
+                        {/* Hidden description for screen readers */}
+                        <div id={`project-${project.id}-description`} className="sr-only">
+                          {project.description}. Year: {project.year}. Duration: {project.duration}. Role:{" "}
+                          {project.role}.
+                        </div>
+                      </button>
+                    </article>
                   )
                 })}
               </>
@@ -807,11 +888,12 @@ export function Projects() {
           </div>
 
           {/* Instructions */}
-          <div className="text-center">
+          <div className="text-center mt-8">
             <p className="text-cyan-100 font-inter text-sm sm:text-base">
               <span className="text-cyan-400 font-orbitron tracking-wider">CLICK</span> any hexagon to access detailed
               project information
             </p>
+            <p className="text-cyan-100/70 font-inter text-xs mt-2">Use Tab to navigate, Enter or Space to select</p>
           </div>
         </div>
       </div>
