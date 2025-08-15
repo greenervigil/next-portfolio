@@ -47,52 +47,61 @@ export const metadata: Metadata = {
 }
 
 const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Daniel Greener-Vigil",
-  hasCreatedWork: [
-    {
-      "@type": "SoftwareApplication",
-      name: "Healthcare Management Platform",
-      description: "Comprehensive healthcare platform built with React and Node.js",
-      applicationCategory: "WebApplication",
-      operatingSystem: "Web Browser",
-      programmingLanguage: ["JavaScript", "TypeScript", "React", "Node.js"],
-      creator: {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
         "@type": "Person",
+        "@id": "https://danielgreener.dev/#person",
         name: "Daniel Greener-Vigil",
+        jobTitle: "Software Engineer",
+        url: "https://danielgreener.dev",
+        sameAs: ["https://github.com/danielgreener", "https://linkedin.com/in/danielgreener"],
+        knowsAbout: ["JavaScript", "TypeScript", "React", "Node.js", "Full-Stack Development", "Web Development"],
       },
-    },
-    {
-      "@type": "SoftwareApplication",
-      name: "E-commerce Solution",
-      description: "Full-stack e-commerce platform with payment integration",
-      applicationCategory: "WebApplication",
-      operatingSystem: "Web Browser",
-      programmingLanguage: ["React", "Node.js", "MongoDB", "Stripe API"],
-      creator: {
-        "@type": "Person",
-        name: "Daniel Greener-Vigil",
+      {
+        "@type": "CreativeWork",
+        "@id": "https://danielgreener.dev/projects#healthcare-platform",
+        name: "Healthcare Management Platform",
+        description: "Comprehensive healthcare platform built with React and Node.js",
+        creator: {
+          "@id": "https://danielgreener.dev/#person",
+        },
+        programmingLanguage: ["JavaScript", "TypeScript"],
+        keywords: ["Healthcare", "React", "Node.js", "Web Application"],
       },
-    },
-    {
-      "@type": "SoftwareApplication",
-      name: "Task Management System",
-      description: "Collaborative task management application with real-time updates",
-      applicationCategory: "WebApplication",
-      operatingSystem: "Web Browser",
-      programmingLanguage: ["React", "Socket.io", "Express", "PostgreSQL"],
-      creator: {
-        "@type": "Person",
-        name: "Daniel Greener-Vigil",
+      {
+        "@type": "CreativeWork",
+        "@id": "https://danielgreener.dev/projects#ecommerce-solution",
+        name: "E-commerce Solution",
+        description: "Full-stack e-commerce platform with payment integration",
+        creator: {
+          "@id": "https://danielgreener.dev/#person",
+        },
+        programmingLanguage: ["JavaScript", "TypeScript"],
+        keywords: ["E-commerce", "React", "Node.js", "MongoDB", "Stripe"],
       },
-    },
-  ],
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": "https://danielgreener.dev/projects",
-  },
-}
+      {
+        "@type": "CreativeWork",
+        "@id": "https://danielgreener.dev/projects#task-management",
+        name: "Task Management System",
+        description: "Collaborative task management application with real-time updates",
+        creator: {
+          "@id": "https://danielgreener.dev/#person",
+        },
+        programmingLanguage: ["JavaScript", "TypeScript"],
+        keywords: ["Task Management", "React", "Socket.io", "PostgreSQL"],
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://danielgreener.dev/projects",
+        name: "Portfolio Projects | Daniel Greener-Vigil",
+        description: "Explore Daniel Greener-Vigil's portfolio of innovative software projects",
+        mainEntity: {
+          "@id": "https://danielgreener.dev/#person",
+        },
+      },
+    ],
+  }
 
 export default function ProjectsPage() {
   return (
