@@ -65,89 +65,129 @@ export function Skills() {
   ]
 
   return (
-    <section id="skills" className="py-20 relative">
+    <section id="skills" className="py-20 relative" aria-labelledby="skills-heading" role="region">
+      {/* Skip link for keyboard navigation */}
+      <a
+        href="#contact"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-cyan-400 text-black px-4 py-2 rounded z-50 font-semibold"
+      >
+        Skip to contact section
+      </a>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 mb-4">
+          <header className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 mb-4" aria-hidden="true">
               <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400" />
               <Database className="h-6 w-6 text-cyan-400" />
               <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400" />
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold mb-4 text-cyan-400 tracking-wide sm:tracking-wider">
+            <h2
+              id="skills-heading"
+              className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold mb-4 text-cyan-400 tracking-wide sm:tracking-wider"
+            >
               <span className="block sm:hidden">TECH_STACK</span>
               <span className="hidden sm:block">TECH_STACK.JSON</span>
             </h2>
             <p className="text-base sm:text-lg text-cyan-100 font-inter">
               Technologies and tools I use to bring ideas to life
             </p>
-          </div>
+          </header>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
+            role="list"
+            aria-label="Technical skill categories"
+          >
             {skillCategories.map((category, index) => (
-              <Card
+              <article
                 key={index}
-                className="bg-black/50 border-cyan-400/30 hover:border-cyan-400/60 transition-all duration-300 group backdrop-blur-sm relative overflow-hidden"
+                role="listitem"
+                className="focus-within:outline-2 focus-within:outline-cyan-400 focus-within:outline-offset-2 rounded-lg"
               >
-                {/* Animated background */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-b ${category.color === "cyan" ? "from-cyan-400/5" : "from-orange-400/5"} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                />
+                <Card
+                  className="bg-black/50 border-cyan-400/30 hover:border-cyan-400/60 transition-all duration-300 group backdrop-blur-sm relative overflow-hidden motion-reduce:transition-none motion-reduce:hover:transform-none h-full"
+                  tabIndex={0}
+                  role="region"
+                  aria-labelledby={`category-${index}-title`}
+                >
+                  {/* Animated background */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-b ${category.color === "cyan" ? "from-cyan-400/5" : "from-orange-400/5"} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 motion-reduce:transition-none motion-reduce:opacity-0`}
+                    aria-hidden="true"
+                  />
 
-                <CardHeader className="text-center pb-4 relative z-10">
-                  <div className="relative mb-2">
-                    <category.icon
-                      className={`h-8 w-8 mx-auto ${category.color === "cyan" ? "text-cyan-400" : "text-orange-400"} group-hover:scale-110 transition-transform`}
-                    />
-                    <div
-                      className={`absolute inset-0 ${category.color === "cyan" ? "bg-cyan-400" : "bg-orange-400"} blur-md opacity-20 group-hover:opacity-40 transition-opacity`}
-                    />
-                  </div>
-                  <CardTitle
-                    className={`text-lg font-orbitron tracking-wider ${category.color === "cyan" ? "text-cyan-400" : "text-orange-400"}`}
-                  >
-                    {category.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="relative z-10">
-                  <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill, skillIndex) => (
-                      <Badge
-                        key={skillIndex}
-                        variant="outline"
-                        className="text-xs font-inter border-cyan-400/30 text-cyan-100 hover:border-cyan-400/60 hover:bg-cyan-400/10 transition-all duration-200"
-                      >
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                  <CardHeader className="text-center pb-4 relative z-10">
+                    <div className="relative mb-2" aria-hidden="true">
+                      <category.icon
+                        className={`h-8 w-8 mx-auto ${category.color === "cyan" ? "text-cyan-400" : "text-orange-400"} group-hover:scale-110 transition-transform motion-reduce:transition-none motion-reduce:hover:transform-none`}
+                        aria-hidden="true"
+                      />
+                      <div
+                        className={`absolute inset-0 ${category.color === "cyan" ? "bg-cyan-400" : "bg-orange-400"} blur-md opacity-20 group-hover:opacity-40 transition-opacity motion-reduce:transition-none motion-reduce:opacity-20`}
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <CardTitle
+                      id={`category-${index}-title`}
+                      className={`text-lg font-orbitron tracking-wider ${category.color === "cyan" ? "text-cyan-400" : "text-orange-400"}`}
+                    >
+                      {category.title}
+                      <span className="sr-only"> skills category</span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="relative z-10">
+                    <ul className="flex flex-wrap gap-2" aria-label={`${category.title} skills`}>
+                      {category.skills.map((skill, skillIndex) => (
+                        <li key={skillIndex}>
+                          <Badge
+                            variant="outline"
+                            className="text-xs font-inter border-cyan-400/30 text-cyan-100 hover:border-cyan-400/60 hover:bg-cyan-400/10 transition-all duration-200 motion-reduce:transition-none focus:outline-2 focus:outline-cyan-400 focus:outline-offset-1"
+                            tabIndex={0}
+                            role="button"
+                            aria-label={`${skill} skill`}
+                          >
+                            {skill}
+                          </Badge>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </article>
             ))}
           </div>
 
           {/* Continuous Learning Section */}
-          <Card className="bg-gradient-to-r from-black/80 to-black/60 border border-cyan-400/30 backdrop-blur-sm relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-orange-400/5" />
-            <CardContent className="p-4 sm:p-8 relative z-10">
-              <div className="text-center space-y-6">
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-0 sm:space-x-2">
-                  <Cpu className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400" />
-                  <h3 className="text-lg sm:text-xl font-orbitron font-bold text-cyan-400 tracking-wide sm:tracking-wider">
-                    <span className="block sm:hidden">LEARNING.INIT</span>
-                    <span className="hidden sm:block">CONTINUOUS_LEARNING.INIT</span>
-                  </h3>
-                  <Cpu className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400" />
+          <section
+            aria-labelledby="learning-heading"
+            className="focus-within:outline-2 focus-within:outline-cyan-400 focus-within:outline-offset-2 rounded-lg"
+          >
+            <Card className="bg-gradient-to-r from-black/80 to-black/60 border border-cyan-400/30 backdrop-blur-sm relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-orange-400/5" aria-hidden="true" />
+              <CardContent className="p-4 sm:p-8 relative z-10">
+                <div className="text-center space-y-6">
+                  <header className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-0 sm:space-x-2">
+                    <Cpu className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400" aria-hidden="true" />
+                    <h3
+                      id="learning-heading"
+                      className="text-lg sm:text-xl font-orbitron font-bold text-cyan-400 tracking-wide sm:tracking-wider"
+                    >
+                      <span className="block sm:hidden">LEARNING.INIT</span>
+                      <span className="hidden sm:block">CONTINUOUS_LEARNING.INIT</span>
+                    </h3>
+                    <Cpu className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400" aria-hidden="true" />
+                  </header>
+                  <p className="text-cyan-100 font-inter max-w-3xl mx-auto text-sm sm:text-base">
+                    Throughout my career, I've had the opportunity to work on a broad range of projects, leveraging a
+                    diverse set of technologies. I'm always eager to take on new challenges that push both my skills and
+                    my team's abilities to new heights, constantly exploring emerging technologies and best practices.
+                  </p>
                 </div>
-                <p className="text-cyan-100 font-inter max-w-3xl mx-auto text-sm sm:text-base">
-                  Throughout my career, I've had the opportunity to work on a broad range of projects, leveraging a
-                  diverse set of technologies. I'm always eager to take on new challenges that push both my skills and
-                  my team's abilities to new heights, constantly exploring emerging technologies and best practices.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </section>
         </div>
       </div>
     </section>
