@@ -116,7 +116,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <GridBackground />
           <Navigation />
-          <main id="main-content">{children}</main>
+          {children}
           <Footer />
         </ThemeProvider>
       </body>
