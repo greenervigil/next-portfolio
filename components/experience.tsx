@@ -117,7 +117,7 @@ export function Experience() {
   ]
 
   return (
-    <section id="experience" className="py-20 relative" role="main" aria-labelledby="experience-heading">
+    <section id="experience" className="py-20 relative" aria-labelledby="experience-heading" role="region">
       {/* Skip link for keyboard navigation */}
       <a
         href="#experience-content"
