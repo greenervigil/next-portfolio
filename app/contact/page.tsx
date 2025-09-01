@@ -20,13 +20,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://danielgreener.dev/contact",
+    url: "https://greenervigil.dev/contact",
     title: "Contact | Daniel Greener-Vigil - Software Engineer",
     description: "Get in touch with Daniel for software development projects, consulting, or mentorship opportunities.",
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
-        url: "/og-contact.jpg",
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: "Contact Daniel Greener-Vigil - Software Engineer",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Contact | Daniel Greener-Vigil - Software Engineer",
     description: "Get in touch with Daniel for software development projects and consulting.",
-    images: ["/og-contact.jpg"],
+    images: ["/twitter-image.jpg"],
   },
   robots: {
     index: true,
@@ -50,11 +50,11 @@ const structuredData = {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://danielgreener.dev/#person",
+        "@id": "https://greenervigil.dev/#person",
         name: "Daniel Greener-Vigil",
         jobTitle: "Software Engineer",
         email: "daniel@greenfielddev.com",
-        url: "https://danielgreener.dev",
+        url: "https://greenervigil.dev",
         contactPoint: {
           "@type": "ContactPoint",
           telephone: "+1-555-0123",
@@ -69,25 +69,25 @@ const structuredData = {
       },
       {
         "@type": "ProfessionalService",
-        "@id": "https://danielgreener.dev/#service",
+        "@id": "https://greenervigil.dev/#service",
         name: "Software Development Services",
         description: "Full-stack web development, consulting, and mentorship services",
         serviceType: "Software Development",
         provider: {
-          "@id": "https://danielgreener.dev/#person",
+          "@id": "https://greenervigil.dev/#person",
         },
         areaServed: "Worldwide",
         availableChannel: {
           "@type": "ServiceChannel",
-          serviceUrl: "https://danielgreener.dev/contact",
+          serviceUrl: "https://greenervigil.dev/contact",
           servicePhone: "+1-555-0123",
         },
       },
       {
         "@type": "Review",
-        "@id": "https://danielgreener.dev/#review1",
+        "@id": "https://greenervigil.dev/#review1",
         itemReviewed: {
-          "@id": "https://danielgreener.dev/#service",
+          "@id": "https://greenervigil.dev/#service",
         },
         reviewRating: {
           "@type": "Rating",
@@ -102,9 +102,9 @@ const structuredData = {
       },
       {
         "@type": "Review",
-        "@id": "https://danielgreener.dev/#review2",
+        "@id": "https://greenervigil.dev/#review2",
         itemReviewed: {
-          "@id": "https://danielgreener.dev/#service",
+          "@id": "https://greenervigil.dev/#service",
         },
         reviewRating: {
           "@type": "Rating",

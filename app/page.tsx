@@ -25,14 +25,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://danielgreener.dev",
+    url: "https://greenervigil.dev",
     title: "Daniel Greener-Vigil | Software Engineer & Full-Stack Developer",
     description:
       "Experienced software engineer specializing in React, Node.js, and modern web technologies. Building innovative solutions with 8+ years of experience.",
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: "Daniel Greener-Vigil - Software Engineer Portfolio",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Daniel Greener-Vigil | Software Engineer & Full-Stack Developer",
     description: "Experienced software engineer specializing in React, Node.js, and modern web technologies.",
-    images: ["/og-image.jpg"],
+    images: ["/twitter-image.jpg"],
   },
   robots: {
     index: true,
@@ -67,11 +67,10 @@ const structuredData = {
   name: "Daniel Greener-Vigil",
   jobTitle: "Software Engineer",
   description: "Experienced software engineer specializing in React, Node.js, and modern web technologies",
-  url: "https://danielgreener.dev",
+  url: "https://greenervigil.dev",
   sameAs: [
-    "https://linkedin.com/in/daniel-greener-vigil",
-    "https://github.com/daniel-greener-vigil",
-    "https://twitter.com/daniel_greener",
+    "https://www.linkedin.com/in/danieljvigil/",
+    "https://github.com/greenervigil",
   ],
   knowsAbout: [
     "JavaScript",

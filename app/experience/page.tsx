@@ -20,14 +20,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://danielgreener.dev/experience",
+    url: "https://greenervigil.dev/experience",
     title: "Work Experience | Daniel Greener-Vigil - Software Engineer",
     description:
       "Explore Daniel's professional journey as a software engineer with 8+ years of experience in full-stack development.",
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
-        url: "/og-experience.jpg",
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: "Daniel Greener-Vigil Work Experience",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Work Experience | Daniel Greener-Vigil - Software Engineer",
     description: "Explore Daniel's professional journey with 8+ years of full-stack development experience.",
-    images: ["/og-experience.jpg"],
+    images: ["/twitter-image.jpg"],
   },
   robots: {
     index: true,
