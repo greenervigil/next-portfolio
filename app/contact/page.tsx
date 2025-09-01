@@ -8,6 +8,9 @@ export const metadata: Metadata = {
     "Get in touch with Daniel Greener-Vigil for software development projects, consulting, or mentorship opportunities. Read client testimonials and start your next project today.",
   keywords: [
     "Contact Daniel Greener-Vigil",
+    "Contact Daniel Vigil",
+    "Contact Daniel J Vigil",
+    "Contact Daniel Julian Vigil",
     "Software Development Services",
     "Freelance Developer",
     "React Developer for Hire",

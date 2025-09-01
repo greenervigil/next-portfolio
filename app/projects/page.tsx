@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     "JavaScript Projects",
     "TypeScript Projects",
     "Daniel Greener-Vigil Portfolio",
+    "Daniel Vigil Portfolio",
+    "Daniel J Vigil Portfolio",
+    "Daniel Julian Vigil Portfolio",
     "Developer Portfolio",
   ],
   openGraph: {

@@ -24,6 +24,9 @@ export const metadata: Metadata = {
     "Portfolio of Daniel Greener-Vigil, an experienced Software Engineer, Tech Lead, and Mentor with 8+ years of experience in full-stack development, React, Node.js, and modern web technologies.",
   keywords: [
     "Daniel Greener-Vigil",
+    "Daniel Vigil",
+    "Daniel J Vigil",
+    "Daniel Julian Vigil",
     "Software Engineer",
     "Tech Lead",
     "Full-Stack Developer",
