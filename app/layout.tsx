@@ -15,7 +15,7 @@ const orbitron = Orbitron({
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://danielgreener.dev"),
+  metadataBase: new URL("https://greenervigil.dev"),
   title: {
     default: "Daniel Greener-Vigil - Software Engineer & Tech Lead",
     template: "%s | Daniel Greener-Vigil",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     "Fusion Medical Staffing",
     "Greenfield Development",
   ],
-  authors: [{ name: "Daniel Greener-Vigil", url: "https://danielgreener.dev" }],
+  authors: [{ name: "Daniel Greener-Vigil", url: "https://greenervigil.dev" }],
   creator: "Daniel Greener-Vigil",
   publisher: "Daniel Greener-Vigil",
   formatDetection: {
@@ -48,14 +48,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://danielgreener.dev",
+    url: "https://greenervigil.dev",
     title: "Daniel Greener-Vigil - Software Engineer & Tech Lead",
     description:
       "Portfolio of Daniel Greener-Vigil, an experienced Software Engineer, Tech Lead, and Mentor with 8+ years of experience in full-stack development.",
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: "Daniel Greener-Vigil - Software Engineer & Tech Lead",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     title: "Daniel Greener-Vigil - Software Engineer & Tech Lead",
     description:
       "Portfolio of Daniel Greener-Vigil, an experienced Software Engineer, Tech Lead, and Mentor with 8+ years of experience in full-stack development.",
-    images: ["/og-image.jpg"],
+    images: ["/twitter-image.jpg"],
     creator: "@daniel_greener",
   },
   robots: {
@@ -91,12 +91,6 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
     shortcut: "/favicon.ico",
   },
-  manifest: "/site.webmanifest",
-  verification: {
-    google: "your-google-site-verification-code",
-    yandex: "your-yandex-verification-code",
-    yahoo: "your-yahoo-verification-code",
-  },
 }
 
 export default function RootLayout({
@@ -110,7 +104,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="theme-color" content="#000000" />
         <meta name="color-scheme" content="dark" />
-        <link rel="canonical" href="https://danielgreener.dev" />
+        <link rel="canonical" href="https://greenervigil.dev" />
       </head>
       <body className={`${orbitron.variable} ${inter.variable} bg-black text-cyan-100`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>

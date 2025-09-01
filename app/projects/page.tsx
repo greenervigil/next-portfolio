@@ -20,14 +20,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://danielgreener.dev/projects",
+    url: "https://greenervigil.dev/projects",
     title: "Portfolio Projects | Daniel Greener-Vigil - Software Engineer",
     description:
       "Explore Daniel's portfolio of innovative software projects including web applications and full-stack solutions.",
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
-        url: "/og-projects.jpg",
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: "Daniel Greener-Vigil Portfolio Projects",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Portfolio Projects | Daniel Greener-Vigil - Software Engineer",
     description: "Explore Daniel's portfolio of innovative software projects and full-stack solutions.",
-    images: ["/og-projects.jpg"],
+    images: ["/twitter-image.jpg"],
   },
   robots: {
     index: true,
@@ -51,53 +51,53 @@ const structuredData = {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://danielgreener.dev/#person",
+        "@id": "https://greenervigil.dev/#person",
         name: "Daniel Greener-Vigil",
         jobTitle: "Software Engineer",
-        url: "https://danielgreener.dev",
+        url: "https://greenervigil.dev",
         sameAs: ["https://github.com/danielgreener", "https://linkedin.com/in/danielgreener"],
         knowsAbout: ["JavaScript", "TypeScript", "React", "Node.js", "Full-Stack Development", "Web Development"],
       },
       {
         "@type": "CreativeWork",
-        "@id": "https://danielgreener.dev/projects#healthcare-platform",
+        "@id": "https://greenervigil.dev/projects#healthcare-platform",
         name: "Healthcare Management Platform",
         description: "Comprehensive healthcare platform built with React and Node.js",
         creator: {
-          "@id": "https://danielgreener.dev/#person",
+          "@id": "https://greenervigil.dev/#person",
         },
         programmingLanguage: ["JavaScript", "TypeScript"],
         keywords: ["Healthcare", "React", "Node.js", "Web Application"],
       },
       {
         "@type": "CreativeWork",
-        "@id": "https://danielgreener.dev/projects#ecommerce-solution",
+        "@id": "https://greenervigil.dev/projects#ecommerce-solution",
         name: "E-commerce Solution",
         description: "Full-stack e-commerce platform with payment integration",
         creator: {
-          "@id": "https://danielgreener.dev/#person",
+          "@id": "https://greenervigil.dev/#person",
         },
         programmingLanguage: ["JavaScript", "TypeScript"],
         keywords: ["E-commerce", "React", "Node.js", "MongoDB", "Stripe"],
       },
       {
         "@type": "CreativeWork",
-        "@id": "https://danielgreener.dev/projects#task-management",
+        "@id": "https://greenervigil.dev/projects#task-management",
         name: "Task Management System",
         description: "Collaborative task management application with real-time updates",
         creator: {
-          "@id": "https://danielgreener.dev/#person",
+          "@id": "https://greenervigil.dev/#person",
         },
         programmingLanguage: ["JavaScript", "TypeScript"],
         keywords: ["Task Management", "React", "Socket.io", "PostgreSQL"],
       },
       {
         "@type": "WebPage",
-        "@id": "https://danielgreener.dev/projects",
+        "@id": "https://greenervigil.dev/projects",
         name: "Portfolio Projects | Daniel Greener-Vigil",
         description: "Explore Daniel Greener-Vigil's portfolio of innovative software projects",
         mainEntity: {
-          "@id": "https://danielgreener.dev/#person",
+          "@id": "https://greenervigil.dev/#person",
         },
       },
     ],
