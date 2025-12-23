@@ -140,9 +140,7 @@ export function Projects() {
         "Improved data consistency across services",
         "Achieved 99.99% uptime during migration",
       ],
-      links: {
-        demo: "https://api.learningportrait.com",
-      },
+      links: {},
     },
     {
       id: 3,
@@ -166,9 +164,7 @@ export function Projects() {
         "Achieved 99.9% real-time sync accuracy",
         "Reduced load time by 40%",
       ],
-      links: {
-        demo: "https://app.learningportrait.com",
-      },
+      links: {},
     },
     {
       id: 4,
@@ -370,29 +366,6 @@ export function Projects() {
     },
     {
       id: 12,
-      title: "My Pantry Application",
-      shortTitle: "My Pantry",
-      description: "Recipe and pantry management tool",
-      detailedDescription:
-        "Developed a comprehensive recipe and pantry management tool with real-time inventory tracking, meal planning, and grocery list generation. Integrated with multiple social media platforms for recipe sharing and community engagement.",
-      technologies: ["React Native", "Tailwind CSS", "Supabase", "GraphQL", "Stripe"],
-      type: "ANALYTICS_TOOL",
-      status: "IN PROGRESS",
-      icon: Globe,
-      color: "orange",
-      year: "2025",
-      duration: "5+ months",
-      team: "1 developers",
-      role: "Full-Stack Engineer",
-      challenges: ["Real-time inventory synchronization", "Cross-platform compatibility", "Social media integration"],
-      achievements: ["Supports 100K+ recipes", "Real-time inventory updates", "Integrated with 5+ social platforms"],
-      links: {
-        demo: "#",
-        github: "#",
-      },
-    },
-    {
-      id: 13,
       title: "Gal's Best Pal",
       shortTitle: "GBP Wordpress Theme",
       description: "Custom Wordpress theme for Gal's Best Pal",
@@ -418,7 +391,7 @@ export function Projects() {
       },
     },
     {
-      id: 14,
+      id: 13,
       title: "React Magma Component Library",
       shortTitle: "React Component Library",
       description: "Reusable React components for web applications",
@@ -444,7 +417,7 @@ export function Projects() {
       },
     },
     {
-      id: 15,
+      id: 14,
       title: "LeanBiologix Site Update",
       shortTitle: "LeanBiologix",
       description: "LeanBiologix wordpress site theme update",
@@ -470,7 +443,7 @@ export function Projects() {
       },
     },
     {
-      id: 16,
+      id: 15,
       title: "NGL Mindtap Schools",
       shortTitle: "NGL Mindtap Schools LMS",
       description: "National Geographic Learning Mindtap Schools LMS",
@@ -496,7 +469,7 @@ export function Projects() {
       },
     },
     {
-      id: 17,
+      id: 16,
       title: "MyELT English Language Learning Management System",
       shortTitle: "LMS",
       description: "Educational platform for English language learning",
