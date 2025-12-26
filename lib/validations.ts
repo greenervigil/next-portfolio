@@ -14,7 +14,14 @@ export const contactFormSchema = z.object({
   message: z
     .string()
     .min(10, "Message must be at least 10 characters")
-    .max(2000, "Message must be less than 2000 characters"),
+    .max(2000, "Message must be less than 2000 characters")
+    .refine(
+      (val) => {
+        const words = val.trim().split(/\s+/).filter((w) => w.length > 0)
+        return words.length >= 5
+      },
+      { message: "Message must contain at least 5 words" }
+    ),
 })
 
 export type ContactFormData = z.infer<typeof contactFormSchema>

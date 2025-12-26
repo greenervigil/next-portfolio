@@ -24,6 +24,7 @@ import {
 import { sendContactEmail } from "@/lib/emailjs"
 import { contactFormSchema } from "@/lib/validations"
 import { checkRateLimit } from "@/lib/rate-limit"
+import { checkForSpam } from "@/lib/spam-detection"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
@@ -48,7 +49,11 @@ export function Contact() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
-      setPrefersReducedMotion(mediaQuery.matches)
+
+      // Initialize in a microtask to avoid synchronous setState in render phase
+      Promise.resolve().then(() => {
+        setPrefersReducedMotion(mediaQuery.matches)
+      })
 
       const handleChange = (e: MediaQueryListEvent) => {
         setPrefersReducedMotion(e.matches)
@@ -76,6 +81,14 @@ export function Contact() {
       }
 
       const formData = new FormData(e.currentTarget)
+      
+      // Honeypot check - if this field is filled, it's a bot
+      const honeypot = formData.get("website_url") as string
+      if (honeypot && honeypot.trim().length > 0) {
+        // Silently reject - don't give feedback to bots
+        return
+      }
+
       const rawData = {
         name: formData.get("name") as string,
         email: formData.get("email") as string,
@@ -89,14 +102,17 @@ export function Contact() {
       try {
         const validatedData = contactFormSchema.parse(rawData)
 
-        const spamKeywords = ["crypto", "bitcoin", "investment", "loan", "casino", "viagra", "pharmacy"]
-        const messageText = validatedData.message.toLowerCase()
-        const hasSpam = spamKeywords.some((keyword) => messageText.includes(keyword))
+        // Comprehensive spam check
+        const spamCheck = checkForSpam({
+          message: validatedData.message,
+          business: validatedData.business,
+          email: validatedData.email,
+        })
 
-        if (hasSpam) {
+        if (spamCheck.isSpam) {
           setFormState({
             success: false,
-            message: "Message flagged as potential spam. Please revise your message.",
+            message: spamCheck.reason || "Message flagged as potential spam. Please revise your message.",
             errors: {},
           })
           return
@@ -163,7 +179,7 @@ export function Contact() {
               <span className="hidden sm:block">CONTACT_INTERFACE.EXE</span>
             </h2>
             <p className="text-base sm:text-lg text-cyan-100 font-inter px-4 sm:px-0">
-              Ready to collaborate or discuss opportunities? I'd love to hear from you.
+              {`Ready to collaborate or discuss opportunities? I'd love to hear from you.`}
             </p>
           </header>
 
@@ -179,8 +195,8 @@ export function Contact() {
                     <span className="hidden sm:block">CONNECTION_PROTOCOLS</span>
                   </h3>
                   <p className="text-cyan-100 font-inter mb-4 sm:mb-6 border-l-2 border-cyan-400/50 pl-3 sm:pl-4 text-sm sm:text-base">
-                    Whether you're looking for technical leadership, mentorship, or collaboration opportunities, I'm
-                    always open to meaningful conversations.
+                    {`Whether you're looking for technical leadership, mentorship, or collaboration opportunities, I'm
+                    always open to meaningful conversations.`}
                   </p>
 
                   <div className="space-y-3 sm:space-y-4" role="list">
@@ -287,7 +303,7 @@ export function Contact() {
                   </CardTitle>
                 </div>
                 <CardDescription className="text-cyan-100 font-inter text-sm sm:text-base">
-                  Let's discuss your project or opportunity
+                  {`Let's discuss your project or opportunity`}
                 </CardDescription>
               </CardHeader>
               <CardContent className="relative z-10 p-4 sm:p-6 pt-0">
@@ -517,6 +533,22 @@ export function Contact() {
                         {formState.errors.message}
                       </p>
                     )}
+                  </div>
+
+                  {/* Honeypot field - hidden from users but visible to bots */}
+                  <div className="sr-only" aria-hidden="true">
+                    <Label htmlFor="website_url" className="sr-only">
+                      Website URL (leave blank)
+                    </Label>
+                    <Input
+                      id="website_url"
+                      name="website_url"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      className="sr-only"
+                      aria-hidden="true"
+                    />
                   </div>
 
                   <Button
