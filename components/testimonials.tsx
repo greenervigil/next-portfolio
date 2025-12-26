@@ -2,25 +2,61 @@
 
 import type React from "react"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Quote, Star, ChevronLeft, ChevronRight, Play, Pause } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import Image from "next/image"
 import { state } from "@/context/state"
 import { Testimonial } from "@/types/testimonial-type"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const [autoplay, setAutoplay] = useState(true)
   const [reducedMotion, setReducedMotion] = useState(false)
+  const [imageError, setImageError] = useState(false)
   const carouselRef = useRef<HTMLDivElement>(null)
   const announceRef = useRef<HTMLDivElement>(null)
+  const currentTestimonial = state.testimonials[currentIndex]
+
+  const announceChange = (index: number) => {
+    if (announceRef.current) {
+      const testimonial = state.testimonials[index]
+      announceRef.current.textContent = `Now showing testimonial ${index + 1} of ${state.testimonials.length} from ${testimonial.name}, ${testimonial.designation} at ${testimonial.company}`
+    }
+  }
+
+  const goToPrevious = () => {
+    if (isAnimating) return
+    setIsAnimating(true)
+    const newIndex = currentIndex === 0 ? state.testimonials.length - 1 : currentIndex - 1
+    setImageError(false)
+    setCurrentIndex(newIndex)
+    announceChange(newIndex)
+    setTimeout(() => setIsAnimating(false), reducedMotion ? 0 : 500)
+  }
+
+  const goToNext = useCallback(() => {
+    if (isAnimating) return
+    setIsAnimating(true)
+    const newIndex = currentIndex === state.testimonials.length - 1 ? 0 : currentIndex + 1
+    setImageError(false)
+    setCurrentIndex(newIndex)
+    announceChange(newIndex)
+    setTimeout(() => setIsAnimating(false), reducedMotion ? 0 : 500)
+  }, [currentIndex, isAnimating, reducedMotion])
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
-    setReducedMotion(mediaQuery.matches)
+
+    // Initialize in a microtask to avoid synchronous setState in render phase
+    Promise.resolve().then(() => {
+      setReducedMotion(mediaQuery.matches)
+      if (mediaQuery.matches) {
+        setAutoplay(false)
+      }
+    })
 
     const handleChange = (e: MediaQueryListEvent) => {
       setReducedMotion(e.matches)
@@ -45,36 +81,12 @@ export function Testimonials() {
     return () => {
       if (interval) clearInterval(interval)
     }
-  }, [currentIndex, autoplay, reducedMotion])
-
-  const announceChange = (index: number) => {
-    if (announceRef.current) {
-      const testimonial = state.testimonials[index]
-      announceRef.current.textContent = `Now showing testimonial ${index + 1} of ${state.testimonials.length} from ${testimonial.name}, ${testimonial.designation} at ${testimonial.company}`
-    }
-  }
-
-  const goToPrevious = () => {
-    if (isAnimating) return
-    setIsAnimating(true)
-    const newIndex = currentIndex === 0 ? state.testimonials.length - 1 : currentIndex - 1
-    setCurrentIndex(newIndex)
-    announceChange(newIndex)
-    setTimeout(() => setIsAnimating(false), reducedMotion ? 0 : 500)
-  }
-
-  const goToNext = () => {
-    if (isAnimating) return
-    setIsAnimating(true)
-    const newIndex = currentIndex === state.testimonials.length - 1 ? 0 : currentIndex + 1
-    setCurrentIndex(newIndex)
-    announceChange(newIndex)
-    setTimeout(() => setIsAnimating(false), reducedMotion ? 0 : 500)
-  }
+  }, [currentIndex, autoplay, reducedMotion, goToNext])
 
   const goToTestimonial = (index: number) => {
     if (isAnimating || index === currentIndex) return
     setIsAnimating(true)
+    setImageError(false)
     setCurrentIndex(index)
     announceChange(index)
     setTimeout(() => setIsAnimating(false), reducedMotion ? 0 : 500)
@@ -104,6 +116,13 @@ export function Testimonials() {
   const toggleAutoplay = () => {
     setAutoplay(!autoplay)
   }
+
+  const fallbackInitials = currentTestimonial?.name
+    ?.split(" ")
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase()
 
   return (
     <section className="py-20 relative" aria-labelledby="testimonials-heading">
@@ -182,13 +201,19 @@ export function Testimonials() {
                       <div className="flex flex-col items-center md:items-start space-y-4 md:w-1/4">
                         <div className="relative group">
                           <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-cyan-400/50 relative">
-                            <Image
-                              src={state.testimonials[currentIndex].src || "/placeholder.svg"}
-                              alt={`${state.testimonials[currentIndex].name}, ${state.testimonials[currentIndex].designation} at ${state.testimonials[currentIndex].company}`}
-                              width={96}
-                              height={96}
-                              className="object-cover w-full h-full"
-                            />
+                            <Avatar className="w-full h-full">
+                              {!imageError && (
+                                <AvatarImage
+                                  src={currentTestimonial.src || "/placeholder.svg"}
+                                  alt={`${currentTestimonial.name}, ${currentTestimonial.designation} at ${currentTestimonial.company}`}
+                                  onError={() => setImageError(true)}
+                                  className="object-cover"
+                                />
+                              )}
+                              <AvatarFallback className="bg-cyan-400/20 text-cyan-900 font-semibold">
+                                {fallbackInitials || "NA"}
+                              </AvatarFallback>
+                            </Avatar>
                             <div
                               className={`absolute inset-0 bg-gradient-to-tr from-cyan-400/20 to-transparent opacity-0 group-hover:opacity-100 ${reducedMotion ? "" : "transition-opacity duration-300"}`}
                               aria-hidden="true"
@@ -234,7 +259,7 @@ export function Testimonials() {
                               id={`testimonial-content-${currentIndex}`}
                               className="text-cyan-100 font-inter leading-relaxed border-l-2 border-cyan-400/50 pl-4"
                             >
-                              "{state.testimonials[currentIndex].quote}"
+                              {`"${state.testimonials[currentIndex].quote}"`}
                             </blockquote>
                           </div>
                           {/* Fade out effect at the bottom if content is scrollable */}
