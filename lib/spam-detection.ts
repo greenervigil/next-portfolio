@@ -66,6 +66,60 @@ function isRandomString(text: string): boolean {
 }
 
 /**
+ * Check if text looks like a random character sequence (e.g., "JPxtSdOgDgtuQesM")
+ * Detects patterns like alternating case, lack of vowels, or random character combinations
+ */
+function isRandomCharacterSequence(text: string): boolean {
+  const cleanText = text.replace(/\s/g, "")
+  if (cleanText.length < 8) return false // Too short to determine
+
+  // Check for alternating case pattern (common in random strings)
+  let alternatingCaseCount = 0
+  for (let i = 1; i < cleanText.length; i++) {
+    const prev = cleanText[i - 1]
+    const curr = cleanText[i]
+    if (
+      (prev === prev.toUpperCase() && curr === curr.toLowerCase()) ||
+      (prev === prev.toLowerCase() && curr === curr.toUpperCase())
+    ) {
+      alternatingCaseCount++
+    }
+  }
+  const alternatingRatio = alternatingCaseCount / (cleanText.length - 1)
+  if (alternatingRatio > 0.6 && cleanText.length > 10) {
+    return true // High alternating case pattern
+  }
+
+  // Check vowel-to-consonant ratio (random strings often have few vowels)
+  const vowels = (cleanText.match(/[aeiouAEIOU]/g) || []).length
+  const consonants = (cleanText.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/g) || []).length
+  if (consonants > 0) {
+    const vowelRatio = vowels / (vowels + consonants)
+    // If less than 20% vowels and length > 12, likely random
+    if (vowelRatio < 0.2 && cleanText.length > 12) {
+      return true
+    }
+  }
+
+  // Check for excessive consonant clusters (random strings often have unusual patterns)
+  const consonantClusters = cleanText.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{4,}/g)
+  if (consonantClusters && consonantClusters.length > 0 && cleanText.length > 15) {
+    return true
+  }
+
+  // Check for lack of common letter patterns (random strings don't follow English patterns)
+  const commonBigrams = ["th", "he", "in", "er", "an", "re", "ed", "nd", "on", "en", "at", "ou", "it", "is", "or", "ti", "as", "to", "nt", "st"]
+  const lowerText = cleanText.toLowerCase()
+  const foundBigrams = commonBigrams.filter((bigram) => lowerText.includes(bigram)).length
+  // If a long string has very few common bigrams, it's likely random
+  if (cleanText.length > 15 && foundBigrams < 2) {
+    return true
+  }
+
+  return false
+}
+
+/**
  * Check if text has minimum word diversity (not just repeating the same word)
  */
 function hasWordDiversity(text: string, minUniqueWords = 3): boolean {
@@ -133,6 +187,13 @@ export function validateMessageQuality(message: string): {
     return { isValid: false, reason: "Message must contain at least 5 words" }
   }
 
+  // Check if message is a single long random string (like "yjGFmVbhvVDVvmpVcEGl")
+  if (words.length === 1 && words[0].length > 15) {
+    if (isRandomCharacterSequence(words[0])) {
+      return { isValid: false, reason: "Message appears to be random text" }
+    }
+  }
+
   // Check for repeated characters
   if (hasRepeatedCharacters(message)) {
     return { isValid: false, reason: "Message contains suspicious patterns" }
@@ -141,6 +202,13 @@ export function validateMessageQuality(message: string): {
   // Check if it's a random string
   if (isRandomString(message)) {
     return { isValid: false, reason: "Message appears to be random text" }
+  }
+
+  // Check each word for random character sequences
+  for (const word of words) {
+    if (word.length > 12 && isRandomCharacterSequence(word)) {
+      return { isValid: false, reason: "Message contains suspicious patterns" }
+    }
   }
 
   // Check word diversity
@@ -162,6 +230,45 @@ export function validateMessageQuality(message: string): {
 }
 
 /**
+ * Validate name quality
+ */
+export function validateNameQuality(name: string): {
+  isValid: boolean
+  reason?: string
+} {
+  if (!name || name.trim().length === 0) {
+    return { isValid: false, reason: "Name is required" }
+  }
+
+  // Check for repeated characters
+  if (hasRepeatedCharacters(name)) {
+    return { isValid: false, reason: "Name contains suspicious patterns" }
+  }
+
+  // Check if it's a random character sequence
+  if (isRandomCharacterSequence(name)) {
+    return { isValid: false, reason: "Name appears to be random text" }
+  }
+
+  // Check if it's a random string (for multi-word names)
+  if (isRandomString(name)) {
+    return { isValid: false, reason: "Name appears to be random text" }
+  }
+
+  // Check for gibberish
+  if (isGibberish(name)) {
+    return { isValid: false, reason: "Name contains invalid patterns" }
+  }
+
+  // Check for spam keywords
+  if (containsSpamKeywords(name)) {
+    return { isValid: false, reason: "Name contains prohibited content" }
+  }
+
+  return { isValid: true }
+}
+
+/**
  * Validate business name quality (if provided)
  */
 export function validateBusinessQuality(business: string): {
@@ -175,6 +282,11 @@ export function validateBusinessQuality(business: string): {
   // Check for repeated characters
   if (hasRepeatedCharacters(business)) {
     return { isValid: false, reason: "Business name contains suspicious patterns" }
+  }
+
+  // Check if it's a random character sequence
+  if (isRandomCharacterSequence(business)) {
+    return { isValid: false, reason: "Business name appears to be random text" }
   }
 
   // Check if it's a random string
@@ -217,10 +329,19 @@ export function checkForSpam(data: {
   message: string
   business?: string
   email: string
+  name?: string
 }): {
   isSpam: boolean
   reason?: string
 } {
+  // Check name if provided
+  if (data.name) {
+    const nameCheck = validateNameQuality(data.name)
+    if (!nameCheck.isValid) {
+      return { isSpam: true, reason: nameCheck.reason }
+    }
+  }
+
   // Check email
   const emailCheck = validateEmailQuality(data.email)
   if (!emailCheck.isValid) {

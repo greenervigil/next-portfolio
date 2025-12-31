@@ -21,7 +21,6 @@ import {
   LayoutGrid,
   FileText,
 } from "lucide-react"
-import { sendContactEmail } from "@/lib/emailjs"
 import { contactFormSchema } from "@/lib/validations"
 import { checkRateLimit } from "@/lib/rate-limit"
 import { checkForSpam } from "@/lib/spam-detection"
@@ -102,11 +101,12 @@ export function Contact() {
       try {
         const validatedData = contactFormSchema.parse(rawData)
 
-        // Comprehensive spam check
+        // Client-side spam check (first line of defense, but server will also check)
         const spamCheck = checkForSpam({
           message: validatedData.message,
           business: validatedData.business,
           email: validatedData.email,
+          name: validatedData.name,
         })
 
         if (spamCheck.isSpam) {
@@ -118,12 +118,30 @@ export function Contact() {
           return
         }
 
-        const result = await sendContactEmail(validatedData)
+        // Send to server-side API route (which has additional validation and rate limiting)
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: validatedData.name,
+            email: validatedData.email,
+            phone: validatedData.phone,
+            business: validatedData.business,
+            website_type: validatedData.website_type,
+            pages: validatedData.pages,
+            message: validatedData.message,
+            website_url: formData.get("website_url") as string, // Honeypot field
+          }),
+        })
+
+        const result = await response.json()
 
         if (result.success) {
           setFormState({
             success: true,
-            message: "Message transmitted successfully! I'll respond within 24 hours.",
+            message: result.message || "Message transmitted successfully! I'll respond within 24 hours.",
             errors: {},
           })
           e.currentTarget.reset()

@@ -1,10 +1,13 @@
-import emailjs from "@emailjs/browser"
 import type { ContactFormData } from "./validations"
 
+/**
+ * Send email via EmailJS REST API (works server-side)
+ */
 export async function sendContactEmail(data: ContactFormData) {
   try {
-    // Initialize EmailJS with your public key
-    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!)
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
 
     const templateParams = {
       from_name: data.name,
@@ -16,15 +19,25 @@ export async function sendContactEmail(data: ContactFormData) {
       message: data.message,
     }
 
-    const response = await emailjs.send(
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-      templateParams,
-    )
+    // Use EmailJS REST API
+    const response = await fetch(`https://api.emailjs.com/api/v1.0/email/send`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        service_id: serviceId,
+        template_id: templateId,
+        user_id: publicKey,
+        template_params: templateParams,
+      }),
+    })
 
-    if (response.status === 200) {
+    if (response.ok) {
       return { success: true, message: "Message sent successfully!" }
     } else {
+      const errorText = await response.text()
+      console.error("EmailJS API error:", response.status, errorText)
       return { success: false, error: "Failed to send message" }
     }
   } catch (error) {
