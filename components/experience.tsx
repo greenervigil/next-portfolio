@@ -30,7 +30,7 @@ export function Experience() {
       status: "COMPLETED",
       description: "Developed full-stack Gradebook application with a focus on user experience and performance.",
       achievements: [
-        "Achitected and developed a full-stack Gradebook application using Next.js, TypeScript, and Tailwind CSS",
+        "Achitected and developed a full-stack Gradebook application using Next.js, TypeScript, Material UI and styled-components",
         "Implemented API layers with Next.js API routes and PostgreSQL for seamless data handling",
         "Implemented a user-friendly interface with Material UI components",
         "Optimized application performance through server-side rendering and static site generation",
