@@ -56,14 +56,14 @@ const structuredData = {
     hasOccupation: [
       {
         "@type": "Occupation",
-        name: "Senior Software Engineer",
+        name: "Technical Lead",
         workLocation: {
           "@type": "Organization",
           name: "Fusion Medical Staffing",
         },
         estimatedSalary: {
           "@type": "MonetaryAmountDistribution",
-          name: "Senior Software Engineer Salary",
+          name: "Technical Lead Salary",
           currency: "USD",
         },
         description: "Leading full-stack development initiatives and mentoring junior developers",

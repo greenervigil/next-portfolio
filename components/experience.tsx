@@ -5,7 +5,7 @@ import { Briefcase, Calendar, Zap, ChevronRight } from "lucide-react"
 export function Experience() {
   const experiences = [
     {
-      title: "Senior Software Engineer & Tech Lead",
+      title: "Technical Lead",
       company: "Fusion Medical Staffing",
       period: "2023 - Present",
       status: "ACTIVE",
