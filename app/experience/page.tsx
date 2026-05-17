@@ -5,21 +5,12 @@ export const metadata: Metadata = {
   title: "Work Experience | Daniel Greener-Vigil - Software Engineer",
   description:
     "Explore Daniel Greener-Vigil's professional journey as a software engineer, from CTS to Fusion Medical Staffing and Greenfield Development. 8+ years of full-stack development experience.",
-  keywords: [
-    "Work Experience",
-    "Software Engineer Career",
-    "Full-Stack Developer Experience",
-    "React Developer",
-    "Node.js Developer",
-    "Professional History",
-    "Daniel Greener-Vigil Experience",
-    "Daniel Vigil Experience",
-    "Daniel J Vigil Experience",
-    "Daniel Julian Vigil Experience",
-    "CTS",
-    "Fusion Medical Staffing",
-    "Greenfield Development",
-  ],
+  alternates: {
+    canonical: "/experience",
+  },
+  authors: [{ name: "Daniel Greener-Vigil" }],
+  creator: "Daniel Greener-Vigil",
+  publisher: "Daniel Greener-Vigil",
   openGraph: {
     type: "website",
     locale: "en_US",

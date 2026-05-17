@@ -6,20 +6,12 @@ export const metadata: Metadata = {
   title: "Contact | Daniel Greener-Vigil - Software Engineer",
   description:
     "Get in touch with Daniel Greener-Vigil for software development projects, consulting, or mentorship opportunities. Read client testimonials and start your next project today.",
-  keywords: [
-    "Contact Daniel Greener-Vigil",
-    "Contact Daniel Vigil",
-    "Contact Daniel J Vigil",
-    "Contact Daniel Julian Vigil",
-    "Software Development Services",
-    "Freelance Developer",
-    "React Developer for Hire",
-    "Full-Stack Developer Contact",
-    "Software Consulting",
-    "Developer Mentorship",
-    "Web Development Services",
-    "Client Testimonials",
-  ],
+  alternates: {
+    canonical: "/contact",
+  },
+  authors: [{ name: "Daniel Greener-Vigil" }],
+  creator: "Daniel Greener-Vigil",
+  publisher: "Daniel Greener-Vigil",
   openGraph: {
     type: "website",
     locale: "en_US",

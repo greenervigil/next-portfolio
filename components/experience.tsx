@@ -1,6 +1,46 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Briefcase, Calendar, Zap, ChevronRight } from "lucide-react"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Work Experience | Daniel Greener-Vigil - Software Engineer",
+  description:
+    "Explore Daniel Greener-Vigil's professional journey as a software engineer, from CTS to Fusion Medical Staffing and Greenfield Development. 8+ years of full-stack development experience.",
+  alternates: {
+    canonical: "/experience",
+  },
+  authors: [{ name: "Daniel Greener-Vigil" }],
+  creator: "Daniel Greener-Vigil",
+  publisher: "Daniel Greener-Vigil",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://greenervigil.dev/experience",
+    title: "Work Experience | Daniel Greener-Vigil - Software Engineer",
+    description:
+      "Explore Daniel's professional journey as a software engineer with 8+ years of experience in full-stack development.",
+    siteName: "Daniel Greener-Vigil Portfolio",
+    images: [
+      {
+        url: "/opengraph-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Daniel Greener-Vigil Work Experience",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Work Experience | Daniel Greener-Vigil - Software Engineer",
+    description: "Explore Daniel's professional journey with 8+ years of full-stack development experience.",
+    images: ["/twitter-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+}
 
 export function Experience() {
   const experiences = [

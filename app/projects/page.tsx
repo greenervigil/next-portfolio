@@ -5,21 +5,12 @@ export const metadata: Metadata = {
   title: "Portfolio Projects | Daniel Greener-Vigil - Software Engineer",
   description:
     "Explore Daniel Greener-Vigil's portfolio of innovative software projects including web applications, mobile apps, and full-stack solutions built with React, Node.js, and modern technologies.",
-  keywords: [
-    "Portfolio Projects",
-    "Software Projects",
-    "Web Applications",
-    "React Projects",
-    "Node.js Applications",
-    "Full-Stack Projects",
-    "JavaScript Projects",
-    "TypeScript Projects",
-    "Daniel Greener-Vigil Portfolio",
-    "Daniel Vigil Portfolio",
-    "Daniel J Vigil Portfolio",
-    "Daniel Julian Vigil Portfolio",
-    "Developer Portfolio",
-  ],
+  alternates: {
+    canonical: "/projects",
+  },
+  authors: [{ name: "Daniel Greener-Vigil" }],
+  creator: "Daniel Greener-Vigil",
+  publisher: "Daniel Greener-Vigil",
   openGraph: {
     type: "website",
     locale: "en_US",
