@@ -44,6 +44,16 @@ export const state = {
   greenfield: '<p>In addition to my engineering work, I lead GreenField Development, a freelance partnership I founded to help self-taught developers accelerate their careers. Through this mentorship program, I focus on developing practical, project-based skills with a strong emphasis on Agile methodologies, version control practices, and project management. It’s incredibly rewarding to guide developers through their journeys and watch them grow into confident, capable contributors.</p>',
   projects: [
     {
+      id: 16,
+      href: '/projects/16',
+      link: 'https://tailor-dev-lilac.vercel.app/',
+      title: 'Resume Tailor Dev',
+      description: 'Resume Tailor Dev is a tool that helps job seekers create tailored resumes for specific job applications, increasing their chances of landing interviews.',
+      imageSrc: '/resume-tailor-dev.png',
+      imageDescription: 'Resume Tailor Dev home page',
+      tech: ['React', 'NextJS', 'Tailwind CSS', 'TypeScript', 'Shadcn/ui']
+    },
+    {
       id: 15,
       href: '/projects/15',
       link: 'https://app.learningportrait.com',

@@ -499,6 +499,28 @@ export function Projects() {
         live: "https://myelt.heinle.com/ilrn/authentication/signIn.do?inst=MYELT",
       },
     },
+    {
+      id: 17,
+      title: "Resume Tailor Dev",
+      shortTitle: "Resume Tailor",
+      description: "Resume tailoring tool for job seekers",
+      detailedDescription:
+        "Developed a resume tailoring tool that helps job seekers create customized resumes for specific job applications, increasing their chances of landing interviews. The tool provides AI-powered suggestions and formatting options.",
+      technologies: ["React", "NextJS", "Tailwind CSS", "TypeScript", "Shadcn/ui"],
+      type: "CAREER_TOOL",
+      status: "PRODUCTION",
+      icon: Code,
+      color: "orange",
+      year: "2026",
+      duration: "1 week",
+      team: "1 developer",
+      role: "Sole Developer",
+      challenges: ["AI integration for resume suggestions", "User-friendly interface design", "Ensuring data privacy and security"],
+      achievements: ["Launched to public with positive user feedback", "Helped users create tailored resumes for job applications"],
+      links: {
+        live: "https://resume-tailor-dev.vercel.app/",
+      }, 
+    }
   ]
 
   // Get hexagon grid layout based on screen size
