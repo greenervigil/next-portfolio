@@ -518,7 +518,7 @@ export function Projects() {
       challenges: ["AI integration for resume suggestions", "User-friendly interface design", "Ensuring data privacy and security"],
       achievements: ["Launched to public with positive user feedback", "Helped users create tailored resumes for job applications"],
       links: {
-        live: "https://resume-tailor-dev.vercel.app/",
+        live: "https://tailor-dev-lilac.vercel.app",
       }, 
     }
   ]
