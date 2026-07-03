@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
-        url: "/opengraph-image.jpg",
+        url: "/opengraph-image.png",
         width: 1200,
-        height: 630,
+        height: 547,
         alt: "Daniel Greener-Vigil Portfolio Projects",
       },
     ],
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Portfolio Projects | Daniel Greener-Vigil - Software Engineer",
     description: "Explore Daniel's portfolio of innovative software projects and full-stack solutions.",
-    images: ["/twitter-image.jpg"],
+    images: ["/twitter-image.png"],
   },
   robots: {
     index: true,
@@ -49,41 +49,46 @@ const structuredData = {
         name: "Daniel Greener-Vigil",
         jobTitle: "Software Engineer",
         url: "https://greenervigil.dev",
-        sameAs: ["https://github.com/danielgreener", "https://linkedin.com/in/danielgreener"],
+        sameAs: ["https://github.com/greenervigil", "https://www.linkedin.com/in/danieljvigil/"],
         knowsAbout: ["JavaScript", "TypeScript", "React", "Node.js", "Full-Stack Development", "Web Development"],
       },
       {
         "@type": "CreativeWork",
-        "@id": "https://greenervigil.dev/projects#healthcare-platform",
-        name: "Healthcare Management Platform",
-        description: "Comprehensive healthcare platform built with React and Node.js",
+        "@id": "https://greenervigil.dev/projects#greenfield-development",
+        name: "GreenField Development Web Platform",
+        description:
+          "A SaaS cooperative company specializing in building scalable web applications and mentoring self-taught developers.",
         creator: {
           "@id": "https://greenervigil.dev/#person",
         },
-        programmingLanguage: ["JavaScript", "TypeScript"],
-        keywords: ["Healthcare", "React", "Node.js", "Web Application"],
+        programmingLanguage: ["TypeScript"],
+        keywords: ["Next.js", "Tailwind CSS", "shadcn/ui", "Vercel"],
+        url: "https://greenervigil.dev",
       },
       {
         "@type": "CreativeWork",
-        "@id": "https://greenervigil.dev/projects#ecommerce-solution",
-        name: "E-commerce Solution",
-        description: "Full-stack e-commerce platform with payment integration",
+        "@id": "https://greenervigil.dev/projects#learning-portrait-api",
+        name: "Learning Portrait API & Database Redesign",
+        description:
+          "Redesigned a complex microservices architecture for an enterprise education platform, focusing on scalability, performance, and maintainability, with a zero-downtime migration strategy.",
         creator: {
           "@id": "https://greenervigil.dev/#person",
         },
-        programmingLanguage: ["JavaScript", "TypeScript"],
-        keywords: ["E-commerce", "React", "Node.js", "MongoDB", "Stripe"],
+        programmingLanguage: ["TypeScript"],
+        keywords: ["Next.js", "PostgreSQL", "Apollo Client", "Docker", "Microservices"],
       },
       {
         "@type": "CreativeWork",
-        "@id": "https://greenervigil.dev/projects#task-management",
-        name: "Task Management System",
-        description: "Collaborative task management application with real-time updates",
+        "@id": "https://greenervigil.dev/projects#ultra-crew-mobile",
+        name: "Ultra Crew Mobile Application",
+        description:
+          "A mobile application for long-distance runners providing real-time performance tracking, personalized training plans, and community features.",
         creator: {
           "@id": "https://greenervigil.dev/#person",
         },
-        programmingLanguage: ["JavaScript", "TypeScript"],
-        keywords: ["Task Management", "React", "Socket.io", "PostgreSQL"],
+        programmingLanguage: ["TypeScript"],
+        keywords: ["React Native", "Supabase", "Expo", "Stripe"],
+        url: "https://ultracrew.app",
       },
       {
         "@type": "WebPage",

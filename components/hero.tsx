@@ -49,8 +49,6 @@ export function Hero() {
     }
   }, [])
 
-  if (!mounted) return null
-
   return (
     <>
       {/* Skip to main content link */}
@@ -68,8 +66,9 @@ export function Hero() {
       >
         {/* Animated background elements - hidden from screen readers */}
         <div className="absolute inset-0" aria-hidden="true">
-          {/* Floating particles - only animate if motion is not reduced */}
-          {!prefersReducedMotion &&
+          {/* Floating particles - client-only (random positions) and only if motion is not reduced */}
+          {mounted &&
+            !prefersReducedMotion &&
             [...Array(20)].map((_, i) => (
               <div
                 key={i}

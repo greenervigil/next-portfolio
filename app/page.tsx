@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
-        url: "/opengraph-image.jpg",
+        url: "/opengraph-image.png",
         width: 1200,
-        height: 630,
+        height: 547,
         alt: "Daniel Greener-Vigil - Software Engineer Portfolio",
       },
     ],
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Daniel Greener-Vigil | Software Engineer & Full-Stack Developer",
     description: "Experienced software engineer specializing in React, Node.js, and modern web technologies.",
-    images: ["/twitter-image.jpg"],
+    images: ["/twitter-image.png"],
   },
   robots: {
     index: true,
@@ -46,9 +46,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
-  verification: {
-    google: "your-google-verification-code",
   },
 }
 
@@ -73,10 +70,6 @@ const structuredData = {
     "Web Development",
     "Software Engineering",
   ],
-  alumniOf: {
-    "@type": "Organization",
-    name: "University Name",
-  },
   worksFor: {
     "@type": "Organization",
     name: "Fusion Medical Staffing",

@@ -40,9 +40,9 @@ export const metadata: Metadata = {
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
-        url: "/opengraph-image.jpg",
+        url: "/opengraph-image.png",
         width: 1200,
-        height: 630,
+        height: 547,
         alt: "Daniel Greener-Vigil - Software Engineer & Tech Lead",
       },
     ],
@@ -52,8 +52,7 @@ export const metadata: Metadata = {
     title: "Daniel Greener-Vigil - Software Engineer & Tech Lead",
     description:
       "Portfolio of Daniel Greener-Vigil, an experienced Software Engineer, Tech Lead, and Mentor with 8+ years of experience in full-stack development.",
-    images: ["/twitter-image.jpg"],
-    creator: "@daniel_greener",
+    images: ["/twitter-image.png"],
   },
   robots: {
     index: true,
@@ -67,14 +66,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
-  icons: {
-    icon: [
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-    ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
-    shortcut: "/favicon.ico",
   },
 }
 

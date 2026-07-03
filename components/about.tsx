@@ -21,14 +21,14 @@ export function About() {
               <Cpu className="h-6 w-6 text-cyan-400" aria-hidden="true" />
               <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400" />
             </div>
-            <h1
+            <h2
               id="about-heading"
               className="text-3xl sm:text-4xl font-orbitron font-bold mb-4 text-cyan-400 tracking-wider focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-black rounded-sm"
               tabIndex={-1}
             >
               <span className="sr-only">About Me</span>
               <span aria-hidden="true">ABOUT_ME.EXE</span>
-            </h1>
+            </h2>
             <p className="text-lg text-cyan-100 max-w-2xl mx-auto font-inter">
               Passionate about technology, leadership, and continuous growth in the digital realm
             </p>

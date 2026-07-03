@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Testimonials } from "@/components/testimonials"
 import { Contact } from "@/components/contact"
+import { state } from "@/context/state"
 
 export const metadata: Metadata = {
   title: "Contact | Daniel Greener-Vigil - Software Engineer",
@@ -21,9 +22,9 @@ export const metadata: Metadata = {
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
-        url: "/opengraph-image.jpg",
+        url: "/opengraph-image.png",
         width: 1200,
-        height: 630,
+        height: 547,
         alt: "Contact Daniel Greener-Vigil - Software Engineer",
       },
     ],
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Contact | Daniel Greener-Vigil - Software Engineer",
     description: "Get in touch with Daniel for software development projects and consulting.",
-    images: ["/twitter-image.jpg"],
+    images: ["/twitter-image.png"],
   },
   robots: {
     index: true,
@@ -48,19 +49,9 @@ const structuredData = {
         "@id": "https://greenervigil.dev/#person",
         name: "Daniel Greener-Vigil",
         jobTitle: "Software Engineer",
-        email: "daniel@greenfielddev.com",
+        email: "daniel@greenervigil.dev",
         url: "https://greenervigil.dev",
-        contactPoint: {
-          "@type": "ContactPoint",
-          telephone: "+1-555-0123",
-          contactType: "professional",
-          availableLanguage: "English",
-        },
-        sameAs: [
-          "https://linkedin.com/in/daniel-greener-vigil",
-          "https://github.com/daniel-greener-vigil",
-          "https://twitter.com/daniel_greener",
-        ],
+        sameAs: ["https://github.com/greenervigil", "https://www.linkedin.com/in/danieljvigil/"],
       },
       {
         "@type": "ProfessionalService",
@@ -75,12 +66,11 @@ const structuredData = {
         availableChannel: {
           "@type": "ServiceChannel",
           serviceUrl: "https://greenervigil.dev/contact",
-          servicePhone: "+1-555-0123",
         },
       },
-      {
+      ...state.testimonials.map((testimonial, index) => ({
         "@type": "Review",
-        "@id": "https://greenervigil.dev/#review1",
+        "@id": `https://greenervigil.dev/#review${index + 1}`,
         itemReviewed: {
           "@id": "https://greenervigil.dev/#service",
         },
@@ -91,27 +81,10 @@ const structuredData = {
         },
         author: {
           "@type": "Person",
-          name: "Sarah Johnson",
+          name: testimonial.name,
         },
-        reviewBody: "Daniel's expertise in React and Node.js helped us deliver our project ahead of schedule.",
-      },
-      {
-        "@type": "Review",
-        "@id": "https://greenervigil.dev/#review2",
-        itemReviewed: {
-          "@id": "https://greenervigil.dev/#service",
-        },
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5",
-        },
-        author: {
-          "@type": "Person",
-          name: "Michael Chen",
-        },
-        reviewBody: "Outstanding technical skills and great communication throughout the project.",
-      },
+        reviewBody: testimonial.quote,
+      })),
     ],
   }
 

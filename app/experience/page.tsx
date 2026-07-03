@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
-        url: "/opengraph-image.jpg",
+        url: "/opengraph-image.png",
         width: 1200,
-        height: 630,
+        height: 547,
         alt: "Daniel Greener-Vigil Work Experience",
       },
     ],
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Work Experience | Daniel Greener-Vigil - Software Engineer",
     description: "Explore Daniel's professional journey with 8+ years of full-stack development experience.",
-    images: ["/twitter-image.jpg"],
+    images: ["/twitter-image.png"],
   },
   robots: {
     index: true,
