@@ -1,0 +1,261 @@
+---
+title: "What Is a Hash Map? How It Works Under the Hood"
+description: "Hash maps give you O(1) average-case lookups almost for free. Here's the hashing, bucketing, and collision handling that actually makes that possible, built from scratch."
+date: "2026-03-27"
+pillar: "cs-terms"
+tags: ["hash-maps", "data-structures", "fundamentals"]
+---
+
+The [Two Sum walkthrough](/blog/two-sum-three-ways) leaned on a hash map to turn an `O(n)` scan into an `O(1)` lookup, which is true of almost every interview problem that needs fast "have I seen this before?" checks. That `O(1)` isn't magic, and it isn't guaranteed — it's the result of a specific, learnable structure. Here's what's actually happening inside `Map`, `HashMap`, `Dictionary`, and every other hash-based key-value store you've ever used.
+
+## The core idea: an array wearing a disguise
+
+Underneath the key-value interface, a hash map is just an array. The trick is converting a key — a string, an object, whatever — into an array index, so that `get` and `put` become plain array access instead of a search.
+
+That conversion happens through a **hash function**: a function that takes a key and deterministically produces a number, which then gets reduced to a valid array index (usually via `% capacity`). Same key in, same index out, every time.
+
+```
+index = hash(key) % capacity
+```
+
+A good hash function needs to be fast and spread keys roughly evenly across the available indices — an uneven distribution defeats the whole point, which is the collision problem below.
+
+## Collisions are inevitable — chaining handles them
+
+Once you're mapping an unbounded set of possible keys onto a fixed number of array slots, two different keys will eventually hash to the same index. That's not a bug, it's the pigeonhole principle — with a 16-slot array, no hash function can guarantee zero collisions among 17+ keys.
+
+**Separate chaining** — the strategy below — handles this by making each array slot ("bucket") hold a small list of `[key, value]` pairs instead of a single value. A collision just means two pairs live in the same bucket; `get` and `put` scan that (usually tiny) list to find the right one. The other common strategy, open addressing, probes for the next free slot instead of using a list — different trade-offs, same underlying problem.
+
+Here's a simplified hash map, built with chaining, that shows the whole mechanism end to end:
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+class SimpleHashMap<V> {
+  private buckets: Array<Array<[string, V]>>
+
+  constructor(private capacity = 16) {
+    this.buckets = Array.from({ length: capacity }, () => [])
+  }
+
+  private hash(key: string): number {
+    let hash = 0
+    for (let i = 0; i < key.length; i++) {
+      hash = (hash * 31 + key.charCodeAt(i)) % this.capacity
+    }
+    return hash
+  }
+
+  put(key: string, value: V): void {
+    const bucket = this.buckets[this.hash(key)]
+    const existing = bucket.find(([k]) => k === key)
+    if (existing) {
+      existing[1] = value
+    } else {
+      bucket.push([key, value])
+    }
+  }
+
+  get(key: string): V | undefined {
+    const bucket = this.buckets[this.hash(key)]
+    return bucket.find(([k]) => k === key)?.[1]
+  }
+}
+```
+
+```javascript
+class SimpleHashMap {
+  constructor(capacity = 16) {
+    this.capacity = capacity
+    this.buckets = Array.from({ length: capacity }, () => [])
+  }
+
+  hash(key) {
+    let hash = 0
+    for (let i = 0; i < key.length; i++) {
+      hash = (hash * 31 + key.charCodeAt(i)) % this.capacity
+    }
+    return hash
+  }
+
+  put(key, value) {
+    const bucket = this.buckets[this.hash(key)]
+    const existing = bucket.find(([k]) => k === key)
+    if (existing) {
+      existing[1] = value
+    } else {
+      bucket.push([key, value])
+    }
+  }
+
+  get(key) {
+    const bucket = this.buckets[this.hash(key)]
+    return bucket.find(([k]) => k === key)?.[1]
+  }
+}
+```
+
+```java
+class SimpleHashMap<V> {
+    private final List<List<Map.Entry<String, V>>> buckets;
+    private final int capacity;
+
+    SimpleHashMap(int capacity) {
+        this.capacity = capacity;
+        this.buckets = new ArrayList<>();
+        for (int i = 0; i < capacity; i++) buckets.add(new ArrayList<>());
+    }
+
+    private int hash(String key) {
+        int hash = 0;
+        for (char c : key.toCharArray()) {
+            hash = (hash * 31 + c) % capacity;
+        }
+        return Math.abs(hash);
+    }
+
+    void put(String key, V value) {
+        List<Map.Entry<String, V>> bucket = buckets.get(hash(key));
+        for (Map.Entry<String, V> entry : bucket) {
+            if (entry.getKey().equals(key)) {
+                entry.setValue(value);
+                return;
+            }
+        }
+        bucket.add(new AbstractMap.SimpleEntry<>(key, value));
+    }
+
+    V get(String key) {
+        for (Map.Entry<String, V> entry : buckets.get(hash(key))) {
+            if (entry.getKey().equals(key)) return entry.getValue();
+        }
+        return null;
+    }
+}
+```
+
+```csharp
+class SimpleHashMap<V> {
+    private readonly List<(string Key, V Value)>[] buckets;
+    private readonly int capacity;
+
+    public SimpleHashMap(int capacity = 16) {
+        this.capacity = capacity;
+        buckets = new List<(string, V)>[capacity];
+        for (int i = 0; i < capacity; i++) buckets[i] = new List<(string, V)>();
+    }
+
+    private int Hash(string key) {
+        int hash = 0;
+        foreach (char c in key) {
+            hash = (hash * 31 + c) % capacity;
+        }
+        return Math.Abs(hash);
+    }
+
+    public void Put(string key, V value) {
+        var bucket = buckets[Hash(key)];
+        for (int i = 0; i < bucket.Count; i++) {
+            if (bucket[i].Key == key) {
+                bucket[i] = (key, value);
+                return;
+            }
+        }
+        bucket.Add((key, value));
+    }
+
+    public V? Get(string key) {
+        foreach (var (k, v) in buckets[Hash(key)]) {
+            if (k == key) return v;
+        }
+        return default;
+    }
+}
+```
+
+```cpp
+template <typename V>
+class SimpleHashMap {
+public:
+    explicit SimpleHashMap(int capacity = 16) : capacity(capacity), buckets(capacity) {}
+
+    void put(const std::string& key, const V& value) {
+        auto& bucket = buckets[hash(key)];
+        for (auto& [k, v] : bucket) {
+            if (k == key) {
+                v = value;
+                return;
+            }
+        }
+        bucket.emplace_back(key, value);
+    }
+
+    std::optional<V> get(const std::string& key) {
+        for (auto& [k, v] : buckets[hash(key)]) {
+            if (k == key) return v;
+        }
+        return std::nullopt;
+    }
+
+private:
+    int capacity;
+    std::vector<std::vector<std::pair<std::string, V>>> buckets;
+
+    int hash(const std::string& key) const {
+        int h = 0;
+        for (char c : key) {
+            h = (h * 31 + c) % capacity;
+        }
+        return std::abs(h);
+    }
+};
+```
+
+```ruby
+class SimpleHashMap
+  def initialize(capacity = 16)
+    @capacity = capacity
+    @buckets = Array.new(capacity) { [] }
+  end
+
+  def put(key, value)
+    bucket = @buckets[hash(key)]
+    pair = bucket.find { |k, _| k == key }
+    if pair
+      pair[1] = value
+    else
+      bucket << [key, value]
+    end
+  end
+
+  def get(key)
+    bucket = @buckets[hash(key)]
+    pair = bucket.find { |k, _| k == key }
+    pair && pair[1]
+  end
+
+  private
+
+  def hash(key)
+    h = 0
+    key.each_char { |c| h = (h * 31 + c.ord) % @capacity }
+    h.abs
+  end
+end
+```
+
+</CodeTabs>
+
+`put` and `get` both hash the key once, then scan a bucket that — with a decent hash function and reasonable capacity — holds only one or two entries. That's the whole trick: trade a full linear scan of every entry for a hash computation plus a scan of a tiny fraction of the entries.
+
+## Why "average O(1)" and not just "O(1)"
+
+This is the detail interviewers are actually checking for when they ask about hash maps. If the hash function distributes keys evenly, each bucket stays small and `get`/`put` are effectively constant time. But if the hash function is bad — or an attacker deliberately chooses keys that all hash to the same bucket — every key collides into one bucket, and you're back to a linear scan: `O(n)` worst case. [Big O notation](/blog/big-o-notation-explained) describes both of these honestly: hash maps are `O(1)` *average case*, `O(n)` *worst case*. Production hash map implementations spend real engineering effort (better hash functions, randomized seeds to prevent deliberate collision attacks) specifically to keep you out of that worst case.
+
+## Load factor and resizing
+
+As more entries get added, buckets fill up and the "average O(1)" claim starts to erode — more entries per bucket means more scanning. Hash maps track this with a **load factor** (entries ÷ capacity) and resize — typically doubling the array and re-hashing every existing entry into the new, larger bucket array — once the load factor crosses a threshold (commonly 0.75). That resize is an `O(n)` operation, but it happens rarely enough relative to the number of cheap `O(1)` operations between resizes that the *amortized* cost per operation stays `O(1)`. It's the same amortized-cost reasoning that makes dynamic arrays (`ArrayList`, JavaScript arrays, `std::vector`) report `O(1)` appends despite occasionally having to reallocate.
+
+## Why this is worth knowing beyond the interview
+
+`Map`, `Object`, `HashMap`, `Dictionary`, `unordered_map`, and Ruby's `Hash` are all this exact structure, tuned and hardened. Knowing what's underneath changes how you use them: it's why hashing a large object as a cache key is slower than hashing a short string, why a hash map with a terrible custom hash function can silently degrade to `O(n)` lookups in production, and why the [Two Sum](/blog/two-sum-three-ways) trick of "trade memory for a hash set" works as well as it does — you're not getting free performance, you're spending real memory on an array that's sized to keep collisions rare.

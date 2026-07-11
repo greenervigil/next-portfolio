@@ -1,0 +1,286 @@
+---
+title: "Designing a Rate Limiter: Token Bucket vs. Sliding Window"
+description: "A rate limiter is a small piece of state and a simple rule, but the algorithm you pick and where that state lives determines whether it actually works once you have more than one server."
+date: "2026-07-10"
+pillar: "architecture"
+tags: ["rate-limiting", "system-design", "api-design", "node"]
+---
+
+A rate limiter answers one question — "has this client made too many requests?" — but the way you answer it has real consequences: too strict and legitimate bursty traffic gets rejected, too loose and the protection it's meant to provide doesn't exist. Here are the two algorithms worth actually knowing, and the part most explanations skip: where the counters live once you have more than one server.
+
+## Fixed window: simple, but bursts at the boundary
+
+The naive approach: count requests in a fixed time window (e.g. "100 requests per minute," reset every minute on the clock). It's easy to reason about and easy to implement, but it has a real flaw — a client can send 100 requests in the last second of one window and another 100 in the first second of the next, getting 200 requests through in two seconds while technically staying within the stated limit every single window. Worth naming as the baseline, and worth naming its flaw, before reaching for something better.
+
+## Token bucket: smooth, and it allows intentional bursts
+
+A bucket holds up to `capacity` tokens. Every request consumes one token; if the bucket is empty, the request is rejected. Tokens refill continuously at a fixed rate, up to the capacity. The result: a client that's been idle can burst up to `capacity` requests immediately, then is throttled to the steady refill rate — which is usually exactly the behavior you want (an idle client shouldn't be penalized for saving up quota, but a sustained flood should be capped).
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+class TokenBucket {
+  private tokens: number
+  private lastRefill: number
+
+  constructor(
+    private capacity: number,
+    private refillRatePerSecond: number,
+  ) {
+    this.tokens = capacity
+    this.lastRefill = Date.now()
+  }
+
+  private refill(): void {
+    const now = Date.now()
+    const elapsedSeconds = (now - this.lastRefill) / 1000
+    this.tokens = Math.min(this.capacity, this.tokens + elapsedSeconds * this.refillRatePerSecond)
+    this.lastRefill = now
+  }
+
+  allowRequest(): boolean {
+    this.refill()
+    if (this.tokens >= 1) {
+      this.tokens -= 1
+      return true
+    }
+    return false
+  }
+}
+```
+
+```javascript
+class TokenBucket {
+  constructor(capacity, refillRatePerSecond) {
+    this.capacity = capacity
+    this.refillRatePerSecond = refillRatePerSecond
+    this.tokens = capacity
+    this.lastRefill = Date.now()
+  }
+
+  refill() {
+    const now = Date.now()
+    const elapsedSeconds = (now - this.lastRefill) / 1000
+    this.tokens = Math.min(this.capacity, this.tokens + elapsedSeconds * this.refillRatePerSecond)
+    this.lastRefill = now
+  }
+
+  allowRequest() {
+    this.refill()
+    if (this.tokens >= 1) {
+      this.tokens -= 1
+      return true
+    }
+    return false
+  }
+}
+```
+
+```java
+class TokenBucket {
+    private final int capacity;
+    private final double refillRatePerSecond;
+    private double tokens;
+    private long lastRefill;
+
+    TokenBucket(int capacity, double refillRatePerSecond) {
+        this.capacity = capacity;
+        this.refillRatePerSecond = refillRatePerSecond;
+        this.tokens = capacity;
+        this.lastRefill = System.currentTimeMillis();
+    }
+
+    private void refill() {
+        long now = System.currentTimeMillis();
+        double elapsedSeconds = (now - lastRefill) / 1000.0;
+        tokens = Math.min(capacity, tokens + elapsedSeconds * refillRatePerSecond);
+        lastRefill = now;
+    }
+
+    synchronized boolean allowRequest() {
+        refill();
+        if (tokens >= 1) {
+            tokens -= 1;
+            return true;
+        }
+        return false;
+    }
+}
+```
+
+```csharp
+class TokenBucket {
+    private readonly int capacity;
+    private readonly double refillRatePerSecond;
+    private double tokens;
+    private DateTime lastRefill;
+
+    public TokenBucket(int capacity, double refillRatePerSecond) {
+        this.capacity = capacity;
+        this.refillRatePerSecond = refillRatePerSecond;
+        tokens = capacity;
+        lastRefill = DateTime.UtcNow;
+    }
+
+    private void Refill() {
+        var now = DateTime.UtcNow;
+        var elapsedSeconds = (now - lastRefill).TotalSeconds;
+        tokens = Math.Min(capacity, tokens + elapsedSeconds * refillRatePerSecond);
+        lastRefill = now;
+    }
+
+    public bool AllowRequest() {
+        Refill();
+        if (tokens >= 1) {
+            tokens -= 1;
+            return true;
+        }
+        return false;
+    }
+}
+```
+
+```cpp
+class TokenBucket {
+public:
+    TokenBucket(double capacity, double refillRatePerSecond)
+        : capacity(capacity), refillRatePerSecond(refillRatePerSecond), tokens(capacity),
+          lastRefill(std::chrono::steady_clock::now()) {}
+
+    bool allowRequest() {
+        refill();
+        if (tokens >= 1.0) {
+            tokens -= 1.0;
+            return true;
+        }
+        return false;
+    }
+
+private:
+    double capacity;
+    double refillRatePerSecond;
+    double tokens;
+    std::chrono::steady_clock::time_point lastRefill;
+
+    void refill() {
+        auto now = std::chrono::steady_clock::now();
+        double elapsedSeconds = std::chrono::duration<double>(now - lastRefill).count();
+        tokens = std::min(capacity, tokens + elapsedSeconds * refillRatePerSecond);
+        lastRefill = now;
+    }
+};
+```
+
+```ruby
+class TokenBucket
+  def initialize(capacity, refill_rate_per_second)
+    @capacity = capacity
+    @refill_rate_per_second = refill_rate_per_second
+    @tokens = capacity.to_f
+    @last_refill = Time.now
+  end
+
+  def allow_request?
+    refill
+    if @tokens >= 1
+      @tokens -= 1
+      true
+    else
+      false
+    end
+  end
+
+  private
+
+  def refill
+    now = Time.now
+    elapsed_seconds = now - @last_refill
+    @tokens = [@capacity, @tokens + elapsed_seconds * @refill_rate_per_second].min
+    @last_refill = now
+  end
+end
+```
+
+</CodeTabs>
+
+## Sliding window: more precise, more state
+
+Token bucket is cheap but doesn't track individual request timestamps, which means it can't answer "exactly how many requests happened in the last 60 seconds" — it approximates. A sliding window log keeps an actual timestamp per request and counts how many fall within the trailing window, giving an exact answer at the cost of more memory (proportional to the request rate, not constant like token bucket). Most production systems use a sliding *window counter* — a hybrid that weights the previous and current fixed windows by how far into the current window you are — as a middle ground between fixed window's boundary problem and full sliding-log's memory cost. Which one is worth the complexity depends entirely on how strict the limit actually needs to be; token bucket is the right default unless you have a specific reason to need exact counts.
+
+## The part that actually matters in production: where does the state live?
+
+Everything above assumes one process holding the bucket in memory. That assumption breaks the moment there's more than one server instance behind a load balancer — each instance would track its own independent bucket, and a client could get several times the intended limit just by getting routed to different instances. This is the detail that separates "I know the algorithm" from "I've actually built one that works" — the state has to be centralized somewhere every instance can reach, which in practice means Redis (`INCR` with a `TTL` is a common fixed-window primitive; a Lua script can implement token bucket atomically) or a similar shared, low-latency store.
+
+Here's what wiring token bucket logic into a real request path looks like — first as Express middleware, then as Next.js middleware, both assuming a shared bucket store (Redis in production; the in-memory `Map` below is a stand-in to keep the example runnable):
+
+<CodeTabs labels={["Node (Express)", "Next.js Middleware"]}>
+
+```javascript
+// Express middleware — buckets keyed by client, refilled on each check.
+// Swap the Map for a Redis-backed store to make this work across instances.
+const buckets = new Map()
+
+function rateLimit({ capacity = 10, refillRatePerSecond = 1 } = {}) {
+  return (req, res, next) => {
+    const key = req.ip
+    const now = Date.now()
+    const bucket = buckets.get(key) ?? { tokens: capacity, lastRefill: now }
+
+    const elapsedSeconds = (now - bucket.lastRefill) / 1000
+    bucket.tokens = Math.min(capacity, bucket.tokens + elapsedSeconds * refillRatePerSecond)
+    bucket.lastRefill = now
+
+    if (bucket.tokens < 1) {
+      buckets.set(key, bucket)
+      return res.status(429).json({ error: "Too many requests" })
+    }
+
+    bucket.tokens -= 1
+    buckets.set(key, bucket)
+    next()
+  }
+}
+
+app.use("/api/", rateLimit({ capacity: 20, refillRatePerSecond: 0.5 }))
+```
+
+```typescript
+// middleware.ts — runs on every matched request before it reaches a route.
+// Same caveat: use a shared store (Redis, Upstash) in production so limits
+// hold across multiple deployed instances, not just within one.
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
+
+const buckets = new Map<string, { tokens: number; lastRefill: number }>()
+const CAPACITY = 20
+const REFILL_RATE_PER_SECOND = 0.5
+
+export function middleware(request: NextRequest) {
+  const key = request.ip ?? "anonymous"
+  const now = Date.now()
+  const bucket = buckets.get(key) ?? { tokens: CAPACITY, lastRefill: now }
+
+  const elapsedSeconds = (now - bucket.lastRefill) / 1000
+  bucket.tokens = Math.min(CAPACITY, bucket.tokens + elapsedSeconds * REFILL_RATE_PER_SECOND)
+  bucket.lastRefill = now
+
+  if (bucket.tokens < 1) {
+    buckets.set(key, bucket)
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 })
+  }
+
+  bucket.tokens -= 1
+  buckets.set(key, bucket)
+  return NextResponse.next()
+}
+
+export const config = {
+  matcher: "/api/:path*",
+}
+```
+
+</CodeTabs>
+
+## Choosing one
+
+Default to token bucket — it's cheap, it handles bursts sensibly, and it's easy to reason about. Reach for a sliding window only when you have an actual requirement for precise counting (billing based on exact usage, for instance) that token bucket's approximation can't satisfy. But the algorithm choice is the smaller decision; the state-storage decision is the one that determines whether the rate limiter does anything at all once the system has more than one instance behind it — the same lesson as [monolith vs. microservices](/blog/monolith-vs-microservices): the interesting architecture question is rarely the algorithm, it's what happens once more than one process is involved.

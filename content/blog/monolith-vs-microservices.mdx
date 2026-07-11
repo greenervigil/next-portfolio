@@ -1,0 +1,52 @@
+---
+title: "Monolith vs. Microservices: What I'd Actually Choose as a Tech Lead"
+description: "Monolith vs. microservices isn't a technology choice, it's an organizational one. A practical decision framework from someone who has led both kinds of migrations."
+date: "2026-03-06"
+pillar: "architecture"
+tags: ["architecture", "microservices", "system-design", "tech-leadership"]
+---
+
+"Monolith vs. microservices" gets asked like it's a technology question, with a technically-correct-sounding answer waiting on the other side. It isn't. In practice it's an organizational question wearing a technology costume — and answering it well means asking about your team before you ask about your services.
+
+## What each one actually is
+
+A **monolith** is a single deployable unit: one codebase, one build, one process (or one set of horizontally-scaled copies of that process), usually one database. Every part of the application can call every other part directly, in-process, with no network hop in between.
+
+**Microservices** split that single unit into multiple independently deployable services, each owning its own data and communicating over the network (HTTP, gRPC, message queues). The defining property isn't "small" — it's *independently deployable*. A "microservice" that has to be deployed in lockstep with three others isn't actually microservices; it's a monolith with extra network latency.
+
+That distinction — independent deployability — is the thing to hold onto, because almost every real trade-off below falls out of it directly.
+
+## The trade-offs that actually matter
+
+### Deployment coupling
+
+In a monolith, one team's change can block another team's release — a single failing test or a risky migration anywhere in the codebase holds up everyone's deploy. Microservices remove that coupling: teams ship independently, on their own schedule, without coordinating a release train. This is usually the *real* reason a growing engineering org reaches for microservices, and it's a legitimate one — but it's an organizational fix, not a performance fix, and it's only worth the cost once you have multiple teams stepping on each other.
+
+### Operational overhead
+
+This is the cost side that's easy to underestimate from the outside. A monolith gives you in-process function calls, one database with real transactions, and one thing to deploy and monitor. Microservices trade that for network calls that can fail independently, service discovery, distributed tracing to debug a request that touches six services, and — the big one — eventual consistency instead of ACID transactions across service boundaries. None of this is exotic anymore (the tooling has matured a lot), but it is real, ongoing operational work that a small team feels immediately and a monolith doesn't require at all.
+
+### Conway's Law, whether you plan for it or not
+
+Your system's architecture will end up mirroring your org chart, whether or not that's the plan. If you have one team, you will — in practice — end up with something that behaves like a monolith even if it's technically split into services, because one team makes coordinated changes across service boundaries all the time anyway. If you have several teams that genuinely own separate domains, service boundaries that match those domains reduce cross-team coordination. This is the single best predictor I've found for whether a microservices split will actually pay off: does it match a real organizational boundary, or is it just a structural preference imposed on a team that doesn't need it?
+
+### Data consistency
+
+A monolith's single database gives you real transactions for free. Split that data across services and you're choosing between eventual consistency (accept that services will briefly disagree, and design for it) or distributed transactions (sagas, two-phase commit patterns) that are meaningfully harder to implement and debug correctly. This is the trade-off teams underestimate most often — it's not a deployment-pipeline problem, it's a data-modeling problem, and it needs to be designed deliberately rather than discovered in production.
+
+## The decision framework I actually use
+
+Skip "which is more scalable" — that's rarely the real constraint, and monoliths scale horizontally just fine for the vast majority of products. Ask instead:
+
+1. **How many teams are touching this codebase, and are they blocking each other on deploys?** One team, one deploy cadence: stay monolithic. Multiple teams tripping over each other's release windows: that's a real signal.
+2. **Does a service boundary match a real organizational or domain boundary?** If the answer is "we'd just be splitting the same team's code into more repos," you're paying the operational cost of microservices without the organizational benefit.
+3. **Is the scaling bottleneck localized to one component?** If 90% of your load is one specific workload, pulling *that piece* out as its own service (and leaving everything else alone) gets you the benefit without a full rewrite.
+4. **Can your team actually operate distributed systems today?** Service discovery, distributed tracing, and eventual consistency are a real skill and tooling investment. A microservices split without that investment usually produces a system that's harder to run, not easier.
+
+If none of those clearly point toward "split it," the default should be a well-organized monolith — clear module boundaries internally, so that a future split (if you ever need one) is a refactor instead of a rewrite. That's a deliberately unfashionable answer, but it's the one that holds up.
+
+## What this looked like in practice
+
+I led a 12-month redesign of [Learning Portrait's](/projects) backend architecture with a two-person team, focused specifically on scalability and maintainability rather than a wholesale rewrite for its own sake. We used a zero-downtime migration strategy, paid close attention to data consistency across the newly-separated pieces, and it worked: a 50% reduction in API response time and 99.99% uptime through the migration itself. The reason it worked wasn't "microservices are better" as a general principle — it was that the specific pieces we split out had genuinely different scaling and deployment needs from the rest of the system, which is exactly the signal the framework above is trying to isolate.
+
+That's also the mindset I bring into [tech lead work](/experience) generally: the architecture question is downstream of the team and workload question, not the other way around. Get those right first, and the monolith-vs-microservices decision mostly answers itself.

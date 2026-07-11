@@ -1,0 +1,153 @@
+---
+title: "Detecting a Cycle in a Linked List: Floyd's Tortoise and Hare"
+description: "Two pointers, one slow and one fast, are all it takes to detect a cycle in a linked list in O(1) space — no hash set required. Here's why it actually works, not just that it does."
+date: "2026-06-19"
+pillar: "interview-prep"
+tags: ["linked-lists", "two-pointers", "interview-prep"]
+---
+
+This one follows directly from [reversing a linked list](/blog/reverse-a-linked-list) — same `ListNode`, same habit of tracking multiple pointers through a list, applied to a different problem:
+
+> Given the head of a linked list, determine whether it contains a cycle — a node whose `next` pointer eventually loops back to a node earlier in the list instead of terminating in `nil`.
+
+```
+No cycle:  1 -> 2 -> 3 -> 4 -> nil
+
+Cycle:     1 -> 2 -> 3 -> 4
+                ^-----------|
+```
+
+## The obvious approach: remember what you've seen
+
+The direct solution is a hash set: walk the list, and if you ever revisit a node you've already seen, there's a cycle.
+
+```typescript
+function hasCycleHashSet(head: ListNode | null): boolean {
+  const seen = new Set<ListNode>()
+  let curr = head
+
+  while (curr !== null) {
+    if (seen.has(curr)) return true
+    seen.add(curr)
+    curr = curr.next
+  }
+
+  return false
+}
+```
+
+**`O(n)` time, `O(n)` space.** Correct, and a fine place to start talking in an interview — but the follow-up is almost guaranteed: *"can you do it without the extra memory?"*
+
+## Floyd's Tortoise and Hare: two pointers, no memory
+
+Move two pointers through the list at different speeds — a slow one advancing one node at a time, a fast one advancing two. If there's no cycle, the fast pointer reaches the end first and the search ends normally. If there *is* a cycle, the fast pointer eventually laps the slow one from behind, and they land on the same node.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function hasCycle(head: ListNode | null): boolean {
+  let slow = head
+  let fast = head
+
+  while (fast !== null && fast.next !== null) {
+    slow = slow!.next
+    fast = fast.next.next
+
+    if (slow === fast) return true
+  }
+
+  return false
+}
+```
+
+```javascript
+function hasCycle(head) {
+  let slow = head
+  let fast = head
+
+  while (fast !== null && fast.next !== null) {
+    slow = slow.next
+    fast = fast.next.next
+
+    if (slow === fast) return true
+  }
+
+  return false
+}
+```
+
+```java
+static boolean hasCycle(ListNode head) {
+    ListNode slow = head;
+    ListNode fast = head;
+
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+
+        if (slow == fast) return true;
+    }
+
+    return false;
+}
+```
+
+```csharp
+static bool HasCycle(ListNode? head) {
+    ListNode? slow = head;
+    ListNode? fast = head;
+
+    while (fast != null && fast.Next != null) {
+        slow = slow!.Next;
+        fast = fast.Next.Next;
+
+        if (slow == fast) return true;
+    }
+
+    return false;
+}
+```
+
+```cpp
+bool hasCycle(ListNode* head) {
+    ListNode* slow = head;
+    ListNode* fast = head;
+
+    while (fast != nullptr && fast->next != nullptr) {
+        slow = slow->next;
+        fast = fast->next->next;
+
+        if (slow == fast) return true;
+    }
+
+    return false;
+}
+```
+
+```ruby
+def has_cycle?(head)
+  slow = head
+  fast = head
+
+  while fast && fast.next
+    slow = slow.next
+    fast = fast.next.next
+
+    return true if slow.equal?(fast)
+  end
+
+  false
+end
+```
+
+</CodeTabs>
+
+**`O(n)` time, `O(1)` space.** For once, this isn't the usual [memory-for-speed trade-off](/blog/big-o-notation-explained) — Floyd's algorithm gets the same time complexity as the hash set *and* drops the space cost to constant, because it needs no memory of visited nodes at all, just two pointers.
+
+## Why the pointers are guaranteed to meet
+
+This is the part worth being able to explain, not just recite. Once the slow pointer enters the cycle, think about the gap between it and the fast pointer, measured in nodes *within the cycle*. Every step, the fast pointer gains exactly one node on the slow pointer (it moves two, slow moves one — net gain of one per iteration). A gap that shrinks by exactly one every step, inside a loop of finite length, must eventually reach zero — the fast pointer can't "jump over" the slow one, because the gap only ever closes by single steps. If there's no cycle, this reasoning never gets to apply: `fast` (or `fast.next`) hits `nil` and the loop ends first.
+
+## The interview follow-up: where does the cycle start?
+
+A common extension: once you know a cycle exists, find the node where it begins. The trick — reset one pointer to `head`, leave the other at the meeting point, then advance both one step at a time; they'll meet exactly at the cycle's start node. It's provable with the same relative-distance reasoning as above (the math works out so that the distance from `head` to the cycle start equals the distance from the meeting point to the cycle start, going forward). Worth knowing this extension exists and being able to describe the reset-and-walk approach, even if you don't derive the distance proof live in an interview — most interviewers are checking whether you know the technique exists, not asking for a whiteboard proof.

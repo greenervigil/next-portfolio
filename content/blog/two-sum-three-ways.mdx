@@ -1,0 +1,334 @@
+---
+title: "Two Sum, Three Ways: Brute Force, Hash Map, Two Pointers"
+description: "The classic first interview question, solved three different ways — with a real explanation of why the hash map approach wins and when the alternatives are actually the better call."
+date: "2026-02-13"
+updated: "2026-07-24"
+pillar: "interview-prep"
+tags: ["arrays", "hash-maps", "two-pointers", "interview-prep"]
+---
+
+Two Sum is usually the first "real" problem in any interview loop, which is exactly why it's worth solving properly instead of just memorizing the hash map answer. The problem:
+
+> Given an array of integers `nums` and an integer `target`, return the indices of the two numbers that add up to `target`. Assume exactly one solution exists, and you can't use the same element twice.
+
+```typescript
+twoSum([2, 7, 11, 15], 9) // → [0, 1], because nums[0] + nums[1] === 9
+```
+
+There are three approaches worth knowing — not because you'll be asked for all three, but because the interviewer's follow-up questions ("can you do better?", "what if memory is constrained?") are really asking whether you understand the trade-offs between them. Complexity notation below assumes you're comfortable with [Big O notation](/blog/big-o-notation-explained) — if any of `O(n)` or `O(n^2)` looks unfamiliar, that's the place to start.
+
+## Approach 1: Brute force
+
+The most direct reading of the problem: check every pair.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function twoSumBruteForce(nums: number[], target: number): [number, number] {
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] === target) {
+        return [i, j]
+      }
+    }
+  }
+  throw new Error("No solution found")
+}
+```
+
+```javascript
+function twoSumBruteForce(nums, target) {
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] === target) {
+        return [i, j]
+      }
+    }
+  }
+  throw new Error("No solution found")
+}
+```
+
+```java
+static int[] twoSumBruteForce(int[] nums, int target) {
+    for (int i = 0; i < nums.length; i++) {
+        for (int j = i + 1; j < nums.length; j++) {
+            if (nums[i] + nums[j] == target) {
+                return new int[] { i, j };
+            }
+        }
+    }
+    throw new IllegalArgumentException("No solution found");
+}
+```
+
+```csharp
+static int[] TwoSumBruteForce(int[] nums, int target) {
+    for (int i = 0; i < nums.Length; i++) {
+        for (int j = i + 1; j < nums.Length; j++) {
+            if (nums[i] + nums[j] == target) {
+                return new[] { i, j };
+            }
+        }
+    }
+    throw new ArgumentException("No solution found");
+}
+```
+
+```cpp
+std::pair<int, int> twoSumBruteForce(const std::vector<int>& nums, int target) {
+    for (size_t i = 0; i < nums.size(); i++) {
+        for (size_t j = i + 1; j < nums.size(); j++) {
+            if (nums[i] + nums[j] == target) {
+                return { static_cast<int>(i), static_cast<int>(j) };
+            }
+        }
+    }
+    throw std::runtime_error("No solution found");
+}
+```
+
+```ruby
+def two_sum_brute_force(nums, target)
+  (0...nums.length).each do |i|
+    ((i + 1)...nums.length).each do |j|
+      return [i, j] if nums[i] + nums[j] == target
+    end
+  end
+  raise "No solution found"
+end
+```
+
+</CodeTabs>
+
+**Time: `O(n^2)`, space: `O(1)`.** It's correct and it's the right place to *start talking* in an interview — say it out loud, then say why you'd improve it. Don't skip straight to the optimal answer without narrating the reasoning; that reasoning is most of what's being evaluated.
+
+## Approach 2: Hash map (the one you actually want)
+
+The brute force approach re-scans the array for every element looking for its complement. A hash map turns "is the complement in the rest of the array?" into an `O(1)` lookup instead of an `O(n)` scan — the same trade of memory for speed that shows up constantly in interview problems.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function twoSum(nums: number[], target: number): [number, number] {
+  const seen = new Map<number, number>() // value -> index
+
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i]
+    if (seen.has(complement)) {
+      return [seen.get(complement)!, i]
+    }
+    seen.set(nums[i], i)
+  }
+
+  throw new Error("No solution found")
+}
+```
+
+```javascript
+function twoSum(nums, target) {
+  const seen = new Map() // value -> index
+
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i]
+    if (seen.has(complement)) {
+      return [seen.get(complement), i]
+    }
+    seen.set(nums[i], i)
+  }
+
+  throw new Error("No solution found")
+}
+```
+
+```java
+static int[] twoSum(int[] nums, int target) {
+    Map<Integer, Integer> seen = new HashMap<>(); // value -> index
+
+    for (int i = 0; i < nums.length; i++) {
+        int complement = target - nums[i];
+        if (seen.containsKey(complement)) {
+            return new int[] { seen.get(complement), i };
+        }
+        seen.put(nums[i], i);
+    }
+
+    throw new IllegalArgumentException("No solution found");
+}
+```
+
+```csharp
+static int[] TwoSum(int[] nums, int target) {
+    var seen = new Dictionary<int, int>(); // value -> index
+
+    for (int i = 0; i < nums.Length; i++) {
+        int complement = target - nums[i];
+        if (seen.TryGetValue(complement, out int index)) {
+            return new[] { index, i };
+        }
+        seen[nums[i]] = i;
+    }
+
+    throw new ArgumentException("No solution found");
+}
+```
+
+```cpp
+std::pair<int, int> twoSum(const std::vector<int>& nums, int target) {
+    std::unordered_map<int, int> seen; // value -> index
+
+    for (int i = 0; i < static_cast<int>(nums.size()); i++) {
+        int complement = target - nums[i];
+        auto it = seen.find(complement);
+        if (it != seen.end()) {
+            return { it->second, i };
+        }
+        seen[nums[i]] = i;
+    }
+
+    throw std::runtime_error("No solution found");
+}
+```
+
+```ruby
+def two_sum(nums, target)
+  seen = {} # value -> index
+
+  nums.each_with_index do |num, i|
+    complement = target - num
+    return [seen[complement], i] if seen.key?(complement)
+
+    seen[num] = i
+  end
+
+  raise "No solution found"
+end
+```
+
+</CodeTabs>
+
+**Time: `O(n)`, space: `O(n)`.** One pass. The key insight — and the part worth saying explicitly in an interview — is that you check for the complement *before* inserting the current element. That single-pass ordering is what lets you solve it in one loop instead of building the whole map first and then scanning again; it also naturally handles the "can't use the same element twice" constraint, since an element can never match against itself.
+
+## Approach 3: Two pointers (only if the array is sorted)
+
+If `nums` is already sorted — or you're allowed to sort it and don't need to preserve original indices — two pointers gets you `O(n)` time with `O(1)` extra space, beating the hash map on memory:
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function twoSumSorted(sortedNums: number[], target: number): [number, number] {
+  let left = 0
+  let right = sortedNums.length - 1
+
+  while (left < right) {
+    const sum = sortedNums[left] + sortedNums[right]
+    if (sum === target) return [left, right]
+    if (sum < target) left++
+    else right--
+  }
+
+  throw new Error("No solution found")
+}
+```
+
+```javascript
+function twoSumSorted(sortedNums, target) {
+  let left = 0
+  let right = sortedNums.length - 1
+
+  while (left < right) {
+    const sum = sortedNums[left] + sortedNums[right]
+    if (sum === target) return [left, right]
+    if (sum < target) left++
+    else right--
+  }
+
+  throw new Error("No solution found")
+}
+```
+
+```java
+static int[] twoSumSorted(int[] sortedNums, int target) {
+    int left = 0;
+    int right = sortedNums.length - 1;
+
+    while (left < right) {
+        int sum = sortedNums[left] + sortedNums[right];
+        if (sum == target) return new int[] { left, right };
+        if (sum < target) left++;
+        else right--;
+    }
+
+    throw new IllegalArgumentException("No solution found");
+}
+```
+
+```csharp
+static int[] TwoSumSorted(int[] sortedNums, int target) {
+    int left = 0;
+    int right = sortedNums.Length - 1;
+
+    while (left < right) {
+        int sum = sortedNums[left] + sortedNums[right];
+        if (sum == target) return new[] { left, right };
+        if (sum < target) left++;
+        else right--;
+    }
+
+    throw new ArgumentException("No solution found");
+}
+```
+
+```cpp
+std::pair<int, int> twoSumSorted(const std::vector<int>& sortedNums, int target) {
+    int left = 0;
+    int right = static_cast<int>(sortedNums.size()) - 1;
+
+    while (left < right) {
+        int sum = sortedNums[left] + sortedNums[right];
+        if (sum == target) return { left, right };
+        if (sum < target) left++;
+        else right--;
+    }
+
+    throw std::runtime_error("No solution found");
+}
+```
+
+```ruby
+def two_sum_sorted(sorted_nums, target)
+  left = 0
+  right = sorted_nums.length - 1
+
+  while left < right
+    sum = sorted_nums[left] + sorted_nums[right]
+    return [left, right] if sum == target
+
+    if sum < target
+      left += 1
+    else
+      right -= 1
+    end
+  end
+
+  raise "No solution found"
+end
+```
+
+</CodeTabs>
+
+The pointers close in from both ends: if the current sum is too small, the only way to increase it is to move the left pointer up (since the array is sorted, every element to the right is at least as large). If it's too big, move the right pointer down. Each step eliminates one candidate, so the whole array is covered in a single pass.
+
+The catch is the sort itself. If you need to sort first, you're paying `O(n log n)` for the sort even though the search afterward is `O(n)` — so two pointers is only a genuine win over the hash map when the array is *already* sorted, or when you don't need to return original indices (sorting destroys them unless you track them separately).
+
+## Which one to actually use
+
+| Approach | Time | Space | Use when |
+| --- | --- | --- | --- |
+| Brute force | `O(n^2)` | `O(1)` | Never in production; a talking point in an interview |
+| Hash map | `O(n)` | `O(n)` | Default choice — unsorted input, need original indices |
+| Two pointers | `O(n log n)`* / `O(n)` | `O(1)` | Array already sorted, or memory is the tighter constraint |
+
+<small>*`O(n log n)` if you have to sort first; `O(n)` if the input is already sorted.</small>
+
+In an interview, lead with the hash map — it's the right default for the stated problem — but naming the two-pointer alternative and explaining *why* it's only sometimes better is what separates "knows the answer" from "understands the trade-off." That framing — brute force to establish correctness, then a targeted optimization with a clear justification — is the same pattern that shows up in almost every array/string interview problem, not just this one.

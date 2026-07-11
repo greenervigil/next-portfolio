@@ -1,0 +1,417 @@
+---
+title: "Big O Notation, Explained for Interviews and Code Review"
+description: "A practical guide to Big O notation: what it actually measures, the complexities you'll see most often, and how to reason about them without memorizing a cheat sheet."
+date: "2026-01-23"
+updated: "2026-07-24"
+pillar: "cs-terms"
+tags: ["algorithms", "complexity", "fundamentals"]
+---
+
+Big O notation shows up everywhere: in interviews, in code review comments, in the occasional argument about whether a `for` loop inside a `for` loop is "fine." Most engineers can recite that `O(n)` is "linear" and `O(n^2)` is "bad," but that's a memorized label, not an understanding — and it falls apart the moment you hit something less familiar, like `O(log n)` or `O(n log n)`.
+
+This post is the explanation I wish I'd had earlier: what Big O actually measures, why we use it, and how to derive the complexity of a piece of code yourself instead of pattern-matching against a cheat sheet.
+
+## What Big O actually measures
+
+Big O describes how the **runtime or memory usage of an algorithm grows as the input grows** — not how fast it runs on your machine today. Two functions can both be `O(n)` and have wildly different real-world speeds; Big O throws away constant factors on purpose, because it's answering a different question: *what happens as `n` gets large?*
+
+That's the whole point. A function that takes `1,000,000 * n` operations and one that takes `2 * n` operations are both `O(n)` — because past a certain input size, the *shape* of their growth (linear) matters more than the constant multiplier. Constant factors matter for real-world performance tuning; they don't matter for Big O.
+
+## The complexities you'll actually see
+
+Ordered from best to worst, here's what shows up in nearly every interview and most production code:
+
+| Notation | Name | Example |
+| --- | --- | --- |
+| `O(1)` | Constant | Array index access, hash map lookup |
+| `O(log n)` | Logarithmic | Binary search, balanced tree lookup |
+| `O(n)` | Linear | Single loop over an array |
+| `O(n log n)` | Linearithmic | Efficient sorting (merge sort, quicksort avg case) |
+| `O(n^2)` | Quadratic | Nested loop over the same array |
+| `O(2^n)` | Exponential | Naive recursive Fibonacci, generating all subsets |
+
+### O(1) — constant time
+
+The operation takes the same amount of work regardless of input size.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function firstElement<T>(arr: T[]): T | undefined {
+  return arr[0] // Always one operation, whether arr has 10 or 10 million items
+}
+```
+
+```javascript
+function firstElement(arr) {
+  return arr[0] // Always one operation, whether arr has 10 or 10 million items
+}
+```
+
+```java
+static <T> T firstElement(List<T> list) {
+    return list.isEmpty() ? null : list.get(0); // Always one operation
+}
+```
+
+```csharp
+static T? FirstElement<T>(IList<T> list) {
+    return list.Count == 0 ? default : list[0]; // Always one operation
+}
+```
+
+```cpp
+template <typename T>
+T firstElement(const std::vector<T>& vec) {
+    return vec.front(); // Always one operation
+}
+```
+
+```ruby
+def first_element(arr)
+  arr[0] # Always one operation, whether arr has 10 or 10 million items
+end
+```
+
+</CodeTabs>
+
+### O(n) — linear time
+
+Work grows in direct proportion to input size. One loop over the input is the classic signature.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function sum(arr: number[]): number {
+  let total = 0
+  for (const n of arr) {
+    total += n // n iterations for n items
+  }
+  return total
+}
+```
+
+```javascript
+function sum(arr) {
+  let total = 0
+  for (const n of arr) {
+    total += n // n iterations for n items
+  }
+  return total
+}
+```
+
+```java
+static int sum(int[] arr) {
+    int total = 0;
+    for (int n : arr) {
+        total += n; // n iterations for n items
+    }
+    return total;
+}
+```
+
+```csharp
+static int Sum(int[] arr) {
+    int total = 0;
+    foreach (var n in arr) {
+        total += n; // n iterations for n items
+    }
+    return total;
+}
+```
+
+```cpp
+int sum(const std::vector<int>& arr) {
+    int total = 0;
+    for (int n : arr) {
+        total += n; // n iterations for n items
+    }
+    return total;
+}
+```
+
+```ruby
+def sum(arr)
+  total = 0
+  arr.each { |n| total += n } # n iterations for n items
+  total
+end
+```
+
+</CodeTabs>
+
+### O(log n) — logarithmic time
+
+The input shrinks by a constant *fraction* (usually half) on every step, rather than by a constant amount. This is the complexity that trips people up most, because there's no visible loop over the whole input — the loop only ever sees a fraction of it.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function binarySearch(sorted: number[], target: number): number {
+  let low = 0
+  let high = sorted.length - 1
+
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2)
+    if (sorted[mid] === target) return mid
+    if (sorted[mid] < target) low = mid + 1
+    else high = mid - 1
+  }
+
+  return -1
+}
+```
+
+```javascript
+function binarySearch(sorted, target) {
+  let low = 0
+  let high = sorted.length - 1
+
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2)
+    if (sorted[mid] === target) return mid
+    if (sorted[mid] < target) low = mid + 1
+    else high = mid - 1
+  }
+
+  return -1
+}
+```
+
+```java
+static int binarySearch(int[] sorted, int target) {
+    int low = 0;
+    int high = sorted.length - 1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (sorted[mid] == target) return mid;
+        if (sorted[mid] < target) low = mid + 1;
+        else high = mid - 1;
+    }
+
+    return -1;
+}
+```
+
+```csharp
+static int BinarySearch(int[] sorted, int target) {
+    int low = 0;
+    int high = sorted.Length - 1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (sorted[mid] == target) return mid;
+        if (sorted[mid] < target) low = mid + 1;
+        else high = mid - 1;
+    }
+
+    return -1;
+}
+```
+
+```cpp
+int binarySearch(const std::vector<int>& sorted, int target) {
+    int low = 0;
+    int high = static_cast<int>(sorted.size()) - 1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (sorted[mid] == target) return mid;
+        if (sorted[mid] < target) low = mid + 1;
+        else high = mid - 1;
+    }
+
+    return -1;
+}
+```
+
+```ruby
+def binary_search(sorted, target)
+  low = 0
+  high = sorted.length - 1
+
+  while low <= high
+    mid = (low + high) / 2
+    return mid if sorted[mid] == target
+
+    if sorted[mid] < target
+      low = mid + 1
+    else
+      high = mid - 1
+    end
+  end
+
+  -1
+end
+```
+
+</CodeTabs>
+
+Every iteration cuts the search space in half. For an array of a billion items, that's roughly 30 iterations to find anything — that's the practical power of `O(log n)`.
+
+### O(n^2) — quadratic time
+
+The classic red flag: a loop inside a loop, both scaling with the same input.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function hasDuplicate(arr: number[]): boolean {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] === arr[j]) return true // n * n comparisons in the worst case
+    }
+  }
+  return false
+}
+```
+
+```javascript
+function hasDuplicate(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] === arr[j]) return true // n * n comparisons in the worst case
+    }
+  }
+  return false
+}
+```
+
+```java
+static boolean hasDuplicate(int[] arr) {
+    for (int i = 0; i < arr.length; i++) {
+        for (int j = i + 1; j < arr.length; j++) {
+            if (arr[i] == arr[j]) return true; // n * n comparisons in the worst case
+        }
+    }
+    return false;
+}
+```
+
+```csharp
+static bool HasDuplicate(int[] arr) {
+    for (int i = 0; i < arr.Length; i++) {
+        for (int j = i + 1; j < arr.Length; j++) {
+            if (arr[i] == arr[j]) return true; // n * n comparisons in the worst case
+        }
+    }
+    return false;
+}
+```
+
+```cpp
+bool hasDuplicate(const std::vector<int>& arr) {
+    for (size_t i = 0; i < arr.size(); i++) {
+        for (size_t j = i + 1; j < arr.size(); j++) {
+            if (arr[i] == arr[j]) return true; // n * n comparisons in the worst case
+        }
+    }
+    return false;
+}
+```
+
+```ruby
+def has_duplicate?(arr)
+  arr.each_with_index do |a, i|
+    ((i + 1)...arr.length).each do |j|
+      return true if a == arr[j] # n * n comparisons in the worst case
+    end
+  end
+  false
+end
+```
+
+</CodeTabs>
+
+This exact function is a good example of why Big O matters practically, not just academically — the same problem can be solved in `O(n)` with a hash set:
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function hasDuplicateFast(arr: number[]): boolean {
+  const seen = new Set<number>()
+  for (const n of arr) {
+    if (seen.has(n)) return true // O(1) lookup, O(n) total
+    seen.add(n)
+  }
+  return false
+}
+```
+
+```javascript
+function hasDuplicateFast(arr) {
+  const seen = new Set()
+  for (const n of arr) {
+    if (seen.has(n)) return true // O(1) lookup, O(n) total
+    seen.add(n)
+  }
+  return false
+}
+```
+
+```java
+static boolean hasDuplicateFast(int[] arr) {
+    Set<Integer> seen = new HashSet<>();
+    for (int n : arr) {
+        if (seen.contains(n)) return true; // O(1) lookup, O(n) total
+        seen.add(n);
+    }
+    return false;
+}
+```
+
+```csharp
+static bool HasDuplicateFast(int[] arr) {
+    var seen = new HashSet<int>();
+    foreach (var n in arr) {
+        if (seen.Contains(n)) return true; // O(1) lookup, O(n) total
+        seen.Add(n);
+    }
+    return false;
+}
+```
+
+```cpp
+bool hasDuplicateFast(const std::vector<int>& arr) {
+    std::unordered_set<int> seen;
+    for (int n : arr) {
+        if (seen.count(n)) return true; // O(1) lookup, O(n) total
+        seen.insert(n);
+    }
+    return false;
+}
+```
+
+```ruby
+def has_duplicate_fast?(arr)
+  seen = Set.new
+  arr.each do |n|
+    return true if seen.include?(n) # O(1) lookup, O(n) total
+
+    seen.add(n)
+  end
+  false
+end
+```
+
+</CodeTabs>
+
+Trading `O(n^2)` for `O(n)` by spending `O(n)` extra memory on a hash set is one of the most common patterns in interview problem-solving — you'll see it again in the [Two Sum walkthrough](/blog/two-sum-three-ways) and most hash-map-based solutions.
+
+## How to derive complexity yourself
+
+Rather than memorizing examples, ask three questions about the code in front of you:
+
+1. **How many times does the input get iterated?** One pass is `O(n)`. A pass inside a pass (over the same input) is `O(n^2)`.
+2. **Does the problem size shrink by a fraction each step, or by a constant?** Shrinking by half each time (binary search, balanced tree traversal) is `O(log n)`. Shrinking by one each time (a simple countdown loop) is still `O(n)`.
+3. **Are there multiple, separate operations in sequence?** Add their complexities and keep the largest term. A function that loops once (`O(n)`) and then sorts (`O(n log n)`) is `O(n log n)` overall — the smaller term gets dropped because it's irrelevant as `n` grows.
+
+## Space complexity is the same idea, applied to memory
+
+Everything above describes *time* complexity, but the same notation describes *space* complexity — how much additional memory an algorithm uses relative to its input. `hasDuplicateFast` above is `O(n)` in both time and space: it trades memory (the `Set`) for speed. That trade-off — usually memory for speed — is the central tension in most interview "optimize this" follow-ups, and it's worth stating explicitly when you make it, rather than leaving it implicit.
+
+## Why this matters beyond interviews
+
+Big O is an interview staple because it's a fast way to check whether a candidate can reason about scale, but the habit is worth keeping long after the interview: it's the same reasoning that tells you a `.find()` inside a `.map()` over the same array will get slow well before your database query does, or that a cache lookup you assumed was `O(1)` is actually doing a linear scan under the hood. Once you can derive complexity instead of recalling it, it stops being interview trivia and becomes a tool you reach for during code review.

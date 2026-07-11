@@ -1,0 +1,505 @@
+---
+title: "The SOLID Principles, Explained With Code You'll Actually Write"
+description: "SOLID gets taught as five abstract rules and forgotten just as fast. Here they are with concrete, boring, realistic code — the kind you'd actually review in a pull request."
+date: "2026-05-08"
+pillar: "architecture"
+tags: ["solid", "object-oriented-design", "software-design", "code-review"]
+---
+
+SOLID is usually taught as five capitalized definitions that are easy to recite and hard to apply — "a class should have a single responsibility" doesn't mean much until you've seen the pull request where it would have mattered. Here's each principle with realistic code instead of abstractions, the kind of thing that actually shows up in code review.
+
+## S — Single Responsibility Principle
+
+A class should have one reason to change. Not "one method" — one *axis of change*. An `Invoice` class that calculates totals, formats output, and saves to a database has three unrelated reasons to change: pricing logic, formatting requirements, and storage details. Split them.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+class Invoice {
+  constructor(private items: { price: number; qty: number }[]) {}
+
+  total(): number {
+    return this.items.reduce((sum, item) => sum + item.price * item.qty, 0)
+  }
+}
+
+class InvoicePrinter {
+  print(invoice: Invoice): void {
+    console.log(`Total: $${invoice.total().toFixed(2)}`)
+  }
+}
+```
+
+```javascript
+class Invoice {
+  constructor(items) {
+    this.items = items
+  }
+
+  total() {
+    return this.items.reduce((sum, item) => sum + item.price * item.qty, 0)
+  }
+}
+
+class InvoicePrinter {
+  print(invoice) {
+    console.log(`Total: $${invoice.total().toFixed(2)}`)
+  }
+}
+```
+
+```java
+class Invoice {
+    private final List<LineItem> items;
+
+    Invoice(List<LineItem> items) { this.items = items; }
+
+    double total() {
+        return items.stream().mapToDouble(i -> i.price * i.qty).sum();
+    }
+}
+
+class InvoicePrinter {
+    void print(Invoice invoice) {
+        System.out.printf("Total: $%.2f%n", invoice.total());
+    }
+}
+```
+
+```csharp
+class Invoice {
+    private readonly List<LineItem> items;
+
+    public Invoice(List<LineItem> items) => this.items = items;
+
+    public double Total() => items.Sum(i => i.Price * i.Qty);
+}
+
+class InvoicePrinter {
+    public void Print(Invoice invoice) {
+        Console.WriteLine($"Total: ${invoice.Total():F2}");
+    }
+}
+```
+
+```cpp
+class Invoice {
+public:
+    explicit Invoice(std::vector<LineItem> items) : items(std::move(items)) {}
+
+    double total() const {
+        double sum = 0;
+        for (const auto& item : items) sum += item.price * item.qty;
+        return sum;
+    }
+
+private:
+    std::vector<LineItem> items;
+};
+
+class InvoicePrinter {
+public:
+    void print(const Invoice& invoice) const {
+        std::cout << "Total: $" << invoice.total() << "\n";
+    }
+};
+```
+
+```ruby
+class Invoice
+  def initialize(items)
+    @items = items
+  end
+
+  def total
+    @items.sum { |item| item[:price] * item[:qty] }
+  end
+end
+
+class InvoicePrinter
+  def print(invoice)
+    puts format("Total: $%.2f", invoice.total)
+  end
+end
+```
+
+</CodeTabs>
+
+Now pricing logic can change without touching formatting code, and vice versa. Neither class needs to know the other exists beyond the one method call.
+
+## O — Open/Closed Principle
+
+A class should be open for extension, closed for modification. In practice: when a new case shows up, you should be able to *add* code, not *edit* code that already works and is already tested. A `switch`/`if-else` chain over a "type" field is the classic violation — every new type means reopening the same function.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+interface Discount {
+  apply(price: number): number
+}
+
+class PercentageDiscount implements Discount {
+  constructor(private percent: number) {}
+  apply(price: number): number {
+    return price * (1 - this.percent / 100)
+  }
+}
+
+class FlatDiscount implements Discount {
+  constructor(private amount: number) {}
+  apply(price: number): number {
+    return Math.max(0, price - this.amount)
+  }
+}
+
+// Adding a new discount type never touches this function again.
+function checkout(price: number, discount: Discount): number {
+  return discount.apply(price)
+}
+```
+
+```javascript
+class PercentageDiscount {
+  constructor(percent) {
+    this.percent = percent
+  }
+  apply(price) {
+    return price * (1 - this.percent / 100)
+  }
+}
+
+class FlatDiscount {
+  constructor(amount) {
+    this.amount = amount
+  }
+  apply(price) {
+    return Math.max(0, price - this.amount)
+  }
+}
+
+function checkout(price, discount) {
+  return discount.apply(price)
+}
+```
+
+```java
+interface Discount {
+    double apply(double price);
+}
+
+class PercentageDiscount implements Discount {
+    private final double percent;
+    PercentageDiscount(double percent) { this.percent = percent; }
+    public double apply(double price) { return price * (1 - percent / 100); }
+}
+
+class FlatDiscount implements Discount {
+    private final double amount;
+    FlatDiscount(double amount) { this.amount = amount; }
+    public double apply(double price) { return Math.max(0, price - amount); }
+}
+
+// Adding a new discount type never touches this method again.
+static double checkout(double price, Discount discount) {
+    return discount.apply(price);
+}
+```
+
+```csharp
+interface IDiscount {
+    double Apply(double price);
+}
+
+class PercentageDiscount : IDiscount {
+    private readonly double percent;
+    public PercentageDiscount(double percent) => this.percent = percent;
+    public double Apply(double price) => price * (1 - percent / 100);
+}
+
+class FlatDiscount : IDiscount {
+    private readonly double amount;
+    public FlatDiscount(double amount) => this.amount = amount;
+    public double Apply(double price) => Math.Max(0, price - amount);
+}
+
+// Adding a new discount type never touches this method again.
+static double Checkout(double price, IDiscount discount) => discount.Apply(price);
+```
+
+```cpp
+class Discount {
+public:
+    virtual double apply(double price) const = 0;
+    virtual ~Discount() = default;
+};
+
+class PercentageDiscount : public Discount {
+public:
+    explicit PercentageDiscount(double percent) : percent(percent) {}
+    double apply(double price) const override { return price * (1 - percent / 100); }
+private:
+    double percent;
+};
+
+class FlatDiscount : public Discount {
+public:
+    explicit FlatDiscount(double amount) : amount(amount) {}
+    double apply(double price) const override { return std::max(0.0, price - amount); }
+private:
+    double amount;
+};
+
+// Adding a new discount type never touches this function again.
+double checkout(double price, const Discount& discount) {
+    return discount.apply(price);
+}
+```
+
+```ruby
+class PercentageDiscount
+  def initialize(percent)
+    @percent = percent
+  end
+
+  def apply(price)
+    price * (1 - @percent / 100.0)
+  end
+end
+
+class FlatDiscount
+  def initialize(amount)
+    @amount = amount
+  end
+
+  def apply(price)
+    [0, price - @amount].max
+  end
+end
+
+# Adding a new discount type never touches this method again.
+def checkout(price, discount)
+  discount.apply(price)
+end
+```
+
+</CodeTabs>
+
+A new discount type is a new class implementing the same interface — `checkout` never changes, and there's no risk of a new `else if` breaking an existing case.
+
+## L — Liskov Substitution Principle
+
+Any subtype should be usable anywhere its parent type is expected, without breaking the caller's assumptions. The textbook trap: a `Square extends Rectangle` that overrides `setWidth` to also change the height, silently breaking any code that expected setting a rectangle's width to leave its height alone.
+
+```typescript
+// Violates LSP: callers that treat every Shape as an independent-width/height
+// Rectangle get silently wrong behavior when the Shape happens to be a Square.
+class Rectangle {
+  constructor(protected width: number, protected height: number) {}
+  setWidth(w: number) { this.width = w }
+  setHeight(h: number) { this.height = h }
+  area() { return this.width * this.height }
+}
+
+class Square extends Rectangle {
+  setWidth(w: number) { this.width = w; this.height = w } // surprise side effect
+  setHeight(h: number) { this.width = h; this.height = h } // surprise side effect
+}
+
+// Fix: don't model Square as a Rectangle subtype at all. Model both as Shapes
+// with their own construction, and drop the assumption that width/height are
+// independently mutable — the real bug was the shared mutable interface, not
+// which class extended which.
+interface Shape {
+  area(): number
+}
+
+class Rectangle2 implements Shape {
+  constructor(private width: number, private height: number) {}
+  area() { return this.width * this.height }
+}
+
+class Square2 implements Shape {
+  constructor(private side: number) {}
+  area() { return this.side * this.side }
+}
+```
+
+The fix isn't a better override — it's recognizing that `Square` and `Rectangle` don't actually share a substitutable contract once mutation is involved, so inheritance was the wrong tool from the start.
+
+## I — Interface Segregation Principle
+
+Don't force a class to implement methods it doesn't use. A fat `Worker` interface with `work()` and `eat()` forces a `RobotWorker` to implement `eat()` with an empty or throwing body — a sign the interface is really two interfaces wearing one name.
+
+```typescript
+// Violates ISP: RobotWorker is forced to implement a method that makes no
+// sense for it, which usually means throwing or silently doing nothing —
+// both are worse than not having the method.
+interface Worker {
+  work(): void
+  eat(): void
+}
+
+class RobotWorker implements Worker {
+  work() { /* ... */ }
+  eat() {
+    throw new Error("Robots don't eat")
+  }
+}
+
+// Fix: split the interface along the lines its implementers actually need.
+interface Workable {
+  work(): void
+}
+
+interface Eatable {
+  eat(): void
+}
+
+class HumanWorker implements Workable, Eatable {
+  work() { /* ... */ }
+  eat() { /* ... */ }
+}
+
+class RobotWorker2 implements Workable {
+  work() { /* ... */ }
+}
+```
+
+`RobotWorker2` now only implements what it can actually do — there's no method to throw from, because there's no method that doesn't apply.
+
+## D — Dependency Inversion Principle
+
+High-level modules shouldn't depend on low-level modules directly — both should depend on an abstraction. In practice: a `NotificationService` that directly `new`s up an `EmailClient` can never be tested without sending real email, and can never support SMS without a rewrite. Depend on an interface instead, and inject the concrete implementation from outside.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+interface MessageSender {
+  send(to: string, body: string): void
+}
+
+class EmailSender implements MessageSender {
+  send(to: string, body: string): void {
+    console.log(`Emailing ${to}: ${body}`)
+  }
+}
+
+class NotificationService {
+  constructor(private sender: MessageSender) {} // depends on the abstraction
+
+  notify(userId: string, message: string): void {
+    this.sender.send(userId, message)
+  }
+}
+```
+
+```javascript
+class EmailSender {
+  send(to, body) {
+    console.log(`Emailing ${to}: ${body}`)
+  }
+}
+
+class NotificationService {
+  constructor(sender) {
+    this.sender = sender // depends on the abstraction, not a concrete class
+  }
+
+  notify(userId, message) {
+    this.sender.send(userId, message)
+  }
+}
+```
+
+```java
+interface MessageSender {
+    void send(String to, String body);
+}
+
+class EmailSender implements MessageSender {
+    public void send(String to, String body) {
+        System.out.println("Emailing " + to + ": " + body);
+    }
+}
+
+class NotificationService {
+    private final MessageSender sender; // depends on the abstraction
+
+    NotificationService(MessageSender sender) { this.sender = sender; }
+
+    void notify(String userId, String message) {
+        sender.send(userId, message);
+    }
+}
+```
+
+```csharp
+interface IMessageSender {
+    void Send(string to, string body);
+}
+
+class EmailSender : IMessageSender {
+    public void Send(string to, string body) => Console.WriteLine($"Emailing {to}: {body}");
+}
+
+class NotificationService {
+    private readonly IMessageSender sender; // depends on the abstraction
+
+    public NotificationService(IMessageSender sender) => this.sender = sender;
+
+    public void Notify(string userId, string message) => sender.Send(userId, message);
+}
+```
+
+```cpp
+class MessageSender {
+public:
+    virtual void send(const std::string& to, const std::string& body) = 0;
+    virtual ~MessageSender() = default;
+};
+
+class EmailSender : public MessageSender {
+public:
+    void send(const std::string& to, const std::string& body) override {
+        std::cout << "Emailing " << to << ": " << body << "\n";
+    }
+};
+
+class NotificationService {
+public:
+    explicit NotificationService(MessageSender& sender) : sender(sender) {} // depends on the abstraction
+
+    void notify(const std::string& userId, const std::string& message) {
+        sender.send(userId, message);
+    }
+
+private:
+    MessageSender& sender;
+};
+```
+
+```ruby
+class EmailSender
+  def send(to, body)
+    puts "Emailing #{to}: #{body}"
+  end
+end
+
+class NotificationService
+  def initialize(sender)
+    @sender = sender # depends on the abstraction (any object with #send)
+  end
+
+  def notify(user_id, message)
+    @sender.send(user_id, message)
+  end
+end
+```
+
+</CodeTabs>
+
+Testing `NotificationService` now means passing in a fake `MessageSender` — no real email gets sent, and no test framework gymnastics are required. Adding SMS later means writing an `SmsSender` that implements the same interface; `NotificationService` doesn't change at all.
+
+## Why bother
+
+None of these are rules to apply reflexively to every class — a one-off script doesn't need an injected abstraction. They're a checklist for the moment a class starts resisting change: if adding a feature means editing a working method instead of adding a new one, that's O being violated. If a class needs three unrelated reasons to change, that's S. If a test needs real infrastructure to run, that's usually D. Treated as diagnostic questions instead of upfront ceremony, SOLID earns the reputation it has — as a description of what well-factored code tends to look like, not a template you fill in before writing the first line.

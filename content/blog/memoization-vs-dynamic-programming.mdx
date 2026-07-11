@@ -1,0 +1,264 @@
+---
+title: "Memoization vs. Dynamic Programming: What's the Difference?"
+description: "Memoization and dynamic programming get treated as competing techniques when one is actually a form of the other. Here's the real relationship, with naive, memoized, and tabulated Fibonacci to make it concrete."
+date: "2026-05-29"
+pillar: "cs-terms"
+tags: ["dynamic-programming", "memoization", "recursion", "fundamentals"]
+---
+
+"Should I memoize this or use dynamic programming?" is a question built on a false choice. Memoization *is* a dynamic programming technique — the confusion comes from DP getting used, informally, as a synonym for its other technique: tabulation. They solve the same class of problem the same way; they differ in which direction they build the answer.
+
+## The problem they both solve: overlapping subproblems
+
+Dynamic programming applies when a problem breaks into subproblems that overlap — the same smaller computation gets needed more than once. The textbook example is Fibonacci:
+
+```
+fib(5) = fib(4) + fib(3)
+fib(4) = fib(3) + fib(2)   <- fib(3) needed again
+fib(3) = fib(2) + fib(1)   <- fib(2) needed again
+```
+
+A naive recursive implementation recomputes `fib(3)` and `fib(2)` from scratch every time they're needed, and the redundancy compounds — naive recursive Fibonacci is `O(2^n)`, exponential, because the call tree branches in two at every level with no memory of what's already been computed.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function fibNaive(n: number): number {
+  if (n <= 1) return n
+  return fibNaive(n - 1) + fibNaive(n - 2) // recomputes the same values over and over
+}
+```
+
+```javascript
+function fibNaive(n) {
+  if (n <= 1) return n
+  return fibNaive(n - 1) + fibNaive(n - 2) // recomputes the same values over and over
+}
+```
+
+```java
+static long fibNaive(int n) {
+    if (n <= 1) return n;
+    return fibNaive(n - 1) + fibNaive(n - 2); // recomputes the same values over and over
+}
+```
+
+```csharp
+static long FibNaive(int n) {
+    if (n <= 1) return n;
+    return FibNaive(n - 1) + FibNaive(n - 2); // recomputes the same values over and over
+}
+```
+
+```cpp
+long long fibNaive(int n) {
+    if (n <= 1) return n;
+    return fibNaive(n - 1) + fibNaive(n - 2); // recomputes the same values over and over
+}
+```
+
+```ruby
+def fib_naive(n)
+  return n if n <= 1
+
+  fib_naive(n - 1) + fib_naive(n - 2) # recomputes the same values over and over
+end
+```
+
+</CodeTabs>
+
+Once a problem shows this shape — overlapping subproblems, computed from smaller instances of the same problem — dynamic programming is the fix. What varies is *how* you avoid the redundant work.
+
+## Memoization: top-down, cache as you go
+
+Memoization keeps the natural recursive structure and adds a cache. Before computing a value, check if it's already known; after computing it, store it. The recursion tree collapses from exponential branching to one call per distinct input.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function fibMemo(n: number, cache = new Map<number, number>()): number {
+  if (n <= 1) return n
+  if (cache.has(n)) return cache.get(n)!
+
+  const result = fibMemo(n - 1, cache) + fibMemo(n - 2, cache)
+  cache.set(n, result)
+  return result
+}
+```
+
+```javascript
+function fibMemo(n, cache = new Map()) {
+  if (n <= 1) return n
+  if (cache.has(n)) return cache.get(n)
+
+  const result = fibMemo(n - 1, cache) + fibMemo(n - 2, cache)
+  cache.set(n, result)
+  return result
+}
+```
+
+```java
+static long fibMemo(int n, Map<Integer, Long> cache) {
+    if (n <= 1) return n;
+    if (cache.containsKey(n)) return cache.get(n);
+
+    long result = fibMemo(n - 1, cache) + fibMemo(n - 2, cache);
+    cache.put(n, result);
+    return result;
+}
+```
+
+```csharp
+static long FibMemo(int n, Dictionary<int, long> cache) {
+    if (n <= 1) return n;
+    if (cache.TryGetValue(n, out long cached)) return cached;
+
+    long result = FibMemo(n - 1, cache) + FibMemo(n - 2, cache);
+    cache[n] = result;
+    return result;
+}
+```
+
+```cpp
+long long fibMemo(int n, std::unordered_map<int, long long>& cache) {
+    if (n <= 1) return n;
+    auto it = cache.find(n);
+    if (it != cache.end()) return it->second;
+
+    long long result = fibMemo(n - 1, cache) + fibMemo(n - 2, cache);
+    cache[n] = result;
+    return result;
+}
+```
+
+```ruby
+def fib_memo(n, cache = {})
+  return n if n <= 1
+  return cache[n] if cache.key?(n)
+
+  cache[n] = fib_memo(n - 1, cache) + fib_memo(n - 2, cache)
+end
+```
+
+</CodeTabs>
+
+**`O(n)` time, `O(n)` space** — the space split between the cache and the recursion call stack. This is *top-down*: it starts from the original question (`fib(n)`) and works its way down to the base cases, caching answers as it discovers them.
+
+## Tabulation: bottom-up, build the table first
+
+Tabulation flips the direction. Instead of recursing down from `n` and caching along the way, it starts from the base cases and iteratively builds up to `n`, filling a table (often just an array) in order.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function fibTabulated(n: number): number {
+  if (n <= 1) return n
+
+  const table = new Array<number>(n + 1)
+  table[0] = 0
+  table[1] = 1
+
+  for (let i = 2; i <= n; i++) {
+    table[i] = table[i - 1] + table[i - 2]
+  }
+
+  return table[n]
+}
+```
+
+```javascript
+function fibTabulated(n) {
+  if (n <= 1) return n
+
+  const table = new Array(n + 1)
+  table[0] = 0
+  table[1] = 1
+
+  for (let i = 2; i <= n; i++) {
+    table[i] = table[i - 1] + table[i - 2]
+  }
+
+  return table[n]
+}
+```
+
+```java
+static long fibTabulated(int n) {
+    if (n <= 1) return n;
+
+    long[] table = new long[n + 1];
+    table[0] = 0;
+    table[1] = 1;
+
+    for (int i = 2; i <= n; i++) {
+        table[i] = table[i - 1] + table[i - 2];
+    }
+
+    return table[n];
+}
+```
+
+```csharp
+static long FibTabulated(int n) {
+    if (n <= 1) return n;
+
+    var table = new long[n + 1];
+    table[0] = 0;
+    table[1] = 1;
+
+    for (int i = 2; i <= n; i++) {
+        table[i] = table[i - 1] + table[i - 2];
+    }
+
+    return table[n];
+}
+```
+
+```cpp
+long long fibTabulated(int n) {
+    if (n <= 1) return n;
+
+    std::vector<long long> table(n + 1);
+    table[0] = 0;
+    table[1] = 1;
+
+    for (int i = 2; i <= n; i++) {
+        table[i] = table[i - 1] + table[i - 2];
+    }
+
+    return table[n];
+}
+```
+
+```ruby
+def fib_tabulated(n)
+  return n if n <= 1
+
+  table = Array.new(n + 1)
+  table[0] = 0
+  table[1] = 1
+
+  (2..n).each { |i| table[i] = table[i - 1] + table[i - 2] }
+
+  table[n]
+end
+```
+
+</CodeTabs>
+
+Also `O(n)` time, `O(n)` space — same complexity class as memoization, no recursion at all. Because it's iterative, there's no call stack to worry about, which matters for the same reason it mattered in [reversing a linked list](/blog/reverse-a-linked-list): recursive solutions carry a stack-depth risk that iterative ones don't.
+
+Fibonacci has one more twist: since `table[i]` only ever depends on the two previous entries, you don't need the whole array — two variables are enough, bringing space down to `O(1)`. That optimization is only visible once you've written the bottom-up version and can see exactly which past values are actually still needed.
+
+## So which one do you reach for?
+
+| | Memoization (top-down) | Tabulation (bottom-up) |
+| --- | --- | --- |
+| Structure | Recursive, cache-augmented | Iterative, table-filling |
+| Computes | Only the subproblems actually needed | Every subproblem up to `n`, in order |
+| Space risk | Recursion call stack (`O(n)` depth for Fibonacci) | No call stack, but the full table unless optimized |
+| Easiest to write from | A brute-force recursive solution you already have | A clear base case and recurrence relation |
+
+In practice: start with the naive recursive solution, since it's usually the easiest to convince yourself is *correct*. If it's slow because of overlapping subproblems, memoizing it is typically a small, low-risk change — add a cache, check it, populate it. Reach for tabulation when you need to eliminate recursion entirely (stack-depth safety, or squeezing out space by only keeping the last few table entries), which usually means rewriting the recursive relationship as an explicit loop.
+
+Either way, the win comes from the same place: recognizing overlapping subproblems and computing each one exactly once. Memoization and tabulation are two disciplined ways of doing that — not two different ideas.

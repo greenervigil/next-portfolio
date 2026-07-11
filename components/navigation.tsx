@@ -44,6 +44,7 @@ export function Navigation() {
     { href: "/", label: "HOME" },
     { href: "/experience", label: "EXPERIENCE" },
     { href: "/projects", label: "PROJECTS" },
+    { href: "/blog", label: "BLOG" },
     { href: "/contact", label: "CONTACT" },
   ]
 

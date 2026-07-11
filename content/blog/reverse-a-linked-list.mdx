@@ -1,0 +1,292 @@
+---
+title: "Reversing a Linked List — Iterative and Recursive, With Diagrams"
+description: "Reversing a singly linked list two ways, with a real explanation of the pointer surgery involved — plus why the elegant recursive version isn't always the right answer."
+date: "2026-04-17"
+pillar: "interview-prep"
+tags: ["linked-lists", "recursion", "interview-prep"]
+---
+
+Reversing a singly linked list is short enough to fit on one screen and easy to get subtly wrong under interview pressure, which is exactly why it shows up so often — it's a clean test of whether you can track mutating pointer state without a diagram in front of you. The problem:
+
+> Given the head of a singly linked list, reverse the list in place and return the new head.
+
+```
+1 -> 2 -> 3 -> 4 -> nil        becomes        4 -> 3 -> 2 -> 1 -> nil
+```
+
+Every language below uses the same node shape — a value and a pointer to the next node:
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+class ListNode {
+  val: number
+  next: ListNode | null
+  constructor(val: number, next: ListNode | null = null) {
+    this.val = val
+    this.next = next
+  }
+}
+```
+
+```javascript
+class ListNode {
+  constructor(val, next = null) {
+    this.val = val
+    this.next = next
+  }
+}
+```
+
+```java
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
+    }
+}
+```
+
+```csharp
+class ListNode {
+    public int Val;
+    public ListNode? Next;
+    public ListNode(int val, ListNode? next = null) {
+        Val = val;
+        Next = next;
+    }
+}
+```
+
+```cpp
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int val) : val(val), next(nullptr) {}
+    ListNode(int val, ListNode* next) : val(val), next(next) {}
+};
+```
+
+```ruby
+class ListNode
+  attr_accessor :val, :next
+
+  def initialize(val, nxt = nil)
+    @val = val
+    @next = nxt
+  end
+end
+```
+
+</CodeTabs>
+
+## Iterative: three pointers, one pass
+
+The iterative approach walks the list once, re-pointing each node's `next` to the node *before* it instead of the one after. That requires tracking three things at once: the node you're rewiring (`curr`), what it should now point to (`prev`), and where to go next — which you have to save *before* you overwrite `curr.next`, or you lose the rest of the list.
+
+```
+prev = nil, curr = 1 -> 2 -> 3 -> nil
+
+step 1: save next (2), point 1 back at prev (nil), advance both
+        nil <- 1    2 -> 3 -> nil
+               ^prev ^curr
+
+step 2: save next (3), point 2 back at prev (1), advance both
+        nil <- 1 <- 2    3 -> nil
+                    ^prev ^curr
+
+step 3: save next (nil), point 3 back at prev (2), advance both
+        nil <- 1 <- 2 <- 3
+                         ^prev, curr is now nil — loop ends, return prev
+```
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function reverseListIterative(head: ListNode | null): ListNode | null {
+  let prev: ListNode | null = null
+  let curr = head
+
+  while (curr !== null) {
+    const next = curr.next
+    curr.next = prev
+    prev = curr
+    curr = next
+  }
+
+  return prev
+}
+```
+
+```javascript
+function reverseListIterative(head) {
+  let prev = null
+  let curr = head
+
+  while (curr !== null) {
+    const next = curr.next
+    curr.next = prev
+    prev = curr
+    curr = next
+  }
+
+  return prev
+}
+```
+
+```java
+static ListNode reverseListIterative(ListNode head) {
+    ListNode prev = null;
+    ListNode curr = head;
+
+    while (curr != null) {
+        ListNode next = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = next;
+    }
+
+    return prev;
+}
+```
+
+```csharp
+static ListNode? ReverseListIterative(ListNode? head) {
+    ListNode? prev = null;
+    ListNode? curr = head;
+
+    while (curr != null) {
+        ListNode? next = curr.Next;
+        curr.Next = prev;
+        prev = curr;
+        curr = next;
+    }
+
+    return prev;
+}
+```
+
+```cpp
+ListNode* reverseListIterative(ListNode* head) {
+    ListNode* prev = nullptr;
+    ListNode* curr = head;
+
+    while (curr != nullptr) {
+        ListNode* next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+
+    return prev;
+}
+```
+
+```ruby
+def reverse_list_iterative(head)
+  prev = nil
+  curr = head
+
+  while curr
+    nxt = curr.next
+    curr.next = prev
+    prev = curr
+    curr = nxt
+  end
+
+  prev
+end
+```
+
+</CodeTabs>
+
+**Time: `O(n)`, space: `O(1)`.** One pass, three pointer variables, no matter how long the list is.
+
+## Recursive: elegant, but read the fine print
+
+The recursive version reframes the problem: "reverse the rest of the list, then fix up this node's pointers." It's shorter and, once it clicks, easier to convince yourself is correct — but it's doing something the iterative version isn't.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function reverseListRecursive(head: ListNode | null): ListNode | null {
+  if (head === null || head.next === null) return head
+
+  const newHead = reverseListRecursive(head.next)
+  head.next.next = head
+  head.next = null
+
+  return newHead
+}
+```
+
+```javascript
+function reverseListRecursive(head) {
+  if (head === null || head.next === null) return head
+
+  const newHead = reverseListRecursive(head.next)
+  head.next.next = head
+  head.next = null
+
+  return newHead
+}
+```
+
+```java
+static ListNode reverseListRecursive(ListNode head) {
+    if (head == null || head.next == null) return head;
+
+    ListNode newHead = reverseListRecursive(head.next);
+    head.next.next = head;
+    head.next = null;
+
+    return newHead;
+}
+```
+
+```csharp
+static ListNode? ReverseListRecursive(ListNode? head) {
+    if (head == null || head.Next == null) return head;
+
+    ListNode newHead = ReverseListRecursive(head.Next)!;
+    head.Next.Next = head;
+    head.Next = null;
+
+    return newHead;
+}
+```
+
+```cpp
+ListNode* reverseListRecursive(ListNode* head) {
+    if (head == nullptr || head->next == nullptr) return head;
+
+    ListNode* newHead = reverseListRecursive(head->next);
+    head->next->next = head;
+    head->next = nullptr;
+
+    return newHead;
+}
+```
+
+```ruby
+def reverse_list_recursive(head)
+  return head if head.nil? || head.next.nil?
+
+  new_head = reverse_list_recursive(head.next)
+  head.next.next = head
+  head.next = nil
+
+  new_head
+end
+```
+
+</CodeTabs>
+
+`newHead` is threaded all the way up from the base case — it's always the *original last node*, found once and passed back up unchanged through every stack frame, while each frame fixes one pointer on its way back out.
+
+**Time: `O(n)`, space: `O(n)`** — not `O(1)`. Every recursive call adds a stack frame, and they don't unwind until the base case is hit, so the call stack grows as deep as the list is long. This is the follow-up question worth anticipating: *"what happens with a list of a million nodes?"* The recursive version risks a stack overflow; the iterative version doesn't care how long the list is. Lead with the recursive solution if you're asked for the cleanest code, but know the iterative one is the answer to "can you do it without the extra memory" — and be ready to explain why the two aren't actually equivalent despite doing the same job.
+
+This exact node shape and the pointer-tracking habit come back in the next post — [detecting a cycle in a linked list](/blog/detect-cycle-in-a-linked-list) uses the same `ListNode`, with two pointers moving at different speeds instead of one.
