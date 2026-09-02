@@ -520,6 +520,28 @@ export function Projects() {
       links: {
         live: "https://tailor-dev-lilac.vercel.app",
       }, 
+    },
+    {
+      id: 18,
+      title: "Servicedesk IT Management Tool",
+      shortTitle: "Servicedesk",
+      description: "IT management tool for streamlining support processes",
+      detailedDescription:
+        "Developed an IT management tool that helps organizations streamline their IT support processes, improve response times, and enhance overall service quality.",
+      technologies: ["React", "NextJS", "Tailwind CSS", "TypeScript", "Shadcn/ui", "Drizzle ORM", "PostgreSQL", "Vercel"],
+      type: "IT_MANAGEMENT_TOOL",
+      status: "PRODUCTION",
+      icon: Code,
+      color: "cyan",
+      year: "2026",
+      duration: "1 week",
+      team: "1 developer",
+      role: "Sole Developer",
+      challenges: ["Complex IT support workflows", "Database optimization for performance", "User-friendly interface design"],
+      achievements: ["Successfully launched the tool with positive user feedback", "Improved IT support response times for organizations using the tool"],
+      links: {
+        live: "https://ticketing-system-vert-three.vercel.app",
+      }, 
     }
   ]
 
