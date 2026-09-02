@@ -46,7 +46,7 @@ export const state = {
     {
       id: 17,
       href: '/projects/17',
-      link: 'https://tailor-dev-lilac.vercel.app/',
+      link: 'https://ticketing-system-vert-three.vercel.app/',
       title: 'Servicedesk',
       description: 'Servicedesk is a IT management tool that helps organizations streamline their IT support processes, improve response times, and enhance overall service quality.',
       imageSrc: '/servicedesk.png',
