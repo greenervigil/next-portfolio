@@ -1,0 +1,389 @@
+---
+title: "LRU Cache From Scratch"
+description: "An LRU cache needs O(1) get and O(1) put with eviction — no single built-in structure gives you that alone. Here's the hash map + doubly linked list combination that does, built from scratch."
+date: "2026-08-21"
+pillar: "interview-prep"
+tags: ["caches", "linked-lists", "hash-maps", "interview-prep"]
+draft: true
+---
+
+> Design a cache that supports `get(key)` and `put(key, value)`, both in `O(1)`, that evicts the **least recently used** entry when it exceeds a fixed capacity.
+
+The constraint that makes this interesting isn't caching itself — it's the `O(1)` requirement on *both* operations, including eviction. A [hash map](/blog/what-is-a-hash-map) alone gives `O(1)` `get`/`put` but has no concept of "least recently used" — you'd need to scan every entry to find it. An array or a plain linked list can track usage order, but repositioning an entry to "most recently used" means a linear search to find it first. Neither structure alone gets you both properties. Combining them does.
+
+## The combination: hash map + doubly linked list
+
+The hash map maps each key directly to a *node* in a doubly linked list, giving `O(1)` lookup. The doubly linked list keeps nodes ordered by recency — most recently used at the front, least recently used at the back — and because it's *doubly* linked, removing a node you already have a reference to (no searching required) is `O(1)`: you don't need to know its neighbors' positions, you already have direct pointers to them.
+
+Every operation follows the same pattern: look the node up in the hash map (`O(1)`), then remove it from its current position in the list and reinsert it at the front (`O(1)` each, because doubly linked list removal and insertion don't require a search). `put`, when the cache is over capacity, evicts by removing the list's tail — again `O(1)`, no search needed, because "least recently used" is by construction always the node sitting at the tail.
+
+A common implementation detail worth knowing: using two dummy "sentinel" nodes (a fixed `head` and `tail` that never hold real data) means insert/remove never has to special-case "the list is empty" or "this is the first/last real node" — there's always a real node on both sides of any insertion point.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+class DLLNode<K, V> {
+  key: K
+  value: V
+  prev: DLLNode<K, V> | null = null
+  next: DLLNode<K, V> | null = null
+  constructor(key: K, value: V) {
+    this.key = key
+    this.value = value
+  }
+}
+
+class LRUCache<K, V> {
+  private map = new Map<K, DLLNode<K, V>>()
+  private head = new DLLNode<K, V>(null as unknown as K, null as unknown as V) // sentinel
+  private tail = new DLLNode<K, V>(null as unknown as K, null as unknown as V) // sentinel
+
+  constructor(private capacity: number) {
+    this.head.next = this.tail
+    this.tail.prev = this.head
+  }
+
+  private remove(node: DLLNode<K, V>): void {
+    node.prev!.next = node.next
+    node.next!.prev = node.prev
+  }
+
+  private insertAtFront(node: DLLNode<K, V>): void {
+    node.next = this.head.next
+    node.prev = this.head
+    this.head.next!.prev = node
+    this.head.next = node
+  }
+
+  get(key: K): V | undefined {
+    const node = this.map.get(key)
+    if (!node) return undefined
+    this.remove(node)
+    this.insertAtFront(node)
+    return node.value
+  }
+
+  put(key: K, value: V): void {
+    const existing = this.map.get(key)
+    if (existing) this.remove(existing)
+
+    const node = new DLLNode(key, value)
+    this.map.set(key, node)
+    this.insertAtFront(node)
+
+    if (this.map.size > this.capacity) {
+      const lru = this.tail.prev!
+      this.remove(lru)
+      this.map.delete(lru.key)
+    }
+  }
+}
+```
+
+```javascript
+class DLLNode {
+  constructor(key, value) {
+    this.key = key
+    this.value = value
+    this.prev = null
+    this.next = null
+  }
+}
+
+class LRUCache {
+  constructor(capacity) {
+    this.capacity = capacity
+    this.map = new Map()
+    this.head = new DLLNode(null, null) // sentinel
+    this.tail = new DLLNode(null, null) // sentinel
+    this.head.next = this.tail
+    this.tail.prev = this.head
+  }
+
+  remove(node) {
+    node.prev.next = node.next
+    node.next.prev = node.prev
+  }
+
+  insertAtFront(node) {
+    node.next = this.head.next
+    node.prev = this.head
+    this.head.next.prev = node
+    this.head.next = node
+  }
+
+  get(key) {
+    const node = this.map.get(key)
+    if (!node) return undefined
+    this.remove(node)
+    this.insertAtFront(node)
+    return node.value
+  }
+
+  put(key, value) {
+    const existing = this.map.get(key)
+    if (existing) this.remove(existing)
+
+    const node = new DLLNode(key, value)
+    this.map.set(key, node)
+    this.insertAtFront(node)
+
+    if (this.map.size > this.capacity) {
+      const lru = this.tail.prev
+      this.remove(lru)
+      this.map.delete(lru.key)
+    }
+  }
+}
+```
+
+```java
+class LRUCache<K, V> {
+    private class Node {
+        K key;
+        V value;
+        Node prev, next;
+        Node(K key, V value) { this.key = key; this.value = value; }
+    }
+
+    private final int capacity;
+    private final Map<K, Node> map = new HashMap<>();
+    private final Node head = new Node(null, null); // sentinel
+    private final Node tail = new Node(null, null); // sentinel
+
+    LRUCache(int capacity) {
+        this.capacity = capacity;
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    private void remove(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    private void insertAtFront(Node node) {
+        node.next = head.next;
+        node.prev = head;
+        head.next.prev = node;
+        head.next = node;
+    }
+
+    V get(K key) {
+        Node node = map.get(key);
+        if (node == null) return null;
+        remove(node);
+        insertAtFront(node);
+        return node.value;
+    }
+
+    void put(K key, V value) {
+        Node existing = map.get(key);
+        if (existing != null) remove(existing);
+
+        Node node = new Node(key, value);
+        map.put(key, node);
+        insertAtFront(node);
+
+        if (map.size() > capacity) {
+            Node lru = tail.prev;
+            remove(lru);
+            map.remove(lru.key);
+        }
+    }
+}
+```
+
+```csharp
+class LRUCache<K, V> where K : notnull {
+    private class Node {
+        public K Key = default!;
+        public V Value = default!;
+        public Node? Prev;
+        public Node? Next;
+    }
+
+    private readonly int capacity;
+    private readonly Dictionary<K, Node> map = new();
+    private readonly Node head = new(); // sentinel
+    private readonly Node tail = new(); // sentinel
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        head.Next = tail;
+        tail.Prev = head;
+    }
+
+    private void Remove(Node node) {
+        node.Prev!.Next = node.Next;
+        node.Next!.Prev = node.Prev;
+    }
+
+    private void InsertAtFront(Node node) {
+        node.Next = head.Next;
+        node.Prev = head;
+        head.Next!.Prev = node;
+        head.Next = node;
+    }
+
+    public V? Get(K key) {
+        if (!map.TryGetValue(key, out var node)) return default;
+        Remove(node);
+        InsertAtFront(node);
+        return node.Value;
+    }
+
+    public void Put(K key, V value) {
+        if (map.TryGetValue(key, out var existing)) Remove(existing);
+
+        var node = new Node { Key = key, Value = value };
+        map[key] = node;
+        InsertAtFront(node);
+
+        if (map.Count > capacity) {
+            var lru = tail.Prev!;
+            Remove(lru);
+            map.Remove(lru.Key);
+        }
+    }
+}
+```
+
+```cpp
+// Assumes K and V are default-constructible, which the sentinel nodes rely on.
+template <typename K, typename V>
+class LRUCache {
+public:
+    explicit LRUCache(int capacity) : capacity(capacity) {
+        head = new Node();
+        tail = new Node();
+        head->next = tail;
+        tail->prev = head;
+    }
+
+    std::optional<V> get(const K& key) {
+        auto it = map.find(key);
+        if (it == map.end()) return std::nullopt;
+
+        Node* node = it->second;
+        remove(node);
+        insertAtFront(node);
+        return node->value;
+    }
+
+    void put(const K& key, const V& value) {
+        auto it = map.find(key);
+        if (it != map.end()) {
+            remove(it->second);
+            it->second->key = key;
+            it->second->value = value;
+            insertAtFront(it->second);
+            return;
+        }
+
+        Node* node = new Node{key, value, nullptr, nullptr};
+        map[key] = node;
+        insertAtFront(node);
+
+        if (map.size() > static_cast<size_t>(capacity)) {
+            Node* lru = tail->prev;
+            remove(lru);
+            map.erase(lru->key);
+            delete lru;
+        }
+    }
+
+private:
+    struct Node {
+        K key{};
+        V value{};
+        Node* prev = nullptr;
+        Node* next = nullptr;
+    };
+
+    int capacity;
+    std::unordered_map<K, Node*> map;
+    Node* head;
+    Node* tail;
+
+    void remove(Node* node) {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+    }
+
+    void insertAtFront(Node* node) {
+        node->next = head->next;
+        node->prev = head;
+        head->next->prev = node;
+        head->next = node;
+    }
+};
+```
+
+```ruby
+class DLLNode
+  attr_accessor :key, :value, :prev, :next
+
+  def initialize(key, value)
+    @key = key
+    @value = value
+  end
+end
+
+class LRUCache
+  def initialize(capacity)
+    @capacity = capacity
+    @map = {}
+    @head = DLLNode.new(nil, nil) # sentinel
+    @tail = DLLNode.new(nil, nil) # sentinel
+    @head.next = @tail
+    @tail.prev = @head
+  end
+
+  def get(key)
+    node = @map[key]
+    return nil unless node
+
+    remove(node)
+    insert_at_front(node)
+    node.value
+  end
+
+  def put(key, value)
+    existing = @map[key]
+    remove(existing) if existing
+
+    node = DLLNode.new(key, value)
+    @map[key] = node
+    insert_at_front(node)
+
+    if @map.size > @capacity
+      lru = @tail.prev
+      remove(lru)
+      @map.delete(lru.key)
+    end
+  end
+
+  private
+
+  def remove(node)
+    node.prev.next = node.next
+    node.next.prev = node.prev
+  end
+
+  def insert_at_front(node)
+    node.next = @head.next
+    node.prev = @head
+    @head.next.prev = node
+    @head.next = node
+  end
+end
+```
+
+</CodeTabs>
+
+## Why this is worth building once, by hand
+
+Most languages hand you a shortcut: Java's `LinkedHashMap` has a `removeEldestEntry` hook that gives you LRU behavior in a few lines, Python's `functools.lru_cache` is a decorator. Those are the right call in production code — there's no reason to hand-roll this when a well-tested standard library version exists. But the interview question isn't really asking whether you can use a library; it's checking whether you understand *why* the hash-map-plus-doubly-linked-list combination is the structure that makes both operations `O(1)` simultaneously, which is exactly the kind of reasoning that also tells you when a *simpler* structure would be enough — a plain hash map is fine for a cache with no eviction policy at all, and you'd only reach for this if "least recently used" specifically is the eviction rule that matters.
+
+That eviction policy question is worth sitting with, too — cache-aside vs. write-through, TTLs, invalidation — which is exactly where this post leads next: [caching strategies](/blog/caching-strategies-explained) covers how a cache like this one actually gets used inside a real system, not just how it's built.

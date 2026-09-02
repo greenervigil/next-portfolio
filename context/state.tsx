@@ -44,6 +44,16 @@ export const state = {
   greenfield: '<p>In addition to my engineering work, I lead GreenField Development, a freelance partnership I founded to help self-taught developers accelerate their careers. Through this mentorship program, I focus on developing practical, project-based skills with a strong emphasis on Agile methodologies, version control practices, and project management. It’s incredibly rewarding to guide developers through their journeys and watch them grow into confident, capable contributors.</p>',
   projects: [
     {
+      id: 17,
+      href: '/projects/17',
+      link: 'https://tailor-dev-lilac.vercel.app/',
+      title: 'Servicedesk',
+      description: 'Servicedesk is a IT management tool that helps organizations streamline their IT support processes, improve response times, and enhance overall service quality.',
+      imageSrc: '/servicedesk.png',
+      imageDescription: 'Servicedesk home page',
+      tech: ['React', 'NextJS', 'Tailwind CSS', 'TypeScript', 'Shadcn/ui', 'Drizzle ORM', 'PostgreSQL', 'Vercel']
+    },
+    {
       id: 16,
       href: '/projects/16',
       link: 'https://tailor-dev-lilac.vercel.app/',

@@ -1,0 +1,97 @@
+---
+title: "REST vs. GraphQL vs. gRPC: Choosing the Right API Style"
+description: "Three API paradigms that solve different problems, not competing versions of the same thing — a practical breakdown of when each one is actually the right call."
+date: "2026-07-31"
+pillar: "cs-terms"
+tags: ["apis", "rest", "graphql", "grpc", "system-design"]
+draft: true
+---
+
+"REST vs. GraphQL vs. gRPC" gets framed as a single question with one right answer, but the three solve different problems well enough that most systems of any real size end up using more than one. Here's what each actually optimizes for.
+
+## REST: resource-oriented, cacheable, universally understood
+
+REST models a system as resources (`/users/42`, `/orders/17`) manipulated through HTTP verbs (`GET`, `POST`, `PUT`, `DELETE`). Its biggest strength is also its biggest weakness: the shape of the response is fixed by the server, which makes it trivially cacheable by anything that understands HTTP (browsers, CDNs, proxies) — but it also means clients frequently over-fetch (getting fields they don't need) or under-fetch (needing a second request to get related data).
+
+```javascript
+// Express — a resource-oriented endpoint. The response shape is fixed;
+// every consumer gets the same fields whether they need all of them or not.
+app.get("/api/users/:id", async (req, res) => {
+  const user = await db.users.findById(req.params.id)
+  if (!user) return res.status(404).json({ error: "Not found" })
+  res.json({ id: user.id, name: user.name, email: user.email, createdAt: user.createdAt })
+})
+```
+
+## GraphQL: client-shaped responses, one endpoint
+
+GraphQL exposes a single endpoint and a typed schema; the client specifies exactly which fields it wants in the query itself, and the server resolves only those. This directly solves REST's over/under-fetching problem — a mobile client needing just `name` and a dashboard needing `name`, `email`, and `orders` hit the same endpoint and each get exactly what they asked for. The trade-off is real complexity elsewhere: HTTP-level caching mostly stops working (every query can be shaped differently, so there's no stable URL to cache against), and a naive resolver implementation can trigger the "N+1 query" problem — fetching a list, then issuing a separate database query per item to resolve a nested field.
+
+```javascript
+// A resolver for the `user` field — the client's query determines which of
+// these nested resolvers actually run, so unused fields cost nothing.
+const resolvers = {
+  Query: {
+    user: (_parent, { id }, { db }) => db.users.findById(id),
+  },
+  User: {
+    orders: (user, _args, { db }) => db.orders.findByUserId(user.id), // only resolved if the query asks for it
+  },
+}
+```
+
+```graphql
+# The client asks for exactly this shape — no more, no less.
+query {
+  user(id: "42") {
+    name
+    orders {
+      total
+    }
+  }
+}
+```
+
+## gRPC: fast, strongly typed, built for service-to-service
+
+gRPC defines a contract in a `.proto` file — service methods and message shapes — and generates strongly typed client and server code from it, communicating over HTTP/2 with binary Protocol Buffer payloads instead of JSON text. That combination (binary encoding, HTTP/2 multiplexing, generated types) makes it fast and hard to misuse by accident — a field type mismatch is a compile error, not a runtime surprise. The cost is accessibility: it's not natively callable from a browser without a proxy layer (grpc-web), and the payloads aren't human-readable on the wire the way JSON is, which makes ad hoc debugging harder. This is why gRPC shows up almost exclusively for internal service-to-service calls, not public-facing APIs.
+
+```protobuf
+// user.proto — the contract both sides generate code from.
+service UserService {
+  rpc GetUser (GetUserRequest) returns (User);
+}
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+}
+```
+
+```typescript
+// Generated client usage looks like a normal function call — the network
+// hop and binary serialization are invisible to the caller.
+const user = await userClient.getUser({ id: "42" })
+console.log(user.name) // fully typed from the .proto definition
+```
+
+## The comparison that actually matters
+
+| | REST | GraphQL | gRPC |
+| --- | --- | --- | --- |
+| Response shape | Fixed by server | Chosen by client, per query | Fixed by `.proto` contract |
+| Caching | HTTP-native (URLs, CDNs) | Requires app-level caching | Not URL-based; app-level only |
+| Payload | JSON, human-readable | JSON, human-readable | Binary (Protocol Buffers) |
+| Browser support | Native | Native (over HTTP) | Needs a proxy (grpc-web) |
+| Best fit | Public APIs, simple resource CRUD | Client apps with varied, nested data needs | Internal service-to-service calls |
+
+## Picking one
+
+Public API for third-party developers, or a simple resource-CRUD backend: REST — it's the one every client already knows how to call, and HTTP caching is free performance you'd otherwise have to build yourself. A client application (mobile app, dashboard) that needs different, often nested slices of data across different screens: GraphQL, specifically to avoid the over-fetching and multiple-round-trip problems REST creates in that scenario. Internal calls between services owned by your own team, where every caller and callee can regenerate code from the same `.proto` file: gRPC, for the speed and the compile-time safety.
+
+This maps onto the same territory as [monolith vs. microservices](/blog/monolith-vs-microservices) — once a system is split into services with real network boundaries between them, the internal service-to-service calls and the external client-facing API are different problems with different constraints, and there's nothing wrong with answering them differently: gRPC between your own services, REST or GraphQL at the edge facing clients you don't control. The same reasoning that applies to [rate limiting internal vs. public endpoints](/blog/designing-a-rate-limiter) applies here — the right choice depends on who's calling and what they actually need, not on picking one paradigm and using it everywhere out of consistency for its own sake.
