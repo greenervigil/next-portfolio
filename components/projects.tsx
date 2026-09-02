@@ -745,7 +745,7 @@ export function Projects() {
                 </svg>
 
                 {/* Hexagonal Project Cards */}
-                {projects.slice(0, 17).map((project, index) => {
+                {projects.slice(0, 18).map((project, index) => {
                   const position = getHexPosition(index)
                   const row = isMobile ? Math.floor(index / 2) : Math.floor(index / layout.itemsPerRow)
                   const col = isMobile ? index % 2 : index % layout.itemsPerRow
