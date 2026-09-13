@@ -5,7 +5,7 @@ import { ChevronRight, Terminal } from "lucide-react"
 import { getPostsByPillar } from "@/lib/blog"
 import { PostCard } from "@/components/blog/post-card"
 import { PillarNav } from "@/components/blog/pillar-nav"
-import { ProjectedTitle, getTitleRevealDuration } from "@/components/blog/projected-title"
+import { ProjectedTitle, getTitleRevealDuration } from "@/components/projected-title"
 import { BLOG_PILLARS, PILLAR_DESCRIPTIONS, PILLAR_LABELS, type BlogPillar } from "@/types/blog-type"
 
 export function generateStaticParams() {

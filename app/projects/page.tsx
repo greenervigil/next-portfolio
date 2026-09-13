@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Projects } from "@/components/projects"
+import { state } from "@/context/state"
 
 export const metadata: Metadata = {
   title: "Portfolio Projects | Daniel Greener-Vigil - Software Engineer",
@@ -40,6 +41,13 @@ export const metadata: Metadata = {
   },
 }
 
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")
+}
+
 const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -52,44 +60,18 @@ const structuredData = {
         sameAs: ["https://github.com/greenervigil", "https://www.linkedin.com/in/danieljvigil/"],
         knowsAbout: ["JavaScript", "TypeScript", "React", "Node.js", "Full-Stack Development", "Web Development"],
       },
-      {
+      ...state.projects.map((project) => ({
         "@type": "CreativeWork",
-        "@id": "https://greenervigil.dev/projects#greenfield-development",
-        name: "GreenField Development Web Platform",
-        description:
-          "A SaaS cooperative company specializing in building scalable web applications and mentoring self-taught developers.",
+        "@id": `https://greenervigil.dev/projects#${slugify(project.shortTitle)}`,
+        name: project.title,
+        description: project.detailedDescription,
         creator: {
           "@id": "https://greenervigil.dev/#person",
         },
         programmingLanguage: ["TypeScript"],
-        keywords: ["Next.js", "Tailwind CSS", "shadcn/ui", "Vercel"],
-        url: "https://greenervigil.dev",
-      },
-      {
-        "@type": "CreativeWork",
-        "@id": "https://greenervigil.dev/projects#learning-portrait-api",
-        name: "Learning Portrait API & Database Redesign",
-        description:
-          "Redesigned a complex microservices architecture for an enterprise education platform, focusing on scalability, performance, and maintainability, with a zero-downtime migration strategy.",
-        creator: {
-          "@id": "https://greenervigil.dev/#person",
-        },
-        programmingLanguage: ["TypeScript"],
-        keywords: ["Next.js", "PostgreSQL", "Apollo Client", "Docker", "Microservices"],
-      },
-      {
-        "@type": "CreativeWork",
-        "@id": "https://greenervigil.dev/projects#ultra-crew-mobile",
-        name: "Ultra Crew Mobile Application",
-        description:
-          "A mobile application for long-distance runners providing real-time performance tracking, personalized training plans, and community features.",
-        creator: {
-          "@id": "https://greenervigil.dev/#person",
-        },
-        programmingLanguage: ["TypeScript"],
-        keywords: ["React Native", "Supabase", "Expo", "Stripe"],
-        url: "https://ultracrew.app",
-      },
+        keywords: project.technologies,
+        ...(project.links.live ? { url: project.links.live } : {}),
+      })),
       {
         "@type": "WebPage",
         "@id": "https://greenervigil.dev/projects",

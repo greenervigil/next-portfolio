@@ -1,5 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { GlassPanel } from "@/components/glass-panel"
 import { Code, Globe, Settings, TestTube, Cpu, Database } from "lucide-react"
 
 export function Skills() {
@@ -106,8 +107,8 @@ export function Skills() {
                 role="listitem"
                 className="focus-within:outline-2 focus-within:outline-cyan-400 focus-within:outline-offset-2 rounded-lg"
               >
-                <Card
-                  className="bg-black/50 border-cyan-400/30 hover:border-cyan-400/60 transition-all duration-300 group backdrop-blur-sm relative overflow-hidden motion-reduce:transition-none motion-reduce:hover:transform-none h-full"
+                <GlassPanel
+                  className="transition-all duration-300 group hover:!border-[rgba(150,245,255,0.8)] motion-reduce:transition-none motion-reduce:hover:transform-none h-full"
                   tabIndex={0}
                   role="region"
                   aria-labelledby={`category-${index}-title`}
@@ -154,7 +155,7 @@ export function Skills() {
                       ))}
                     </ul>
                   </CardContent>
-                </Card>
+                </GlassPanel>
               </article>
             ))}
           </div>
@@ -164,7 +165,7 @@ export function Skills() {
             aria-labelledby="learning-heading"
             className="focus-within:outline-2 focus-within:outline-cyan-400 focus-within:outline-offset-2 rounded-lg"
           >
-            <Card className="bg-gradient-to-r from-black/80 to-black/60 border border-cyan-400/30 backdrop-blur-sm relative overflow-hidden">
+            <GlassPanel>
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-orange-400/5" aria-hidden="true" />
               <CardContent className="p-4 sm:p-8 relative z-10">
                 <div className="text-center space-y-6">
@@ -186,7 +187,7 @@ export function Skills() {
                   </p>
                 </div>
               </CardContent>
-            </Card>
+            </GlassPanel>
           </section>
         </div>
       </div>

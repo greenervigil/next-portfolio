@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { GlassPanel } from "@/components/glass-panel"
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -63,14 +64,24 @@ export function Navigation() {
         Skip to main content
       </a>
 
-      <nav
+      <GlassPanel
+        as="nav"
         role="navigation"
         aria-label="Main navigation"
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-black/90 backdrop-blur-md border-b border-cyan-400/30 shadow-lg shadow-cyan-400/20"
-            : "bg-transparent"
+        showDetails={isScrolled}
+        className={`fixed top-0 w-full z-50 rounded-none transition-all duration-300 ${
+          isScrolled ? "shadow-lg shadow-cyan-400/20" : ""
         }`}
+        style={
+          isScrolled
+            ? undefined
+            : {
+                border: "1px solid transparent",
+                background: "transparent",
+                backdropFilter: "none",
+                WebkitBackdropFilter: "none",
+              }
+        }
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -160,7 +171,7 @@ export function Navigation() {
             </div>
           )}
         </div>
-      </nav>
+      </GlassPanel>
     </>
   )
 }

@@ -9,7 +9,7 @@ import rehypePrettyCode from "rehype-pretty-code"
 import { ChevronRight, Terminal } from "lucide-react"
 import { getAllPosts, getAdjacentPosts, getPostBySlug } from "@/lib/blog"
 import { mdxComponents } from "@/components/blog/mdx-components"
-import { ProjectedTitle, getTitleRevealDuration } from "@/components/blog/projected-title"
+import { ProjectedTitle, getTitleRevealDuration } from "@/components/projected-title"
 import { PILLAR_LABELS } from "@/types/blog-type"
 
 export function generateStaticParams() {

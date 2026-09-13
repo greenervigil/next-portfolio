@@ -4,33 +4,10 @@ import { useEffect, useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { X, ExternalLink, Github, Calendar, Users, Code, Target, Zap, Terminal, ChevronRight } from "lucide-react"
-
-interface Project {
-  id: number
-  title: string
-  shortTitle: string
-  description: string
-  detailedDescription: string
-  technologies: string[]
-  type: string
-  status: string
-  icon: any
-  color: "cyan" | "orange"
-  year: string
-  duration: string
-  team: string
-  role: string
-  challenges: string[]
-  achievements: string[]
-  links: {
-    demo?: string
-    github?: string
-    live?: string
-  }
-}
+import type { ProjectType } from "@/types/project-type"
 
 interface ProjectModalProps {
-  project: Project
+  project: ProjectType
   onClose: () => void
 }
 

@@ -1,5 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card"
+import { CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { GlassPanel } from "@/components/glass-panel"
 import { Users, Code, Lightbulb, Target, Cpu } from "lucide-react"
 
 export function About() {
@@ -60,8 +61,8 @@ export function About() {
                   const IconComponent = highlight.icon
                   return (
                     <div key={index} role="listitem">
-                      <Card
-                        className="bg-black/50 border-cyan-400/30 hover:border-cyan-400/60 transition-all duration-300 group backdrop-blur-sm focus-within:ring-2 focus-within:ring-cyan-400 focus-within:ring-offset-2 focus-within:ring-offset-black motion-reduce:transition-none motion-reduce:hover:transform-none"
+                      <GlassPanel
+                        className="transition-all duration-300 group hover:!border-[rgba(150,245,255,0.8)] focus-within:ring-2 focus-within:ring-cyan-400 focus-within:ring-offset-2 focus-within:ring-offset-black motion-reduce:transition-none motion-reduce:hover:transform-none"
                         tabIndex={0}
                         role="article"
                         aria-label={`${highlight.label}: ${highlight.description}`}
@@ -86,7 +87,7 @@ export function About() {
                             <p className="text-xs text-cyan-100 font-inter">{highlight.description}</p>
                           </div>
                         </CardContent>
-                      </Card>
+                      </GlassPanel>
                     </div>
                   )
                 })}
@@ -96,7 +97,10 @@ export function About() {
 
           {/* GreenField Section */}
           <section aria-labelledby="greenfield-heading">
-            <Card className="bg-gradient-to-r from-black/80 to-black/60 border border-orange-400/30 backdrop-blur-sm relative overflow-hidden focus-within:ring-2 focus-within:ring-orange-400 focus-within:ring-offset-2 focus-within:ring-offset-black">
+            <GlassPanel
+              className="focus-within:ring-2 focus-within:ring-orange-400 focus-within:ring-offset-2 focus-within:ring-offset-black"
+              style={{ border: "1px solid rgba(255,122,61,0.4)" }}
+            >
               <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-cyan-400/5" aria-hidden="true" />
               <CardContent className="p-4 sm:p-8 relative z-10">
                 <article className="text-center space-y-6">
@@ -139,7 +143,7 @@ export function About() {
                   </Badge>
                 </article>
               </CardContent>
-            </Card>
+            </GlassPanel>
           </section>
         </div>
       </div>

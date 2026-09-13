@@ -1,7 +1,12 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { GlassPanel } from "@/components/glass-panel"
+import { ProjectedTitle, getTitleRevealDuration } from "@/components/projected-title"
 import { Briefcase, Calendar, Zap, ChevronRight } from "lucide-react"
 import { Metadata } from "next"
+
+const PAGE_TITLE = "EXPERIENCE.DAT"
+const contentRevealStyle = { animationDelay: `${getTitleRevealDuration(PAGE_TITLE)}ms` }
 
 export const metadata: Metadata = {
   title: "Work Experience | Daniel Greener-Vigil - Software Engineer",
@@ -175,14 +180,14 @@ export function Experience() {
               <Briefcase className="h-6 w-6 text-orange-400" />
               <div className="w-8 h-px bg-gradient-to-l from-transparent to-orange-400" />
             </div>
-            <h2
+            <ProjectedTitle
+              text={PAGE_TITLE}
+              srLabel="Experience"
               id="experience-heading"
+              as="h2"
               className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold mb-4 text-orange-400 tracking-wide sm:tracking-wider"
-            >
-              <span className="block sm:hidden">EXPERIENCE.DAT</span>
-              <span className="hidden sm:block">EXPERIENCE_LOG.DAT</span>
-            </h2>
-            <p className="text-base sm:text-lg text-cyan-100 font-inter">
+            />
+            <p className="text-base sm:text-lg text-cyan-100 font-inter fade-in-content" style={contentRevealStyle}>
               A journey of growth, leadership, and technical excellence
             </p>
             {/* Hidden descriptive text for screen readers */}
@@ -195,9 +200,9 @@ export function Experience() {
 
           <div id="experience-content" className="space-y-8">
             {experiences.map((exp, index) => (
-              <Card
+              <GlassPanel
                 key={index}
-                className="bg-black/50 border-cyan-400/30 hover:border-cyan-400/60 motion-safe:transition-all motion-safe:duration-300 group backdrop-blur-sm relative overflow-hidden focus-within:border-cyan-400/60 focus-within:ring-2 focus-within:ring-cyan-400/20"
+                className="hover:!border-[rgba(150,245,255,0.8)] motion-safe:transition-all motion-safe:duration-300 group focus-within:!border-[rgba(150,245,255,0.8)] focus-within:ring-2 focus-within:ring-cyan-400/20"
                 role="article"
                 aria-labelledby={`experience-${index}-title`}
                 aria-describedby={`experience-${index}-description`}
@@ -285,7 +290,7 @@ export function Experience() {
                     ))}
                   </ul>
                 </CardContent>
-              </Card>
+              </GlassPanel>
             ))}
           </div>
         </div>

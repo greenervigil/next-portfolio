@@ -26,6 +26,8 @@ type ProjectedTitleProps = {
   srLabel?: string
   as?: HeadingTag
   className?: string
+  /** For sections that reference this heading via aria-labelledby. */
+  id?: string
 }
 
 /**
@@ -35,7 +37,7 @@ type ProjectedTitleProps = {
  * across the title. Pure CSS, so the real text is present in the server HTML
  * immediately — nothing is gated behind JS/hydration.
  */
-export function ProjectedTitle({ text, srLabel, as = "h1", className }: ProjectedTitleProps) {
+export function ProjectedTitle({ text, srLabel, as = "h1", className, id }: ProjectedTitleProps) {
   const Tag = as
   const words = text.split(" ")
   const step = getStaggerStep(text)
@@ -43,7 +45,7 @@ export function ProjectedTitle({ text, srLabel, as = "h1", className }: Projecte
   let charIndex = 0
 
   return (
-    <Tag aria-label={srLabel ?? text} className={className}>
+    <Tag id={id} aria-label={srLabel ?? text} className={className}>
       <span aria-hidden="true" className="relative inline-block">
         <span className="title-scan-beam" style={{ animationDuration: `${revealDuration}ms` }} />
         {words.map((word, wordIndex) => (

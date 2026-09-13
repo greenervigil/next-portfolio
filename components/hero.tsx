@@ -4,18 +4,22 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
+import { ProjectedTitle } from "@/components/projected-title"
 
 export function Hero() {
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState(true)
   const [glitchText, setGlitchText] = useState("Daniel Greener-Vigil")
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    }
+    return false
+  })
+  const [particles, setParticles] = useState<Array<{ left: number; top: number; delay: number; duration: number }>>([])
 
   useEffect(() => {
-    setMounted(true)
-
     // Check for reduced motion preference
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
-    setPrefersReducedMotion(mediaQuery.matches)
 
     const handleChange = (e: MediaQueryListEvent) => {
       setPrefersReducedMotion(e.matches)
@@ -69,15 +73,15 @@ export function Hero() {
           {/* Floating particles - client-only (random positions) and only if motion is not reduced */}
           {mounted &&
             !prefersReducedMotion &&
-            [...Array(20)].map((_, i) => (
+            particles.map((particle, i) => (
               <div
                 key={i}
                 className="absolute w-1 h-1 bg-cyan-400 rounded-full animate-float"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 5}s`,
-                  animationDuration: `${3 + Math.random() * 4}s`,
+                  left: `${particle.left}%`,
+                  top: `${particle.top}%`,
+                  animationDelay: `${particle.delay}s`,
+                  animationDuration: `${particle.duration}s`,
                 }}
               />
             ))}
@@ -117,15 +121,12 @@ export function Hero() {
             {/* Main Content */}
             <header className="space-y-6" id="main-content">
               <div className="relative">
-                <h1 className="text-4xl sm:text-6xl lg:text-7xl font-orbitron font-bold tracking-tight">
-                  <span
-                    className="block text-cyan-400 glitch-text"
-                    data-text={glitchText}
-                    aria-label="Daniel Greener-Vigil"
-                  >
-                    {glitchText}
-                  </span>
-                </h1>
+                <ProjectedTitle
+                  text={glitchText}
+                  srLabel="Daniel Greener-Vigil"
+                  as="h1"
+                  className="block text-4xl sm:text-6xl lg:text-7xl font-orbitron font-bold tracking-tight text-cyan-400"
+                />
                 <div
                   className={`absolute inset-0 bg-cyan-400 blur-2xl opacity-20 ${!prefersReducedMotion ? "animate-pulse" : ""}`}
                   aria-hidden="true"
@@ -188,7 +189,7 @@ export function Hero() {
                   GITHUB
                 </Button>
               </Link>
-              <Link href="#contact" scroll={true} aria-label="Go to contact section">
+              <Link href="/contact" scroll={true} aria-label="Go to contact section">
                 <Button
                   variant="outline"
                   size="lg"

@@ -10,7 +10,6 @@ export default function NotFound() {
   const [glitchText, setGlitchText] = useState("404")
   const [terminalText, setTerminalText] = useState("")
   const [showCursor, setShowCursor] = useState(true)
-  const [scanlinePosition, setScanlinePosition] = useState(0)
 
   const fullTerminalText = "ERROR: PAGE_NOT_FOUND.EXE"
 
@@ -52,54 +51,18 @@ export default function NotFound() {
       setShowCursor((prev) => !prev)
     }, 500)
 
-    // Scanning line animation
-    const scanInterval = setInterval(() => {
-      setScanlinePosition((prev) => (prev + 1) % 100)
-    }, 50)
-
     return () => {
       clearInterval(glitchInterval)
       clearInterval(cursorInterval)
-      clearInterval(scanInterval)
     }
   }, [])
 
   if (!mounted) return null
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden flex items-center justify-center">
-      {/* Animated Grid Background */}
+    <div className="min-h-screen relative overflow-hidden flex items-center justify-center">
+      {/* Page-specific decorations layered over the shared GridBackground/LightSweep from the root layout */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        {/* Main grid pattern */}
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: "50px 50px",
-          }}
-        />
-
-        {/* Animated scanning lines */}
-        <div className="absolute inset-0">
-          <div
-            className="absolute w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60"
-            style={{
-              top: `${scanlinePosition}%`,
-              transition: "top 0.05s linear",
-            }}
-          />
-          <div
-            className="absolute h-full w-px bg-gradient-to-b from-transparent via-orange-400 to-transparent opacity-60"
-            style={{
-              left: `${(scanlinePosition * 1.3) % 100}%`,
-              transition: "left 0.05s linear",
-            }}
-          />
-        </div>
-
         {/* Floating particles */}
         {[...Array(15)].map((_, i) => (
           <div
@@ -273,17 +236,8 @@ export default function NotFound() {
         </div>
       </div>
 
-      {/* Additional Visual Effects */}
+      {/* Additional Visual Effects — the sweeping beam itself now comes from the shared LightSweep in the root layout */}
       <div className="fixed inset-0 pointer-events-none z-5">
-        {/* Holographic interference */}
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/5 to-transparent"
-          style={{
-            animation: "holographicSweep 8s ease-in-out infinite",
-            transform: "skewX(-20deg)",
-          }}
-        />
-
         {/* Static noise overlay */}
         <div
           className="absolute inset-0 opacity-5"
@@ -295,11 +249,6 @@ export default function NotFound() {
       </div>
 
       <style jsx>{`
-        @keyframes holographicSweep {
-          0% { transform: translateX(-100vw) skewX(-20deg); }
-          100% { transform: translateX(200vw) skewX(-20deg); }
-        }
-
         @keyframes staticNoise {
           0% { transform: translate(0, 0); }
           10% { transform: translate(-5%, -5%); }
@@ -312,46 +261,6 @@ export default function NotFound() {
           80% { transform: translate(-15%, 0); }
           90% { transform: translate(10%, 5%); }
           100% { transform: translate(5%, 0); }
-        }
-
-        .glitch-text::before,
-        .glitch-text::after {
-          content: attr(data-text);
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-        }
-
-        .glitch-text::before {
-          animation: glitch-1 0.5s infinite;
-          color: #ff6b35;
-          z-index: -1;
-        }
-
-        .glitch-text::after {
-          animation: glitch-2 0.5s infinite;
-          color: #00ffff;
-          z-index: -2;
-        }
-
-        @keyframes glitch-1 {
-          0%, 14%, 15%, 49%, 50%, 99%, 100% {
-            transform: translate(0);
-          }
-          15%, 49% {
-            transform: translate(-2px, 2px);
-          }
-        }
-
-        @keyframes glitch-2 {
-          0%, 20%, 21%, 62%, 63%, 99%, 100% {
-            transform: translate(0);
-          }
-          21%, 62% {
-            transform: translate(2px, -2px);
-          }
         }
       `}</style>
     </div>

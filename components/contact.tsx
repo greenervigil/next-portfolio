@@ -2,10 +2,12 @@
 
 import type React from "react"
 import { useState, useTransition, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { GlassPanel } from "@/components/glass-panel"
+import { ProjectedTitle, getTitleRevealDuration } from "@/components/projected-title"
 import {
   Mail,
   MapPin,
@@ -27,6 +29,9 @@ import { checkForSpam } from "@/lib/spam-detection"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
+
+const PAGE_TITLE = "CONTACT.EXE"
+const contentRevealStyle = { animationDelay: `${getTitleRevealDuration(PAGE_TITLE)}ms` }
 
 interface FormState {
   success: boolean | null
@@ -189,21 +194,21 @@ export function Contact() {
               <Send className="h-6 w-6 text-orange-400" />
               <div className="w-8 h-px bg-gradient-to-l from-transparent to-orange-400" />
             </div>
-            <h2
+            <ProjectedTitle
+              text={PAGE_TITLE}
+              srLabel="Contact"
               id="contact-heading"
+              as="h2"
               className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold mb-4 text-orange-400 tracking-wide sm:tracking-wider"
-            >
-              <span className="block sm:hidden">CONTACT.EXE</span>
-              <span className="hidden sm:block">CONTACT_INTERFACE.EXE</span>
-            </h2>
-            <p className="text-base sm:text-lg text-cyan-100 font-inter px-4 sm:px-0">
+            />
+            <p className="text-base sm:text-lg text-cyan-100 font-inter px-4 sm:px-0 fade-in-content" style={contentRevealStyle}>
               {`Ready to collaborate or discuss opportunities? I'd love to hear from you.`}
             </p>
           </header>
 
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             <aside className="space-y-6 order-2 md:order-1" aria-labelledby="contact-info-heading">
-              <Card className="bg-black/50 border-cyan-400/30 backdrop-blur-sm">
+              <GlassPanel>
                 <CardContent className="p-4 sm:p-6">
                   <h3
                     id="contact-info-heading"
@@ -305,10 +310,10 @@ export function Contact() {
                     </nav>
                   </div>
                 </CardContent>
-              </Card>
+              </GlassPanel>
             </aside>
 
-            <Card className="bg-black/50 border-orange-400/30 backdrop-blur-sm relative overflow-hidden order-1 md:order-2">
+            <GlassPanel className="order-1 md:order-2" style={{ border: "1px solid rgba(255,122,61,0.4)" }}>
               <div className="absolute inset-0 bg-gradient-to-b from-orange-400/5 to-cyan-400/5" aria-hidden="true" />
               <CardHeader className="relative z-10 p-4 sm:p-6 pb-3 sm:pb-4">
                 <div className="flex items-center gap-2">
@@ -593,7 +598,7 @@ export function Contact() {
                   </p>
                 </form>
               </CardContent>
-            </Card>
+            </GlassPanel>
           </div>
         </div>
       </div>

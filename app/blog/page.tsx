@@ -3,7 +3,7 @@ import { Terminal } from "lucide-react"
 import { getAllPosts } from "@/lib/blog"
 import { PostCard } from "@/components/blog/post-card"
 import { PillarNav } from "@/components/blog/pillar-nav"
-import { ProjectedTitle, getTitleRevealDuration } from "@/components/blog/projected-title"
+import { ProjectedTitle, getTitleRevealDuration } from "@/components/projected-title"
 
 const PAGE_TITLE = "BLOG.LOG"
 const contentRevealStyle = { animationDelay: `${getTitleRevealDuration(PAGE_TITLE)}ms` }

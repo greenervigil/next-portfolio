@@ -1,11 +1,13 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Orbitron, Inter } from "next/font/google"
+import { Orbitron, Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { StateProvider } from "@/context/state-context"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { GridBackground } from "@/components/grid-background"
+import { LightSweep } from "@/components/light-sweep"
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -13,6 +15,11 @@ const orbitron = Orbitron({
   weight: ["400", "700", "900"],
 })
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  weight: ["400", "500"],
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://greenervigil.dev"),
@@ -82,12 +89,15 @@ export default function RootLayout({
         <meta name="color-scheme" content="dark" />
         <link rel="canonical" href="https://greenervigil.dev" />
       </head>
-      <body className={`${orbitron.variable} ${inter.variable} bg-black text-cyan-100`}>
+      <body className={`${orbitron.variable} ${inter.variable} ${jetbrainsMono.variable} bg-black text-cyan-100`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
-          <GridBackground />
-          <Navigation />
-          {children}
-          <Footer />
+          <StateProvider>
+            <GridBackground />
+            <LightSweep />
+            <Navigation />
+            {children}
+            <Footer />
+          </StateProvider>
         </ThemeProvider>
       </body>
     </html>

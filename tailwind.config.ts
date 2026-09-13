@@ -21,6 +21,15 @@ const config: Config = {
       fontFamily: {
         orbitron: ["var(--font-orbitron)", "monospace"],
         inter: ["var(--font-inter)", "sans-serif"],
+        mono: [
+          "var(--font-jetbrains-mono)",
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "Monaco",
+          "Consolas",
+          "monospace",
+        ],
       },
       colors: {
         border: "hsl(var(--border))",

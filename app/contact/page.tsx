@@ -49,7 +49,7 @@ const structuredData = {
         "@id": "https://greenervigil.dev/#person",
         name: "Daniel Greener-Vigil",
         jobTitle: "Software Engineer",
-        email: "daniel@greenervigil.dev",
+        email: "daniel_greenervigil@icloud.com",
         url: "https://greenervigil.dev",
         sameAs: ["https://github.com/greenervigil", "https://www.linkedin.com/in/danieljvigil/"],
       },
@@ -98,8 +98,8 @@ export default function ContactPage() {
         }}
       />
       <main className="min-h-screen bg-black">
-        <Testimonials />
         <Contact />
+        <Testimonials />
       </main>
     </>
   )

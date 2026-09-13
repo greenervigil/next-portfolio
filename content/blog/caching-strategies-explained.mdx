@@ -1,0 +1,89 @@
+---
+title: "Caching Strategies: Cache-Aside, Write-Through, and Write-Behind"
+description: "An LRU cache tells you what to evict. It doesn't tell you when the cache gets written, or what happens when the cache and the source of truth disagree — that's a separate decision with real consistency trade-offs."
+date: "2026-09-11"
+pillar: "architecture"
+tags: ["caching", "system-design", "performance", "nextjs"]
+draft: true
+---
+
+Knowing how an eviction policy works — like the [LRU cache built from scratch](/blog/lru-cache-from-scratch) — answers *what gets removed* when a cache is full. It doesn't answer the harder question: *when does data get written into the cache in the first place, and what happens when the cache and the underlying database briefly disagree?* That's a separate decision, with a real consistency-versus-speed trade-off attached, and it's usually the part that actually breaks in production.
+
+## Cache-aside (lazy loading)
+
+The application owns the logic directly: on a read, check the cache first; on a miss, read from the database and populate the cache; on a write, update the database and either update or invalidate the cache entry.
+
+```javascript
+async function getUser(id) {
+  const cached = await redis.get(`user:${id}`)
+  if (cached) return JSON.parse(cached)
+
+  const user = await db.users.findById(id) // cache miss — read through to the source of truth
+  await redis.set(`user:${id}`, JSON.stringify(user), "EX", 300) // populate for next time, 5 minute TTL
+  return user
+}
+
+async function updateUser(id, changes) {
+  const user = await db.users.update(id, changes)
+  await redis.del(`user:${id}`) // invalidate rather than update — the next read repopulates it
+  return user
+}
+```
+
+This is the most common pattern because it's simple and resilient: if the cache goes down entirely, every read just falls through to the database and the application keeps working, slower. The trade-off is a guaranteed cache miss on the very first read of anything (there's nothing to hit yet), and a real risk of subtly stale data if you update the cache directly instead of invalidating it — a crash between the database write and the cache write leaves them disagreeing until the entry expires or gets invalidated some other way. Invalidating instead of updating (as above) narrows, but doesn't eliminate, that window.
+
+## Write-through
+
+Every write goes to the cache and the database together, synchronously, before the write is considered complete. Reads then always hit a cache that's guaranteed consistent with the database, because they were never allowed to drift apart in the first place.
+
+```javascript
+async function updateUserWriteThrough(id, changes) {
+  const user = await db.users.update(id, changes)
+  await redis.set(`user:${id}`, JSON.stringify(user)) // synchronous — the write isn't done until both succeed
+  return user
+}
+```
+
+The consistency guarantee is stronger than cache-aside's, but it costs every write extra latency (waiting on two systems instead of one) and it caches data that might never actually be read — you're paying that write cost for every record, whether or not it turns out to be popular enough to benefit from being cached.
+
+## Write-behind (write-back)
+
+Writes go to the cache immediately and are considered complete right away; the write to the database happens asynchronously afterward, batched or queued.
+
+```javascript
+async function updateUserWriteBehind(id, changes) {
+  const user = await cache.update(`user:${id}`, changes) // fast — this is the whole synchronous path
+  writeQueue.push({ id, changes }) // flushed to the database on a schedule or in batches
+  return user
+}
+```
+
+This is the fastest option for write-heavy workloads, and batching writes to the database can reduce load there significantly. The real risk is durability: if the process crashes before a queued write flushes, that write is gone. Write-behind is the right call when a system can tolerate that risk (analytics counters, non-critical logs) and the wrong call when it can't (anything involving money or an audit trail).
+
+## The trade-off, side by side
+
+| Strategy | Read cost | Write cost | Consistency risk |
+| --- | --- | --- | --- |
+| Cache-aside | Miss on first access, fast after | Fast (just invalidate) | Brief staleness possible between DB write and invalidation |
+| Write-through | Always fast, cache always warm | Slower (two synchronous writes) | Low — cache and DB rarely disagree |
+| Write-behind | Always fast | Fastest (cache write only) | Real data-loss risk if the process crashes before flush |
+
+## Invalidation is the actual hard part
+
+"There are only two hard problems in computer science: cache invalidation and naming things" is a joke that holds up because it's true — deciding *what* to cache is usually easy; deciding *when a cached value has become wrong* is where systems get subtly broken. TTLs (as in the cache-aside example above) are the simplest tool: accept that data can be stale for up to some bounded time, and pick that bound based on how wrong "wrong" is allowed to be for that specific data. Event-driven invalidation (explicitly clearing a cache entry when the underlying data changes, rather than waiting for a TTL) is more precise but adds real coupling — every code path that changes the data now also has to remember to invalidate the cache, and a missed one is a silent bug that only shows up as "why is this stale."
+
+This exact trade-off shows up as a first-class feature in modern frameworks rather than something you build by hand every time. Next.js's `fetch` caching, for instance, supports a `revalidate` option that implements stale-while-revalidate: serve the cached response immediately, and refresh it in the background if it's past its revalidation window — cache-aside's TTL idea, with the refetch handled automatically instead of on the next request's critical path.
+
+```typescript
+// Next.js: serve cached data immediately, revalidate in the background
+// after 60 seconds — the same TTL idea as cache-aside above, but the
+// framework handles the background refetch instead of the request that
+// happens to be unlucky enough to hit an expired entry.
+const res = await fetch("https://api.example.com/products", {
+  next: { revalidate: 60 },
+})
+```
+
+## Choosing one
+
+Default to cache-aside — it's the most forgiving of the three when something goes wrong, and "resilient to a cache outage" is worth more in practice than the marginal latency it costs on a cold read. Reach for write-through when reads vastly outnumber writes and every read needs to be fast and correct (a product catalog, most user-profile data). Reach for write-behind only when write throughput is the actual bottleneck and the data can tolerate the durability risk if the process dies mid-flush. As with [rate limiting](/blog/designing-a-rate-limiter) and the [monolith-vs-microservices](/blog/monolith-vs-microservices) call, the right answer here is rarely "the fastest option" in isolation — it's whichever trade-off matches what the specific data can actually afford to get wrong.
