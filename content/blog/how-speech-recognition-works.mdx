@@ -1,0 +1,218 @@
+---
+title: "How Speech Recognition Works: Phonemes, Graphemes, and Audio Analysis"
+description: "Voice assistants turn sound waves into text in under a second. Here's the actual pipeline — phonemes vs. graphemes, how software extracts features from raw audio, and how accuracy gets measured with the same edit-distance algorithm behind spell-checkers."
+date: "2026-10-02"
+pillar: "cs-terms"
+tags: ["speech-recognition", "phonetics", "audio-processing", "fundamentals"]
+draft: true
+---
+
+Every time you talk to a voice assistant, dictate a text message, or watch auto-generated captions appear on a video, software is doing something that sounds almost impossible: turning a continuous, messy sound wave into discrete written words, in real time, across accents and background noise. That process — automatic speech recognition, or ASR — isn't one algorithm. It's a pipeline, and it starts with a distinction most people never think about: the difference between the sounds a language uses and the letters it writes them with.
+
+## Phonemes and graphemes: sounds vs. symbols
+
+A **phoneme** is the smallest unit of *sound* that changes meaning in a language. Swap one phoneme for another and you get a different word — "bat" and "pat" differ by exactly one phoneme (`/b/` vs. `/p/`), and English speakers hear that as two obviously different words. English has roughly 44 phonemes, depending on dialect and how you count.
+
+A **grapheme** is the smallest unit of *writing* — a letter or letter combination — that represents a phoneme. English has 26 letters, but the mapping between graphemes and phonemes is famously irregular. The phoneme `/f/` alone is written as `f` (*fish*), `ph` (*phone*), and `gh` (*enough*). Meanwhile the grapheme `ough` is pronounced at least six different ways: *though*, *through*, *tough*, *cough*, *bough*, *thought*. Nobody who designs speech software gets to assume "one letter, one sound" — that assumption breaks immediately in English, and every language has its own version of this mismatch.
+
+This matters for ASR because software has to decide, at some layer, whether it's reasoning about sounds or about letters:
+
+| | Phoneme | Grapheme |
+|---|---|---|
+| Unit of | speech (sound) | writing (symbol) |
+| Example | `/k/` (the "k" sound) | `c`, `k`, `ck`, `ch` all can spell it |
+| Used by | acoustic models, pronunciation dictionaries | the final transcribed text, language models |
+
+Systems that need to go from audio to a pronunciation, or from text to speech, often rely on **grapheme-to-phoneme (G2P) conversion** — a lookup or learned model that predicts how a written word is pronounced. It's why text-to-speech engines mispronounce unfamiliar names and why search-by-voice engines keep large pronunciation dictionaries for exceptions the general rules get wrong.
+
+## From phonemes to words: why the audio has no gaps
+
+Written English puts a space between every word. Spoken English doesn't — fluent speech is a continuous stream of sound where adjacent phonemes blend into each other through **coarticulation**: the shape your mouth makes for one sound is already shifting toward the next sound before the first one finishes. Say "did you" quickly and you'll hear something closer to "didja" — the `/d/` and `/j/` phonemes have merged. There's no silence marking where "did" ends and "you" begins; your brain (and, in the same job, the ASR system) has to infer the word boundary from context, not from a pause in the signal.
+
+Words themselves are built from phonemes according to a language's **phonotactics** — the rules for which phoneme sequences are even legal. English allows the consonant cluster `/str/` at the start of a word (*street*) but not `/rtb/` (that sequence can't start an English word, and no fluent speaker would parse an ambiguous sound as one). This is one of the reasons a language model matters as much as raw audio analysis: knowing which sequences of sounds form real words — and which word sequences form plausible sentences — is what lets software resolve audio that's genuinely ambiguous on its own.
+
+## From sound wave to text: the ASR pipeline
+
+Here's the actual sequence of steps between a microphone and a transcript.
+
+### 1. Sampling and framing
+
+A microphone captures a continuous analog wave, which gets digitized by **sampling** it — measuring the amplitude thousands of times per second (16 kHz is a common rate for speech, since human speech energy lives mostly below 8 kHz and the Nyquist rate requires at least double the highest frequency you want to capture). The result is a long array of numbers representing amplitude over time.
+
+That array gets sliced into short, overlapping **frames** — typically 25 milliseconds long, taken every 10 milliseconds — because speech is only stationary (statistically consistent) over very short windows. A single frame is short enough to capture one slice of a phoneme; the whole recording is thousands of these frames in sequence.
+
+### 2. Feature extraction
+
+Raw amplitude values are a poor representation of speech — a model trained directly on them would have to rediscover pitch and timbre from scratch. Instead, each frame gets converted into a **spectrogram**: a Fourier transform breaks the frame into its constituent frequencies, showing how much energy is present at each frequency band. Because human hearing perceives pitch logarithmically, not linearly, that spectrum typically gets warped onto the **mel scale**, which compresses higher frequencies the way the human ear does. Classic ASR systems then reduce this further into a small set of numbers per frame called **MFCCs** (Mel-Frequency Cepstral Coefficients) — a compact fingerprint of that frame's sound. Modern neural systems (like Whisper and wav2vec2) often skip the final MFCC compression and feed the log-mel spectrogram straight into the model, letting the network learn which features matter instead of hand-engineering them — but the sampling → framing → spectral-analysis chain underneath is the same.
+
+### 3. Acoustic modeling
+
+The sequence of per-frame features goes into an **acoustic model** — historically a Hidden Markov Model paired with a Gaussian Mixture Model, now almost universally a neural network (an RNN, CTC-trained network, or transformer). Its job is to output, for each frame, a probability distribution over phonemes (or, in many modern systems, subword units): "this frame is 70% likely to be `/s/`, 20% likely to be `/z/`, ..." It does not yet know what word this is — it's reasoning purely about sound.
+
+### 4. Language modeling and decoding
+
+A sequence of phoneme probabilities is still ambiguous — "recognize speech" and "wreck a nice beach" are near-homophones, and the acoustic signal alone can't reliably tell them apart. The **decoder** combines the acoustic model's frame-by-frame probabilities with a **language model** — a model of which word sequences are actually likely in the language — using a search algorithm (classically beam search) to find the overall most probable transcript. This is the step that uses phonotactics and grammar to resolve genuine acoustic ambiguity: the acoustic model says "sounds like these phonemes," the language model says "and *that* phoneme sequence is almost certainly this real sentence, not that nonsense one."
+
+## How software measures accuracy: Word Error Rate
+
+Once a system produces a transcript, "how accurate was it?" needs a precise definition — and the industry-standard one, **Word Error Rate (WER)**, is built on the exact same algorithm as spell-checkers and diff tools: edit distance.
+
+WER compares a hypothesis transcript (what the system produced) against a reference transcript (the verified-correct text) and counts three kinds of mistakes: **substitutions** (wrong word in place of the right one), **deletions** (a word that should be there is missing), and **insertions** (an extra word that shouldn't be there). The formula is:
+
+```
+WER = (S + D + I) / N
+```
+
+where `N` is the total number of words in the reference. Finding the *minimum* number of substitutions, deletions, and insertions that transforms one word sequence into another is exactly the **edit distance** problem — the same dynamic programming approach used to compute [Levenshtein distance](/blog/memoization-vs-dynamic-programming), just operating on words instead of characters. It fills a table where each cell represents the minimum edits needed to align a prefix of the hypothesis with a prefix of the reference, and it runs in `O(n * m)` time — quadratic, per the [Big O breakdown](/blog/big-o-notation-explained) of nested-loop DP over two sequences.
+
+<CodeTabs labels={["TypeScript", "JavaScript", "Java", "C#", "C++", "Ruby"]}>
+
+```typescript
+function wordErrorRate(reference: string[], hypothesis: string[]): number {
+  const n = reference.length
+  const m = hypothesis.length
+  const dp: number[][] = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0))
+
+  for (let i = 0; i <= n; i++) dp[i][0] = i // i deletions to empty hypothesis
+  for (let j = 0; j <= m; j++) dp[0][j] = j // j insertions from empty reference
+
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= m; j++) {
+      if (reference[i - 1] === hypothesis[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1] // words match, no edit needed
+      } else {
+        dp[i][j] = 1 + Math.min(
+          dp[i - 1][j],     // deletion
+          dp[i][j - 1],     // insertion
+          dp[i - 1][j - 1], // substitution
+        )
+      }
+    }
+  }
+
+  return n === 0 ? 0 : dp[n][m] / n
+}
+```
+
+```javascript
+function wordErrorRate(reference, hypothesis) {
+  const n = reference.length
+  const m = hypothesis.length
+  const dp = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0))
+
+  for (let i = 0; i <= n; i++) dp[i][0] = i
+  for (let j = 0; j <= m; j++) dp[0][j] = j
+
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= m; j++) {
+      if (reference[i - 1] === hypothesis[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1]
+      } else {
+        dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])
+      }
+    }
+  }
+
+  return n === 0 ? 0 : dp[n][m] / n
+}
+```
+
+```java
+static double wordErrorRate(String[] reference, String[] hypothesis) {
+    int n = reference.length;
+    int m = hypothesis.length;
+    int[][] dp = new int[n + 1][m + 1];
+
+    for (int i = 0; i <= n; i++) dp[i][0] = i;
+    for (int j = 0; j <= m; j++) dp[0][j] = j;
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            if (reference[i - 1].equals(hypothesis[j - 1])) {
+                dp[i][j] = dp[i - 1][j - 1];
+            } else {
+                dp[i][j] = 1 + Math.min(dp[i - 1][j], Math.min(dp[i][j - 1], dp[i - 1][j - 1]));
+            }
+        }
+    }
+
+    return n == 0 ? 0.0 : (double) dp[n][m] / n;
+}
+```
+
+```csharp
+static double WordErrorRate(string[] reference, string[] hypothesis) {
+    int n = reference.Length;
+    int m = hypothesis.Length;
+    var dp = new int[n + 1, m + 1];
+
+    for (int i = 0; i <= n; i++) dp[i, 0] = i;
+    for (int j = 0; j <= m; j++) dp[0, j] = j;
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            if (reference[i - 1] == hypothesis[j - 1]) {
+                dp[i, j] = dp[i - 1, j - 1];
+            } else {
+                dp[i, j] = 1 + Math.Min(dp[i - 1, j], Math.Min(dp[i, j - 1], dp[i - 1, j - 1]));
+            }
+        }
+    }
+
+    return n == 0 ? 0.0 : (double)dp[n, m] / n;
+}
+```
+
+```cpp
+double wordErrorRate(const std::vector<std::string>& reference, const std::vector<std::string>& hypothesis) {
+    size_t n = reference.size();
+    size_t m = hypothesis.size();
+    std::vector<std::vector<int>> dp(n + 1, std::vector<int>(m + 1, 0));
+
+    for (size_t i = 0; i <= n; i++) dp[i][0] = static_cast<int>(i);
+    for (size_t j = 0; j <= m; j++) dp[0][j] = static_cast<int>(j);
+
+    for (size_t i = 1; i <= n; i++) {
+        for (size_t j = 1; j <= m; j++) {
+            if (reference[i - 1] == hypothesis[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1];
+            } else {
+                dp[i][j] = 1 + std::min({dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]});
+            }
+        }
+    }
+
+    return n == 0 ? 0.0 : static_cast<double>(dp[n][m]) / static_cast<double>(n);
+}
+```
+
+```ruby
+def word_error_rate(reference, hypothesis)
+  n = reference.length
+  m = hypothesis.length
+  dp = Array.new(n + 1) { Array.new(m + 1, 0) }
+
+  (0..n).each { |i| dp[i][0] = i }
+  (0..m).each { |j| dp[0][j] = j }
+
+  (1..n).each do |i|
+    (1..m).each do |j|
+      if reference[i - 1] == hypothesis[j - 1]
+        dp[i][j] = dp[i - 1][j - 1]
+      else
+        dp[i][j] = 1 + [dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]].min
+      end
+    end
+  end
+
+  n.zero? ? 0.0 : dp[n][m].to_f / n
+end
+```
+
+</CodeTabs>
+
+A WER of 0.08, for example, means roughly 8% of reference words were wrong — substituted, dropped, or spuriously inserted — which is why ASR vendors report WER on standardized benchmark datasets rather than a single "% accurate" number: it's a real error rate with a well-defined denominator, not a vague accuracy score. It's also worth noting that WER treats every error equally — confusing "a" for "the" counts the same as confusing "yes" for "no" — which is a known limitation; some evaluation pipelines weight errors by semantic impact instead, but WER remains the default because it's cheap to compute and comparable across systems.
+
+## Why this pipeline matters beyond voice assistants
+
+The same phoneme/grapheme distinction, feature-extraction pipeline, and edit-distance scoring show up anywhere audio meets text: call-center transcription, closed captioning, accessibility tools for deaf and hard-of-hearing users, forensic audio analysis, and language-learning pronunciation feedback all lean on the same core ideas. Understanding that "speech recognition" isn't one black-box function but a chain of well-defined problems — sampling, spectral feature extraction, acoustic modeling, language modeling, and a precisely defined error metric — is what makes it possible to reason about where a system is actually failing: a high WER caused by background noise points to the acoustic model or the feature extraction stage, while consistent grammatically-plausible-but-wrong output usually points to the language model.

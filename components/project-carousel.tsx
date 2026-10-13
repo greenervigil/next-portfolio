@@ -9,6 +9,7 @@ import { GLASS_CYAN, GLASS_DIM_2, GLASS_EDGE, GLASS_PANEL } from "@/lib/glass-to
 interface ProjectCarouselProps {
   projects: ProjectType[]
   onOpen: (project: ProjectType) => void
+  ariaLabel?: string
 }
 
 // Exact port of the approved prototype's stage/track/arrow/dots recipe
@@ -21,7 +22,7 @@ const PANEL = GLASS_PANEL
 const CYAN = GLASS_CYAN
 const DIM_2 = GLASS_DIM_2
 
-export function ProjectCarousel({ projects, onOpen }: ProjectCarouselProps) {
+export function ProjectCarousel({ projects, onOpen, ariaLabel = "Projects" }: ProjectCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [reducedMotion, setReducedMotion] = useState(false)
   const announceRef = useRef<HTMLDivElement>(null)
@@ -98,7 +99,7 @@ export function ProjectCarousel({ projects, onOpen }: ProjectCarouselProps) {
         <div className="min-w-0 flex-1">
           <div
             role="listbox"
-            aria-label="Projects"
+            aria-label={ariaLabel}
             tabIndex={0}
             onKeyDown={handleStageKeyDown}
             className="relative h-[320px] overflow-hidden focus:outline-none min-[560px]:h-[380px]"

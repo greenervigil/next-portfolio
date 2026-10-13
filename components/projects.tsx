@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { Terminal } from "lucide-react"
 import { ProjectCarousel } from "./project-carousel"
 import { ProjectModal } from "./project-modal"
@@ -11,9 +11,41 @@ import type { ProjectType } from "@/types/project-type"
 const PAGE_TITLE = "PROJECT_MATRIX"
 const contentRevealStyle = { animationDelay: `${getTitleRevealDuration(PAGE_TITLE)}ms` }
 
+// Projects built within this window are "current"; older ones move to the
+// archive carousel instead of being dropped, since several no longer have a
+// live link to show but are still worth keeping visible.
+const CURRENT_WINDOW_YEARS = 3
+
+const CURRENT_TITLE = "CURRENT_BUILDS"
+const ARCHIVE_TITLE = "ARCHIVE_LOG"
+
+function byYearDescending(a: ProjectType, b: ProjectType) {
+  return parseInt(b.year, 10) - parseInt(a.year, 10)
+}
+
 export function Projects() {
   const { projects } = useAppState()
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null)
+
+  const { currentProjects, archivedProjects } = useMemo(() => {
+    const cutoffYear = new Date().getFullYear() - CURRENT_WINDOW_YEARS
+    const current: ProjectType[] = []
+    const archived: ProjectType[] = []
+
+    for (const project of projects) {
+      const year = parseInt(project.year, 10)
+      if (!Number.isNaN(year) && year >= cutoffYear) {
+        current.push(project)
+      } else {
+        archived.push(project)
+      }
+    }
+
+    return {
+      currentProjects: current.sort(byYearDescending),
+      archivedProjects: archived.sort(byYearDescending),
+    }
+  }, [projects])
 
   return (
     <section id="projects" className="py-20 relative overflow-hidden" aria-labelledby="projects-heading" role="region">
@@ -34,15 +66,46 @@ export function Projects() {
               className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold mb-4 text-orange-400 tracking-wide sm:tracking-wider"
             />
             <p className="text-base sm:text-lg text-cyan-100 font-inter fade-in-content" style={contentRevealStyle}>
-              Interactive project carousel showcasing {projects.length} innovative projects
+              Interactive project carousels showcasing {projects.length} innovative projects
             </p>
             <div className="sr-only">
-              Use the arrow buttons, Tab, or the left and right arrow keys to browse. Select the centered card to open
-              its details.
+              Use the arrow buttons, Tab, or the left and right arrow keys to browse each carousel. Select the
+              centered card to open its details.
             </div>
           </header>
 
-          <ProjectCarousel projects={projects} onOpen={setSelectedProject} />
+          <div className="space-y-16">
+            <div>
+              <ProjectedTitle
+                text={CURRENT_TITLE}
+                srLabel="Current projects"
+                as="h3"
+                className="text-lg sm:text-xl font-orbitron font-bold mb-6 text-center text-cyan-400 tracking-wide sm:tracking-wider"
+              />
+              <ProjectCarousel
+                projects={currentProjects}
+                onOpen={setSelectedProject}
+                ariaLabel="Current projects"
+              />
+            </div>
+
+            <div>
+              <ProjectedTitle
+                text={ARCHIVE_TITLE}
+                srLabel="Archived projects"
+                as="h3"
+                className="text-lg sm:text-xl font-orbitron font-bold mb-6 text-center text-orange-400 tracking-wide sm:tracking-wider"
+              />
+              <p className="text-cyan-100/70 font-inter text-sm text-center mb-6 max-w-2xl mx-auto">
+                Earlier work, some since replaced or retired — kept here since it shaped how I build today.
+              </p>
+              <ProjectCarousel
+                projects={archivedProjects}
+                onOpen={setSelectedProject}
+                ariaLabel="Archived projects"
+              />
+            </div>
+          </div>
 
           {/* Instructions */}
           <div className="text-center mt-8">

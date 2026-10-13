@@ -18,7 +18,7 @@ export function getTitleRevealDuration(text: string): number {
   return total + LETTER_DURATION_MS
 }
 
-type HeadingTag = "h1" | "h2"
+type HeadingTag = "h1" | "h2" | "h3"
 
 type ProjectedTitleProps = {
   text: string
