@@ -171,7 +171,7 @@ export default function NotFound() {
               PAGE_NOT_FOUND.EXE
             </h2>
             <p className="text-lg text-cyan-100 font-inter max-w-2xl mx-auto">
-              The page you're looking for has been lost in the digital void. Perhaps it was consumed by a rogue
+              The page you&apos;re looking for has been lost in the digital void. Perhaps it was consumed by a rogue
               algorithm or displaced by a temporal anomaly.
             </p>
           </div>

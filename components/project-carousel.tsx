@@ -1,7 +1,8 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react"
+import { useCallback, useRef, useState, type KeyboardEvent } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import { useMediaQuery } from "@/hooks/use-media-query"
 import { ProjectCard } from "./project-card"
 import type { ProjectType } from "@/types/project-type"
 import { GLASS_CYAN, GLASS_DIM_2, GLASS_EDGE, GLASS_PANEL } from "@/lib/glass-tokens"
@@ -24,18 +25,9 @@ const DIM_2 = GLASS_DIM_2
 
 export function ProjectCarousel({ projects, onOpen, ariaLabel = "Projects" }: ProjectCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [reducedMotion, setReducedMotion] = useState(false)
+  const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)")
   const announceRef = useRef<HTMLDivElement>(null)
   const count = projects.length
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
-    setReducedMotion(mediaQuery.matches)
-
-    const handleChange = (event: MediaQueryListEvent) => setReducedMotion(event.matches)
-    mediaQuery.addEventListener("change", handleChange)
-    return () => mediaQuery.removeEventListener("change", handleChange)
-  }, [])
 
   const goTo = useCallback(
     (index: number) => {

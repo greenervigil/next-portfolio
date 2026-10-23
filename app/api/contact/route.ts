@@ -32,8 +32,8 @@ function getClientIP(request: NextRequest): string {
   if (realIP) {
     return realIP
   }
-  // Fallback to a default if we can't determine IP
-  return request.ip || "unknown"
+  // Fallback to a default if we can't determine IP (NextRequest.ip was removed in Next 15)
+  return "unknown"
 }
 
 function checkRateLimit(ip: string, maxAttempts = 3, windowMs = 300000): {

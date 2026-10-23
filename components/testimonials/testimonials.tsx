@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Image from "next/image";
 
@@ -13,13 +13,14 @@ type Testimonial = {
   src: string;
 };
 
+// Tilt in [-10, 10] degrees, stable per (index, salt) so renders stay pure and server/client match.
+const tilt = (index: number, salt: number) => {
+  const x = Math.sin(index * 12.9898 + salt * 78.233) * 43758.5453;
+  return Math.floor((x - Math.floor(x)) * 21) - 10;
+};
+
 export const Testimonials = ({ testimonials, autoplay = false }: { testimonials: Testimonial[]; autoplay?: boolean }) => {
   const [active, setActive] = useState(0);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   useEffect(() => {
     if (autoplay) {
@@ -29,10 +30,6 @@ export const Testimonials = ({ testimonials, autoplay = false }: { testimonials:
   }, [autoplay, testimonials.length]);
 
   const isActive = (index: number) => index === active;
-
-  const randomRotateY = () => Math.floor(Math.random() * 21) - 10;
-
-  if (!isMounted) return null; // Avoid rendering until client-side mount
 
   return (
     <div className="max-w-sm md:max-w-4xl mx-auto antialiased px-4 md:px-8 lg:px-12 py-20">
@@ -47,13 +44,13 @@ export const Testimonials = ({ testimonials, autoplay = false }: { testimonials:
                     opacity: 0,
                     scale: 0.9,
                     z: -100,
-                    rotate: randomRotateY(),
+                    rotate: tilt(index, 1),
                   }}
                   animate={{
                     opacity: isActive(index) ? 1 : 0.7,
                     scale: isActive(index) ? 1 : 0.95,
                     z: isActive(index) ? 0 : -100,
-                    rotate: isActive(index) ? 0 : randomRotateY(),
+                    rotate: isActive(index) ? 0 : tilt(index, 2),
                     zIndex: isActive(index) ? 999 : testimonials.length + 2 - index,
                     y: isActive(index) ? [0, -80, 0] : 0,
                   }}
@@ -61,7 +58,7 @@ export const Testimonials = ({ testimonials, autoplay = false }: { testimonials:
                     opacity: 0,
                     scale: 0.9,
                     z: 100,
-                    rotate: randomRotateY(),
+                    rotate: tilt(index, 3),
                   }}
                   transition={{
                     duration: 0.4,
@@ -134,12 +131,14 @@ export const Testimonials = ({ testimonials, autoplay = false }: { testimonials:
           <div className="flex gap-4 pt-12 md:pt-0">
             <button
               onClick={() => setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+              aria-label="Previous testimonial"
               className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
             >
               <IconArrowLeft className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:rotate-12 transition-transform duration-300" />
             </button>
             <button
               onClick={() => setActive((prev) => (prev + 1) % testimonials.length)}
+              aria-label="Next testimonial"
               className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
             >
               <IconArrowRight className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:-rotate-12 transition-transform duration-300" />
