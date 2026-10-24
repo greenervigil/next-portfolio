@@ -36,7 +36,7 @@ const testimonials: Testimonial[] = [
     name: 'Laura Campos',
     designation: 'Backend Tech Lead',
     company: 'Fusion Medical Staffing',
-    src: './laura-campos.jpeg',
+    src: '/laura_campos.jpeg',
     quote: `His personality and willingness to take on new challenges is one of, if not, the best I have ever seen. He has been an excellent support for the PM and a fantastic mentor for his team. His knowledge and dedication have helped get web and other projects through some difficult times. His focus on positive mentorship has helped repair some damage from poor mentors in the past. I am happy to work with him.`
   },
   {

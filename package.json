@@ -2,7 +2,7 @@
   "name": "next-portfolio",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@9.1.4",
+  "packageManager": "bun@1.2.18",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

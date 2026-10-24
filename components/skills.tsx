@@ -181,9 +181,9 @@ export function Skills() {
                     <Cpu className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400" aria-hidden="true" />
                   </header>
                   <p className="text-cyan-100 font-inter max-w-3xl mx-auto text-sm sm:text-base">
-                    Throughout my career, I've had the opportunity to work on a broad range of projects, leveraging a
-                    diverse set of technologies. I'm always eager to take on new challenges that push both my skills and
-                    my team's abilities to new heights, constantly exploring emerging technologies and best practices.
+                    Throughout my career, I&apos;ve had the opportunity to work on a broad range of projects, leveraging a
+                    diverse set of technologies. I&apos;m always eager to take on new challenges that push both my skills and
+                    my team&apos;s abilities to new heights, constantly exploring emerging technologies and best practices.
                   </p>
                 </div>
               </CardContent>
