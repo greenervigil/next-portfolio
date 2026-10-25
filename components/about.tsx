@@ -2,10 +2,12 @@ import { CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { GlassPanel } from "@/components/glass-panel"
 import { Users, Code, Lightbulb, Target, Cpu } from "lucide-react"
+import { GreenfieldLink } from "@/components/greenfield-link"
+import { state } from "@/context/state"
 
 export function About() {
   const highlights = [
-    { icon: Code, label: "11+ YEARS", description: "Software Engineering", color: "cyan" },
+    { icon: Code, label: "10+ YEARS", description: "Software Engineering", color: "cyan" },
     { icon: Users, label: "TEAM LEAD", description: "High-Performance Teams", color: "orange" },
     { icon: Lightbulb, label: "INNOVATION", description: "Continuous Learning", color: "cyan" },
     { icon: Target, label: "MENTORSHIP", description: "Next Generation Dev", color: "orange" },
@@ -40,13 +42,21 @@ export function About() {
             <article className="space-y-6">
               <div className="border-l-2 border-cyan-400/50 pl-6 space-y-4">
                 <p className="text-cyan-100 leading-relaxed font-inter">
-                  {`With over 11 years of experience as a Software Engineer, I am driven by a deep passion for learning and a commitment to continuous improvement. This passion fuels everything I do—whether it's tackling new technologies, leading teams through complex challenges, or mentoring the next generation of developers.`}
+                  {`With over 10 years of experience as a Software Engineer, I am driven by a deep passion for learning and a commitment to continuous improvement. This passion fuels everything I do—whether it's tackling new technologies, leading teams through complex challenges, or mentoring the next generation of developers.`}
                 </p>
                 <p className="text-cyan-100 leading-relaxed font-inter">
                   {`I thrive in environments where innovation meets collaboration, and I am always eager to take on new challenges that push both my skills and my team's abilities to new heights.`}
                 </p>
                 <p className="text-cyan-100 leading-relaxed font-inter">
                   {`As a Tech Lead, I take pride in not only solving complex technical problems but also in building high-performing, cohesive teams. I believe in creating environments where people feel empowered to share ideas, learn from each other, and push the boundaries of what's possible.`}
+                </p>
+                <p className="text-cyan-100 leading-relaxed font-inter">
+                  <strong className="text-cyan-50">Work with me:</strong> I take on engineering engagements through{" "}
+                  <GreenfieldLink href={state.greenfield.url}>{state.greenfield.name}</GreenfieldLink>
+                  , the studio I founded. Startups, teams without developers and agencies can reserve my time by the
+                  month.{" "}
+                  <GreenfieldLink href={state.greenfield.engineeringUrl}>See engineering as a service</GreenfieldLink>
+                  .
                 </p>
               </div>
             </article>
@@ -114,12 +124,12 @@ export function About() {
                       className="text-lg sm:text-xl font-orbitron font-bold text-orange-400 tracking-wide sm:tracking-wider px-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-black rounded-sm"
                       tabIndex={-1}
                     >
-                      <span className="sr-only">GreenField Development</span>
+                      <span className="sr-only">GreenField Dev</span>
                       <span className="block sm:hidden" aria-hidden="true">
                         GREENFIELD.SYS
                       </span>
                       <span className="hidden sm:block" aria-hidden="true">
-                        GREENFIELD_DEVELOPMENT.SYS
+                        GREENFIELD_DEV.SYS
                       </span>
                     </h2>
                     <div
@@ -128,18 +138,18 @@ export function About() {
                     />
                   </header>
                   <p className="text-cyan-100 font-inter max-w-3xl mx-auto text-sm sm:text-base">
-                    In addition to my engineering work, I lead GreenField Development, a freelance partnership I founded
-                    to help self-taught developers accelerate their careers. Through this mentorship program, I focus on
-                    developing practical, project-based skills with a strong emphasis on Agile methodologies, version
-                    control practices, and project management.
+                    Alongside my engineering work, I run GreenField Dev, the studio I founded. It began as a mentorship
+                    for self-taught developers, focused on project-based skills, Agile, version control and project
+                    management. Today it builds and runs software for clients, including engineering by the month, and
+                    mentoring is still part of the work.
                   </p>
                   <Badge
                     variant="outline"
                     className="border-orange-400/50 text-orange-400 bg-orange-400/10 font-orbitron text-xs tracking-wider focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-black"
                     role="status"
-                    aria-label="Focus area: Mentorship and Development"
+                    aria-label="Focus areas: engineering and mentorship"
                   >
-                    <span aria-hidden="true">MENTORSHIP & DEVELOPMENT</span>
+                    <span aria-hidden="true">ENGINEERING & MENTORSHIP</span>
                   </Badge>
                 </article>
               </CardContent>

@@ -6,7 +6,7 @@ import { state } from "@/context/state"
 export const metadata: Metadata = {
   title: "Contact | Daniel Greener-Vigil - Software Engineer",
   description:
-    "Get in touch with Daniel Greener-Vigil for software development projects, consulting, or mentorship opportunities. Read client testimonials and start your next project today.",
+    "Get in touch with Daniel Greener-Vigil about mentorship, technical leadership or a conversation. Engineering engagements run through GreenField Dev, by the month.",
   alternates: {
     canonical: "/contact",
   },
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://greenervigil.dev/contact",
     title: "Contact | Daniel Greener-Vigil - Software Engineer",
-    description: "Get in touch with Daniel for software development projects, consulting, or mentorship opportunities.",
+    description: "Get in touch with Daniel about mentorship, technical leadership or engineering engagements through GreenField Dev.",
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Contact | Daniel Greener-Vigil - Software Engineer",
-    description: "Get in touch with Daniel for software development projects and consulting.",
+    description: "Get in touch with Daniel about mentorship, technical leadership or engineering engagements.",
     images: ["/twitter-image.png"],
   },
   robots: {

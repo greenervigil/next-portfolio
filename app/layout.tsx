@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | Daniel Greener-Vigil",
   },
   description:
-    "Portfolio of Daniel Greener-Vigil, an experienced Software Engineer, Tech Lead, and Mentor with 8+ years of experience in full-stack development, React, Node.js, and modern web technologies.",
+    "Portfolio of Daniel Greener-Vigil, an experienced Software Engineer, Tech Lead, and Mentor with 10+ years of experience in full-stack development, React, Node.js, and modern web technologies.",
   authors: [{ name: "Daniel Greener-Vigil", url: "https://greenervigil.dev" }],
   creator: "Daniel Greener-Vigil",
   publisher: "Daniel Greener-Vigil",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     url: "https://greenervigil.dev",
     title: "Daniel Greener-Vigil - Software Engineer & Tech Lead",
     description:
-      "Portfolio of Daniel Greener-Vigil, an experienced Software Engineer, Tech Lead, and Mentor with 8+ years of experience in full-stack development.",
+      "Portfolio of Daniel Greener-Vigil, an experienced Software Engineer, Tech Lead, and Mentor with 10+ years of experience in full-stack development.",
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Daniel Greener-Vigil - Software Engineer & Tech Lead",
     description:
-      "Portfolio of Daniel Greener-Vigil, an experienced Software Engineer, Tech Lead, and Mentor with 8+ years of experience in full-stack development.",
+      "Portfolio of Daniel Greener-Vigil, an experienced Software Engineer, Tech Lead, and Mentor with 10+ years of experience in full-stack development.",
     images: ["/twitter-image.png"],
   },
   robots: {

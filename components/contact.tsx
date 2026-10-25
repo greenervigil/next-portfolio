@@ -29,6 +29,8 @@ import { checkForSpam } from "@/lib/spam-detection"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
+import { GreenfieldLink } from "@/components/greenfield-link"
+import { state } from "@/context/state"
 
 const PAGE_TITLE = "CONTACT.EXE"
 const contentRevealStyle = { animationDelay: `${getTitleRevealDuration(PAGE_TITLE)}ms` }
@@ -220,6 +222,11 @@ export function Contact() {
                   <p className="text-cyan-100 font-inter mb-4 sm:mb-6 border-l-2 border-cyan-400/50 pl-3 sm:pl-4 text-sm sm:text-base">
                     {`Whether you're looking for technical leadership, mentorship, or collaboration opportunities, I'm
                     always open to meaningful conversations.`}
+                  </p>
+                  <p className="text-cyan-100 font-inter mb-4 sm:mb-6 pl-3 sm:pl-4 text-sm sm:text-base">
+                    Need an engineer for ongoing work? I take engagements through {state.greenfield.name}:{" "}
+                    <GreenfieldLink href={state.greenfield.engineeringUrl}>see monthly plans and prices</GreenfieldLink>
+                    .
                   </p>
 
                   <div className="space-y-3 sm:space-y-4" role="list">

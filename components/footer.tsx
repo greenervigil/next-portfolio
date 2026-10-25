@@ -3,6 +3,8 @@
 import Link from "next/link"
 import { Github, Linkedin, Mail, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { GreenfieldLink } from "@/components/greenfield-link"
+import { state } from "@/context/state"
 
 export function Footer() {
   return (
@@ -22,6 +24,10 @@ export function Footer() {
               <p className="text-cyan-100 font-inter border-l-2 border-cyan-400/50 pl-4">
                 Software Engineer, Tech Lead, and Mentor passionate about building great teams and scalable solutions in
                 the digital frontier.
+              </p>
+              <p className="text-cyan-100 font-inter text-sm pl-4">
+                Founder of <GreenfieldLink href={state.greenfield.url}>{state.greenfield.name}</GreenfieldLink>.{" "}
+                <GreenfieldLink href={state.greenfield.engineeringUrl}>Hire me by the month</GreenfieldLink>
               </p>
             </div>
           </section>
@@ -124,9 +130,6 @@ export function Footer() {
                   <Mail className="h-4 w-4" />
                 </Button>
               </div>
-              <p className="text-sm text-cyan-100 font-inter border-l-2 border-orange-400/50 pl-4">
-                GreenField Development - Mentoring the next generation of developers
-              </p>
             </div>
           </section>
         </div>
