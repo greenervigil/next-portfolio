@@ -2,10 +2,12 @@ import { CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { GlassPanel } from "@/components/glass-panel"
 import { Users, Code, Lightbulb, Target, Cpu } from "lucide-react"
+import { GreenfieldLink } from "@/components/greenfield-link"
+import { state } from "@/context/state"
 
 export function About() {
   const highlights = [
-    { icon: Code, label: "11+ YEARS", description: "Software Engineering", color: "cyan" },
+    { icon: Code, label: "10+ YEARS", description: "Software Engineering", color: "cyan" },
     { icon: Users, label: "TEAM LEAD", description: "High-Performance Teams", color: "orange" },
     { icon: Lightbulb, label: "INNOVATION", description: "Continuous Learning", color: "cyan" },
     { icon: Target, label: "MENTORSHIP", description: "Next Generation Dev", color: "orange" },
@@ -50,14 +52,10 @@ export function About() {
                 </p>
                 <p className="text-cyan-100 leading-relaxed font-inter">
                   <strong className="text-cyan-50">Work with me:</strong> I take on engineering engagements through{" "}
-                  <a href="https://thegreenfield.dev" className="text-cyan-400 underline underline-offset-4 hover:text-orange-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-black rounded-sm">
-                    GreenField Dev
-                  </a>
+                  <GreenfieldLink href={state.greenfield.url}>{state.greenfield.name}</GreenfieldLink>
                   , the studio I founded. Startups, teams without developers and agencies can reserve my time by the
                   month.{" "}
-                  <a href="https://thegreenfield.dev/services/engineering-as-a-service" className="text-cyan-400 underline underline-offset-4 hover:text-orange-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-black rounded-sm">
-                    See engineering as a service
-                  </a>
+                  <GreenfieldLink href={state.greenfield.engineeringUrl}>See engineering as a service</GreenfieldLink>
                   .
                 </p>
               </div>
@@ -126,12 +124,12 @@ export function About() {
                       className="text-lg sm:text-xl font-orbitron font-bold text-orange-400 tracking-wide sm:tracking-wider px-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-black rounded-sm"
                       tabIndex={-1}
                     >
-                      <span className="sr-only">GreenField Development</span>
+                      <span className="sr-only">GreenField Dev</span>
                       <span className="block sm:hidden" aria-hidden="true">
                         GREENFIELD.SYS
                       </span>
                       <span className="hidden sm:block" aria-hidden="true">
-                        GREENFIELD_DEVELOPMENT.SYS
+                        GREENFIELD_DEV.SYS
                       </span>
                     </h2>
                     <div
@@ -140,18 +138,18 @@ export function About() {
                     />
                   </header>
                   <p className="text-cyan-100 font-inter max-w-3xl mx-auto text-sm sm:text-base">
-                    In addition to my engineering work, I lead GreenField Development, a freelance partnership I founded
-                    to help self-taught developers accelerate their careers. Through this mentorship program, I focus on
-                    developing practical, project-based skills with a strong emphasis on Agile methodologies, version
-                    control practices, and project management.
+                    Alongside my engineering work, I run GreenField Dev, the studio I founded. It began as a mentorship
+                    for self-taught developers, focused on project-based skills, Agile, version control and project
+                    management. Today it builds and runs software for clients, including engineering by the month, and
+                    mentoring is still part of the work.
                   </p>
                   <Badge
                     variant="outline"
                     className="border-orange-400/50 text-orange-400 bg-orange-400/10 font-orbitron text-xs tracking-wider focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-black"
                     role="status"
-                    aria-label="Focus area: Mentorship and Development"
+                    aria-label="Focus areas: engineering and mentorship"
                   >
-                    <span aria-hidden="true">MENTORSHIP & DEVELOPMENT</span>
+                    <span aria-hidden="true">ENGINEERING & MENTORSHIP</span>
                   </Badge>
                 </article>
               </CardContent>

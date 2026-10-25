@@ -29,6 +29,8 @@ import { checkForSpam } from "@/lib/spam-detection"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
+import { GreenfieldLink } from "@/components/greenfield-link"
+import { state } from "@/context/state"
 
 const PAGE_TITLE = "CONTACT.EXE"
 const contentRevealStyle = { animationDelay: `${getTitleRevealDuration(PAGE_TITLE)}ms` }
@@ -222,10 +224,8 @@ export function Contact() {
                     always open to meaningful conversations.`}
                   </p>
                   <p className="text-cyan-100 font-inter mb-4 sm:mb-6 pl-3 sm:pl-4 text-sm sm:text-base">
-                    Need an engineer for ongoing work? I take engagements through GreenField Dev:{" "}
-                    <a href="https://thegreenfield.dev/services/engineering-as-a-service" className="text-cyan-400 underline underline-offset-4 hover:text-orange-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-black rounded-sm">
-                      see monthly plans and prices
-                    </a>
+                    Need an engineer for ongoing work? I take engagements through {state.greenfield.name}:{" "}
+                    <GreenfieldLink href={state.greenfield.engineeringUrl}>see monthly plans and prices</GreenfieldLink>
                     .
                   </p>
 

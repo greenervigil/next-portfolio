@@ -1,10 +1,11 @@
 import type { Metadata } from "next"
 import { Experience } from "@/components/experience"
+import { state } from "@/context/state"
 
 export const metadata: Metadata = {
   title: "Work Experience | Daniel Greener-Vigil - Software Engineer",
   description:
-    "Explore Daniel Greener-Vigil's professional journey as a software engineer, from CTS to Fusion Medical Staffing and Greenfield Development. 10+ years of full-stack development experience.",
+    "Explore Daniel Greener-Vigil's professional journey as a software engineer, from CTS to Fusion Medical Staffing and GreenField Dev. 10+ years of full-stack development experience.",
   alternates: {
     canonical: "/experience",
   },
@@ -65,9 +66,10 @@ const structuredData = {
         name: "Founder & Lead Developer",
         workLocation: {
           "@type": "Organization",
-          name: "Greenfield Development",
+          name: state.greenfield.name,
+          url: state.greenfield.url,
         },
-        description: "Providing mentorship and development services to aspiring developers",
+        description: "Running a software studio: client projects, engineering as a service and mentorship",
         skills: ["Mentorship", "Full-Stack Development", "Technical Leadership"],
       },
     ],

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Hero } from "@/components/hero"
 import { About } from "@/components/about"
 import { Skills } from "@/components/skills"
+import { state } from "@/context/state"
 
 export const metadata: Metadata = {
   title: "Daniel Greener-Vigil | Software Engineer & Full-Stack Developer",
@@ -73,8 +74,8 @@ const structuredData = {
   worksFor: [
     {
       "@type": "Organization",
-      name: "GreenField Dev",
-      url: "https://thegreenfield.dev",
+      name: state.greenfield.name,
+      url: state.greenfield.url,
     },
     {
       "@type": "Organization",

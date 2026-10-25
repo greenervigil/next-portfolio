@@ -42,7 +42,7 @@ const testimonials: Testimonial[] = [
   {
     name: 'Hanna Littlefield',
     designation: 'Frontend Software Engineer',
-    company: 'Greenfield Development',
+    company: 'GreenField Dev',
     src: 'https://hannamlittlefield.github.io/static/media/ProfilePhoto.90ea6907.jpg',
     quote: `I've had the absolute pleasure of having Daniel as my software development mentor for the last two years. When we started working together, I didn't know a single line of code. Since then, he has helped me work my way through Javascript, React, Bootstrap, Agile methodologies, and more. He is a phenomenal mentor who adjusts his teaching and explanations well to any kind of learning preference. He provided clear and concise answers to my questions, and spent as much time as needed with me on different topics and concepts. If I could not wrap my head around something, he would find another way to explain it, or find resources to aid in my learning. He supplied me with a plethora of learning materials geared towards my preference of learning style- and spent time peer programming with me and focusing on topics I was struggling with, or had a passion to learn. He worked with me to define a capstone project that piqued my interest, and assisted in moving the project along. When I was frustrated or felt defeated, he always had the perfect approach to setting me back on track and in the right mindset. He is constantly encouraging and patient, and has dedicated a vast amount of time and resources on my learning adventure. He celebrated wholeheartedly each and every one of my 'win's with me - whether it was completing a major certificate, solving a difficult problem, finishing a project, or landing my first job. With his tutelage, after two years of learning, I accepted a Junior Developer job at a phenomenal company. Even though I'm now a full-time developer, Daniel is still there as a resource for me to reach out to when I am stuck on a problem, or need some words of advice. I would highly recommend Daniel as a mentor, and I vastly owe my new career in software development to his mentoring and guidance!`
   }
@@ -51,7 +51,7 @@ const testimonials: Testimonial[] = [
 const projects: ProjectType[] = [
   {
     id: 1,
-    title: "GreenField Development Web Platform",
+    title: "GreenField Dev Web Platform",
     shortTitle: "GreenField",
     description: "A SaaS web appication",
     detailedDescription:
@@ -545,7 +545,11 @@ const state: UserType = {
     <li><strong>DevOps:</strong> Docker, Kubernetes, Jenkins, GitHub Actions, Azure, Heroku, Netlify, Vercel.</li>
     </ul></br>
     <p>As a Tech Lead, I take pride in not only solving complex technical problems but also in building high-performing, cohesive teams. I believe in creating environments where people feel empowered to share ideas, learn from each other, and push the boundaries of what's possible. My approach is hands-on and collaborative, ensuring that both the code and the people behind it are always moving forward.</p>`,
-  greenfield: '<p>In addition to my engineering work, I lead GreenField Development, a freelance partnership I founded to help self-taught developers accelerate their careers. Through this mentorship program, I focus on developing practical, project-based skills with a strong emphasis on Agile methodologies, version control practices, and project management. It’s incredibly rewarding to guide developers through their journeys and watch them grow into confident, capable contributors.</p>',
+  greenfield: {
+    name: "GreenField Dev",
+    url: "https://thegreenfield.dev",
+    engineeringUrl: "https://thegreenfield.dev/services/engineering-as-a-service",
+  },
   projects,
   testimonials,
 }

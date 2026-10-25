@@ -11,6 +11,8 @@ import { getAllPosts, getAdjacentPosts, getPostBySlug } from "@/lib/blog"
 import { mdxComponents } from "@/components/blog/mdx-components"
 import { ProjectedTitle, getTitleRevealDuration } from "@/components/projected-title"
 import { PILLAR_LABELS } from "@/types/blog-type"
+import { GreenfieldLink } from "@/components/greenfield-link"
+import { state } from "@/context/state"
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }))
@@ -212,7 +214,10 @@ export default async function BlogPostPage({ params }: Props) {
             <footer className="fade-in-content mt-16 pt-8 border-t border-cyan-400/20" style={contentRevealStyle}>
               <div className="bg-black/50 border border-orange-400/30 rounded-lg p-6 mb-10">
                 <p className="text-cyan-100 font-inter text-sm leading-relaxed">
-                  {`Want to talk through a design decision or need help leveling up your team? I take on mentorship and consulting work through GreenField Development.`}
+                  {`Want to talk through a design decision, need help leveling up your team, or need an engineer for ongoing work? I take on mentorship and engineering engagements through ${state.greenfield.name}.`}
+                </p>
+                <p className="mt-3 text-sm">
+                  <GreenfieldLink href={state.greenfield.engineeringUrl}>Engineering by the month</GreenfieldLink>
                 </p>
                 <Link
                   href="/contact"

@@ -3,6 +3,8 @@
 import Link from "next/link"
 import { Github, Linkedin, Mail, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { GreenfieldLink } from "@/components/greenfield-link"
+import { state } from "@/context/state"
 
 export function Footer() {
   return (
@@ -24,11 +26,8 @@ export function Footer() {
                 the digital frontier.
               </p>
               <p className="text-cyan-100 font-inter text-sm pl-4">
-                Founder of{" "}
-                <a href="https://thegreenfield.dev" className="text-cyan-400 underline underline-offset-4 hover:text-orange-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-black rounded-sm">
-                  GreenField Dev
-                </a>
-                : <a href="https://thegreenfield.dev/services/engineering-as-a-service" className="text-cyan-400 underline underline-offset-4 hover:text-orange-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-black rounded-sm">engineering by the month</a>.
+                Founder of <GreenfieldLink href={state.greenfield.url}>{state.greenfield.name}</GreenfieldLink>.{" "}
+                <GreenfieldLink href={state.greenfield.engineeringUrl}>Hire me by the month</GreenfieldLink>
               </p>
             </div>
           </section>
@@ -131,9 +130,6 @@ export function Footer() {
                   <Mail className="h-4 w-4" />
                 </Button>
               </div>
-              <p className="text-sm text-cyan-100 font-inter border-l-2 border-orange-400/50 pl-4">
-                GreenField Development - Mentoring the next generation of developers
-              </p>
             </div>
           </section>
         </div>

@@ -5,7 +5,12 @@ export type UserType = {
   name: string;
   title: string;
   aboutText: string;
-  greenfield: string;
+  /** GreenField Dev, the studio Daniel runs: the one place its name and links live. */
+  greenfield: {
+    name: string;
+    url: string;
+    engineeringUrl: string;
+  };
   projects: ProjectType[];
   testimonials: Testimonial[];
 }
