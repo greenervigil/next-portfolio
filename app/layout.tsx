@@ -87,7 +87,6 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="theme-color" content="#000000" />
         <meta name="color-scheme" content="dark" />
-        <link rel="canonical" href="https://greenervigil.dev" />
       </head>
       <body className={`${orbitron.variable} ${inter.variable} ${jetbrainsMono.variable} bg-black text-cyan-100`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
