@@ -143,7 +143,7 @@ export function Hero() {
                   </div>
                 </div>
                 <p className="text-cyan-100 text-lg max-w-2xl mx-auto font-inter">
-                  11+ years of experience building scalable solutions and leading high-performing teams in the digital
+                  10+ years of experience building scalable solutions and leading high-performing teams in the digital
                   frontier
                 </p>
               </div>

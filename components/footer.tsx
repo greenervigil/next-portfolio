@@ -23,6 +23,13 @@ export function Footer() {
                 Software Engineer, Tech Lead, and Mentor passionate about building great teams and scalable solutions in
                 the digital frontier.
               </p>
+              <p className="text-cyan-100 font-inter text-sm pl-4">
+                Founder of{" "}
+                <a href="https://thegreenfield.dev" className="text-cyan-400 underline underline-offset-4 hover:text-orange-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-black rounded-sm">
+                  GreenField Dev
+                </a>
+                : <a href="https://thegreenfield.dev/services/engineering-as-a-service" className="text-cyan-400 underline underline-offset-4 hover:text-orange-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-black rounded-sm">engineering by the month</a>.
+              </p>
             </div>
           </section>
 

@@ -6,7 +6,7 @@ import { Skills } from "@/components/skills"
 export const metadata: Metadata = {
   title: "Daniel Greener-Vigil | Software Engineer & Full-Stack Developer",
   description:
-    "Experienced software engineer specializing in React, Node.js, and modern web technologies. Building innovative solutions with 8+ years of experience in full-stack development.",
+    "Experienced software engineer specializing in React, Node.js, and modern web technologies. Building innovative solutions with 10+ years of experience in full-stack development.",
  alternates: {
     canonical: "https://greenervigil.dev",
   },
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: "https://greenervigil.dev",
     title: "Daniel Greener-Vigil | Software Engineer & Full-Stack Developer",
     description:
-      "Experienced software engineer specializing in React, Node.js, and modern web technologies. Building innovative solutions with 8+ years of experience.",
+      "Experienced software engineer specializing in React, Node.js, and modern web technologies. Building innovative solutions with 10+ years of experience.",
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
@@ -70,10 +70,17 @@ const structuredData = {
     "Web Development",
     "Software Engineering",
   ],
-  worksFor: {
-    "@type": "Organization",
-    name: "Fusion Medical Staffing",
-  },
+  worksFor: [
+    {
+      "@type": "Organization",
+      name: "GreenField Dev",
+      url: "https://thegreenfield.dev",
+    },
+    {
+      "@type": "Organization",
+      name: "Fusion Medical Staffing",
+    },
+  ],
 }
 
 export default function Page() {

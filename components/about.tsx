@@ -40,13 +40,25 @@ export function About() {
             <article className="space-y-6">
               <div className="border-l-2 border-cyan-400/50 pl-6 space-y-4">
                 <p className="text-cyan-100 leading-relaxed font-inter">
-                  {`With over 11 years of experience as a Software Engineer, I am driven by a deep passion for learning and a commitment to continuous improvement. This passion fuels everything I do—whether it's tackling new technologies, leading teams through complex challenges, or mentoring the next generation of developers.`}
+                  {`With over 10 years of experience as a Software Engineer, I am driven by a deep passion for learning and a commitment to continuous improvement. This passion fuels everything I do—whether it's tackling new technologies, leading teams through complex challenges, or mentoring the next generation of developers.`}
                 </p>
                 <p className="text-cyan-100 leading-relaxed font-inter">
                   {`I thrive in environments where innovation meets collaboration, and I am always eager to take on new challenges that push both my skills and my team's abilities to new heights.`}
                 </p>
                 <p className="text-cyan-100 leading-relaxed font-inter">
                   {`As a Tech Lead, I take pride in not only solving complex technical problems but also in building high-performing, cohesive teams. I believe in creating environments where people feel empowered to share ideas, learn from each other, and push the boundaries of what's possible.`}
+                </p>
+                <p className="text-cyan-100 leading-relaxed font-inter">
+                  <strong className="text-cyan-50">Work with me:</strong> I take on engineering engagements through{" "}
+                  <a href="https://thegreenfield.dev" className="text-cyan-400 underline underline-offset-4 hover:text-orange-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-black rounded-sm">
+                    GreenField Dev
+                  </a>
+                  , the studio I founded. Startups, teams without developers and agencies can reserve my time by the
+                  month.{" "}
+                  <a href="https://thegreenfield.dev/services/engineering-as-a-service" className="text-cyan-400 underline underline-offset-4 hover:text-orange-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-black rounded-sm">
+                    See engineering as a service
+                  </a>
+                  .
                 </p>
               </div>
             </article>

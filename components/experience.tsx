@@ -11,7 +11,7 @@ const contentRevealStyle = { animationDelay: `${getTitleRevealDuration(PAGE_TITL
 export const metadata: Metadata = {
   title: "Work Experience | Daniel Greener-Vigil - Software Engineer",
   description:
-    "Explore Daniel Greener-Vigil's professional journey as a software engineer, from CTS to Fusion Medical Staffing and Greenfield Development. 8+ years of full-stack development experience.",
+    "Explore Daniel Greener-Vigil's professional journey as a software engineer, from CTS to Fusion Medical Staffing and Greenfield Development. 10+ years of full-stack development experience.",
   alternates: {
     canonical: "/experience",
   },
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     url: "https://greenervigil.dev/experience",
     title: "Work Experience | Daniel Greener-Vigil - Software Engineer",
     description:
-      "Explore Daniel's professional journey as a software engineer with 8+ years of experience in full-stack development.",
+      "Explore Daniel's professional journey as a software engineer with 10+ years of experience in full-stack development.",
     siteName: "Daniel Greener-Vigil Portfolio",
     images: [
       {
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Work Experience | Daniel Greener-Vigil - Software Engineer",
-    description: "Explore Daniel's professional journey with 8+ years of full-stack development experience.",
+    description: "Explore Daniel's professional journey with 10+ years of full-stack development experience.",
     images: ["/twitter-image.jpg"],
   },
   robots: {

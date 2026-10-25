@@ -221,6 +221,13 @@ export function Contact() {
                     {`Whether you're looking for technical leadership, mentorship, or collaboration opportunities, I'm
                     always open to meaningful conversations.`}
                   </p>
+                  <p className="text-cyan-100 font-inter mb-4 sm:mb-6 pl-3 sm:pl-4 text-sm sm:text-base">
+                    Need an engineer for ongoing work? I take engagements through GreenField Dev:{" "}
+                    <a href="https://thegreenfield.dev/services/engineering-as-a-service" className="text-cyan-400 underline underline-offset-4 hover:text-orange-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-black rounded-sm">
+                      see monthly plans and prices
+                    </a>
+                    .
+                  </p>
 
                   <div className="space-y-3 sm:space-y-4" role="list">
                     <div className="flex items-start space-x-3 group" role="listitem">
